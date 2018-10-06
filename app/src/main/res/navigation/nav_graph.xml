@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/options">
+
+    <fragment
+        android:id="@+id/options"
+        android:name="com.dine.dinendash.dinendash.Options"
+        android:label="fragment_options"
+        tools:layout="@layout/fragment_options" >
+        <action
+            android:id="@+id/action_options_to_history"
+            app:destination="@id/history" />
+        <action
+            android:id="@+id/action_options_to_settings"
+            app:destination="@id/settings" />
+        <action
+            android:id="@+id/action_options_to_receiptItems"
+            app:destination="@id/receiptItems" />
+    </fragment>
+    <fragment
+        android:id="@+id/history"
+        android:name="com.dine.dinendash.dinendash.History"
+        android:label="fragment_history"
+        tools:layout="@layout/fragment_history" />
+    <fragment
+        android:id="@+id/settings"
+        android:name="com.dine.dinendash.dinendash.Settings"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/receiptItems"
+        android:name="com.dine.dinendash.dinendash.ReceiptItems"
+        android:label="fragment_receipt_items"
+        tools:layout="@layout/fragment_receipt_items" >
+        <action
+            android:id="@+id/action_receiptItems_to_payment"
+            app:destination="@id/payment" />
+    </fragment>
+    <fragment
+        android:id="@+id/payment"
+        android:name="com.dine.dinendash.dinendash.Payment"
+        android:label="fragment_payment"
+        tools:layout="@layout/fragment_payment" />
+</navigation>

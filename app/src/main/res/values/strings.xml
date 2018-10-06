@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">Dine N Dash</string>
+    <string name="app_name">DineNDash</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="take_photo">Take a Photo</string>
+    <string name="upload_photo">Upload a Photo</string>
+    <string name="settings">Settings</string>
+    <string name="history">History</string>
 </resources>
+
