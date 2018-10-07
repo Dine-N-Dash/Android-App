@@ -1,8 +1,13 @@
 package com.dine.dinendash.dinendash.fragments;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +15,20 @@ import android.view.ViewGroup;
 
 import com.dine.dinendash.dinendash.R;
 import com.dine.dinendash.dinendash.databinding.FragmentOptionsBinding;
+import com.dine.dinendash.dinendash.util.Statics;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import androidx.navigation.Navigation;
+
+import static android.app.Activity.RESULT_OK;
 
 public class Options extends Fragment {
+
+    private String currentPhotoPath;
 
     public Options() {
         // Required empty public constructor
@@ -36,11 +53,31 @@ public class Options extends Fragment {
     }
 
     public void takePhotoPressed() {
-        Log.d("PIZZA", "take photo");
-    }
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(getActivity(),
+                        "com.example.android.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, Statics.REQUEST_IMAGE_CAPTURE);
+            }
+        }    }
 
     public void uploadPhotoPressed() {
-        Log.d("PIZZA", "upload photo");
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("image/*");
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), Statics.REQUEST_GET_SINGLE_FILE);
     }
 
     public void historyPressed() {
@@ -49,5 +86,37 @@ public class Options extends Fragment {
 
     public void settingsPressed() {
         Log.d("PIZZA", "settings");
+    }
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        currentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            if(requestCode == Statics.REQUEST_IMAGE_CAPTURE) {
+
+            }
+            if(requestCode == Statics.REQUEST_GET_SINGLE_FILE) {
+                currentPhotoPath = data.getDataString();
+            }
+
+            Log.d("Photo path: ", currentPhotoPath);
+
+            Navigation.findNavController(getView()).navigate(R.id.action_options_to_receiptItems, null);
+        }
     }
 }
