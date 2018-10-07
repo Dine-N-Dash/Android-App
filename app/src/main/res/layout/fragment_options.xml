@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".Options">
+    tools:context=".fragments.Options">
 
     <LinearLayout
         android:layout_width="match_parent"

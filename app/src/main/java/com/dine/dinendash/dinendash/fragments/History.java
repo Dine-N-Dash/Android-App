@@ -1,6 +1,5 @@
-package com.dine.dinendash.dinendash;
+package com.dine.dinendash.dinendash.fragments;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,16 +7,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.dine.dinendash.dinendash.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ReceiptItems.OnFragmentInteractionListener} interface
+ * {@link History.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ReceiptItems#newInstance} factory method to
+ * Use the {@link History#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ReceiptItems extends Fragment {
+public class History extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -29,7 +30,7 @@ public class ReceiptItems extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public ReceiptItems() {
+    public History() {
         // Required empty public constructor
     }
 
@@ -39,11 +40,11 @@ public class ReceiptItems extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ReceiptItems.
+     * @return A new instance of fragment History.
      */
     // TODO: Rename and change types and number of parameters
-    public static ReceiptItems newInstance(String param1, String param2) {
-        ReceiptItems fragment = new ReceiptItems();
+    public static History newInstance(String param1, String param2) {
+        History fragment = new History();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -64,7 +65,7 @@ public class ReceiptItems extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_receipt_items, container, false);
+        return inflater.inflate(R.layout.fragment_history, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

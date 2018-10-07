@@ -1,6 +1,5 @@
-package com.dine.dinendash.dinendash;
+package com.dine.dinendash.dinendash.fragments;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,16 +7,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.dine.dinendash.dinendash.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Options.OnFragmentInteractionListener} interface
+ * {@link Payment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Options#newInstance} factory method to
+ * Use the {@link Payment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Options extends Fragment {
+public class Payment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -29,7 +30,7 @@ public class Options extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public Options() {
+    public Payment() {
         // Required empty public constructor
     }
 
@@ -39,11 +40,11 @@ public class Options extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Options.
+     * @return A new instance of fragment Payment.
      */
     // TODO: Rename and change types and number of parameters
-    public static Options newInstance(String param1, String param2) {
-        Options fragment = new Options();
+    public static Payment newInstance(String param1, String param2) {
+        Payment fragment = new Payment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -64,7 +65,7 @@ public class Options extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_options, container, false);
+        return inflater.inflate(R.layout.fragment_payment, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
