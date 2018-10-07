@@ -1,9 +1,11 @@
 package com.dine.dinendash.dinendash.util;
 
-import android.media.ExifInterface;
+
 import android.net.Uri;
 
 import java.io.IOException;
+
+import androidx.exifinterface.media.ExifInterface;
 
 public class PictureRotate {
     private static int rotate = 0;

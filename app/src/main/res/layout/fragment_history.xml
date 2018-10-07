@@ -7,6 +7,10 @@
         <variable
             name="fragment"
             type="com.dine.dinendash.dinendash.fragments.History"/>
+
+        <variable
+            name="viewModel"
+            type="com.dine.dinendash.dinendash.viewModels.ReceiptHistoryViewModel"/>
     </data>
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
