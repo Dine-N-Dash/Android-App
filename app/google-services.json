@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "441504918534",
+    "firebase_url": "https://dine-n-dash-b2c81.firebaseio.com",
+    "project_id": "dine-n-dash-b2c81",
+    "storage_bucket": "dine-n-dash-b2c81.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:441504918534:android:fc735b645bc755cb",
+        "android_client_info": {
+          "package_name": "com.dine.dinendash.dinendash"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "441504918534-pt7lnci3f6v4r2an0tqfbqiti2lldanr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAf8Cw4DWMwq7BPEx18QWCrnTvZvt4bL7E"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

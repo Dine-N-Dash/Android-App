@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.dine.dinendash.dinendash.R;
 import com.dine.dinendash.dinendash.databinding.FragmentReceiptItemsBinding;
@@ -32,6 +33,7 @@ public class ReceiptItems extends Fragment {
         View view = binding.getRoot();
         binding.setViewModel(viewModel);
         binding.setFragment(this);
+
         return view;
     }
 
