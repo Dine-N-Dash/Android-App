@@ -9,7 +9,7 @@ public class PhotoAnalyzer {
         this.bitmap = bitmap;
     }
 
-    public void analyze(){
-        // Do analysis here
+    public String analyze(){
+        return "wow";
     }
 }
