@@ -2,6 +2,8 @@ package com.dine.dinendash.dinendash.util;
 
 import android.graphics.Bitmap;
 
+import com.dine.dinendash.dinendash.models.Receipt;
+
 public class PhotoAnalyzer {
     private Bitmap bitmap;
 
@@ -9,7 +11,8 @@ public class PhotoAnalyzer {
         this.bitmap = bitmap;
     }
 
-    public String analyze(){
-        return "wow";
+    public Receipt analyze() {
+        // do analysis here
+        return new Receipt();
     }
 }
