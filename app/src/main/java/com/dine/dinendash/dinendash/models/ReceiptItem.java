@@ -3,6 +3,7 @@ package com.dine.dinendash.dinendash.models;
 public class ReceiptItem {
     private String name;
     private double price;
+    private String owner;
     //private double tax;
     //private double tip;
 
@@ -13,12 +14,17 @@ public class ReceiptItem {
     public ReceiptItem(String name, double price) {
         this.name = name;
         this.price = price;
+        this.owner = "";
         //this.tax = 0;
         //this.tip = 0;
     }
 
     public String getName() {
         return name;
+    }
+
+    public String getOwner() {
+        return  owner;
     }
 
     public double getPrice() {
@@ -31,6 +37,10 @@ public class ReceiptItem {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 
     /* Add these later if we decide to calculate tax and tip per item instead of per user
