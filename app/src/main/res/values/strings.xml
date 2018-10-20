@@ -4,5 +4,6 @@
     <string name="upload_photo">Upload a Photo</string>
     <string name="settings">Settings</string>
     <string name="history">History</string>
+    <string name="price_format">$%.2f</string>
 </resources>
 
