@@ -3,6 +3,7 @@ package com.dine.dinendash.dinendash.viewModels;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 
 import com.dine.dinendash.dinendash.models.Contact;
 import com.dine.dinendash.dinendash.models.Receipt;
@@ -14,9 +15,10 @@ public class NewReceiptViewModel extends ViewModel {
     private MutableLiveData<Bitmap> receiptBitmap;
     private MutableLiveData<Receipt> receipt;
     private MutableLiveData<List<Contact>> contacts;
+    private MutableLiveData<Boolean> processed;
 
-    public NewReceiptViewModel(){
-
+    public NewReceiptViewModel() {
+        getProcessed().setValue(false);
     }
 
     public MutableLiveData<Receipt> getReceipt() {
@@ -47,9 +49,43 @@ public class NewReceiptViewModel extends ViewModel {
         return receiptBitmap;
     }
 
+    public MutableLiveData<Boolean> getProcessed() {
+        if (processed == null) {
+            processed = new MutableLiveData<>();
+        }
+
+        return processed;
+    }
+
+    public void setProcessed(Boolean processed) {
+        getProcessed().postValue(processed);
+    }
+
     public void setReceiptBitmap(Bitmap bitmap){
         getReceiptBitmap().setValue(bitmap);
         PhotoAnalyzer analyzer = new PhotoAnalyzer(getReceiptBitmap().getValue());
-        setReceipt(analyzer.analyze());
+
+        new AnalyzePhotoTask(analyzer, this).execute();
+    }
+
+    private static class AnalyzePhotoTask extends AsyncTask<Void, Void, Void> {
+        private PhotoAnalyzer analyzer;
+        private NewReceiptViewModel viewModel;
+
+        public AnalyzePhotoTask(PhotoAnalyzer analyzer, NewReceiptViewModel viewModel) {
+            this.analyzer = analyzer;
+            this.viewModel = viewModel;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            Receipt receipt = analyzer.analyze();
+
+            viewModel.getReceipt().postValue(receipt);
+
+            viewModel.setProcessed(true);
+
+            return null;
+        }
     }
 }

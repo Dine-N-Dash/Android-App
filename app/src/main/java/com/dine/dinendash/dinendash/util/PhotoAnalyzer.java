@@ -26,6 +26,12 @@ public class PhotoAnalyzer {
 
         receipt.setItems(items);
 
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         return receipt;
     }
 }

@@ -2,6 +2,7 @@ package com.dine.dinendash.dinendash.fragments;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -26,6 +27,14 @@ public class ReceiptItems extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = ViewModelProviders.of(getActivity()).get(NewReceiptViewModel.class);
+
+        if (getArguments() != null) {
+            Bitmap bitmap = getArguments().getParcelable("bitmap");
+
+            if (bitmap != null) {
+                viewModel.setReceiptBitmap(bitmap);
+            }
+        }
     }
 
     @Override
@@ -33,9 +42,10 @@ public class ReceiptItems extends Fragment {
         FragmentReceiptItemsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_receipt_items, container, false);
         binding.setViewModel(viewModel);
         binding.setFragment(this);
+        binding.setLifecycleOwner(this);
 
         binding.receiptItemsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        binding.receiptItemsRecyclerView.setAdapter(new ReceiptItemsAdapter(viewModel));
+        binding.receiptItemsRecyclerView.setAdapter(new ReceiptItemsAdapter(viewModel, this));
 
         return binding.getRoot();
     }

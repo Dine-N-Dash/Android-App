@@ -31,7 +31,7 @@ public class Receipt {
     }
 
     public void setItems(ArrayList<ReceiptItem> items) {
-        this.getItems().setValue(items);
+        this.getItems().postValue(items);
     }
 
     public double getSubTotal() {
