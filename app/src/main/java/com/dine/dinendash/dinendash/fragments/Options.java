@@ -2,15 +2,18 @@ package com.dine.dinendash.dinendash.fragments;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +43,9 @@ public class Options extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        try{
+            ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        }catch (Exception e){}
         super.onCreate(savedInstanceState);
     }
 
@@ -111,9 +117,6 @@ public class Options extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
-            if(requestCode == Statics.REQUEST_IMAGE_CAPTURE) {
-
-            }
             if(requestCode == Statics.REQUEST_GET_SINGLE_FILE) {
                 currentPhotoPath = data.getDataString();
             }
@@ -128,7 +131,9 @@ public class Options extends Fragment {
                 Log.e("PHOTO ERROR", e.toString());
             }
 
-            Navigation.findNavController(getView()).navigate(R.id.action_options_to_receiptItems, null);
+            if(getView()!=null) {
+                Navigation.findNavController(getView()).navigate(R.id.action_options_to_receiptItems, null);
+            }
         }
     }
 }

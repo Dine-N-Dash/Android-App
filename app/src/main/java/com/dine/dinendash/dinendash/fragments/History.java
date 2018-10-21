@@ -23,7 +23,10 @@ public class History extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewModel = ViewModelProviders.of(getActivity()).get(ReceiptHistoryViewModel.class);
+
+        if(getActivity()!=null) {
+            viewModel = ViewModelProviders.of(getActivity()).get(ReceiptHistoryViewModel.class);
+        }
     }
 
     @Override

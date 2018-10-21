@@ -3,13 +3,10 @@ package com.dine.dinendash.dinendash.viewModels;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
-import com.dine.dinendash.dinendash.models.Receipt;
-
-public class SettingsViewModel extends ViewModel {
-
+public class FirstTimeLoginViewModel extends ViewModel {
     private MutableLiveData<String> username;
 
-    public SettingsViewModel() {
+    public FirstTimeLoginViewModel() {
 
     }
 

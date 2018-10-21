@@ -18,5 +18,10 @@
         android:layout_gravity="center"
         android:orientation="vertical">
 
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:onClick="@{() -> fragment.chooseContact()}" />
+
     </android.support.constraint.ConstraintLayout>
 </layout>

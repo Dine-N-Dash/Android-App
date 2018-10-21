@@ -23,7 +23,9 @@ public class Settings extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewModel = ViewModelProviders.of(getActivity()).get(SettingsViewModel.class);
+        if(getActivity()!=null) {
+            viewModel = ViewModelProviders.of(getActivity()).get(SettingsViewModel.class);
+        }
     }
 
     @Override

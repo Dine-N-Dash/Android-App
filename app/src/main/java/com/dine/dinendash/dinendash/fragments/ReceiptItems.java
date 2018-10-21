@@ -14,6 +14,8 @@ import com.dine.dinendash.dinendash.R;
 import com.dine.dinendash.dinendash.databinding.FragmentReceiptItemsBinding;
 import com.dine.dinendash.dinendash.viewModels.NewReceiptViewModel;
 
+import androidx.navigation.Navigation;
+
 public class ReceiptItems extends Fragment {
     private NewReceiptViewModel viewModel;
 
@@ -24,7 +26,9 @@ public class ReceiptItems extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewModel = ViewModelProviders.of(getActivity()).get(NewReceiptViewModel.class);
+        if(getActivity()!=null){
+            viewModel = ViewModelProviders.of(getActivity()).get(NewReceiptViewModel.class);
+        }
     }
 
     @Override
@@ -40,5 +44,11 @@ public class ReceiptItems extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+    public void cont() {
+        if(getView()!=null){
+            Navigation.findNavController(getView()).navigate(R.id.action_receiptItems_to_payment, null);
+        }
     }
 }
