@@ -1,6 +1,5 @@
 package com.dine.dinendash.dinendash.fragments;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
@@ -19,7 +18,6 @@ import android.view.ViewGroup;
 import com.dine.dinendash.dinendash.R;
 import com.dine.dinendash.dinendash.databinding.FragmentOptionsBinding;
 import com.dine.dinendash.dinendash.util.Statics;
-import com.dine.dinendash.dinendash.viewModels.NewReceiptViewModel;
 
 import java.io.File;
 import java.io.IOException;
@@ -110,6 +108,9 @@ public class Options extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Bitmap bitmap = null;
+        Bundle bundle = null;
+
         if (resultCode == RESULT_OK) {
             if(requestCode == Statics.REQUEST_IMAGE_CAPTURE) {
 
@@ -121,14 +122,17 @@ public class Options extends Fragment {
             Log.d("Photo path: ", currentPhotoPath);
 
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), Uri.parse(currentPhotoPath));
-                NewReceiptViewModel viewModel = ViewModelProviders.of(getActivity()).get(NewReceiptViewModel.class);
-                viewModel.setReceiptBitmap(bitmap);
+                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), Uri.parse(currentPhotoPath));
             } catch (Exception e){
-                Log.e("PHOTO ERROR", e.toString());
+                Log.e("PHOTOERROR", e.toString());
             }
 
-            Navigation.findNavController(getView()).navigate(R.id.action_options_to_receiptItems, null);
+            if (bitmap != null) {
+                bundle = new Bundle();
+                bundle.putParcelable("bitmap", bitmap);
+            }
+
+            Navigation.findNavController(getView()).navigate(R.id.action_options_to_receiptItems, bundle);
         }
     }
 }

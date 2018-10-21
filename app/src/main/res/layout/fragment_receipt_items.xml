@@ -11,6 +11,8 @@
         <variable
             name="viewModel"
             type="com.dine.dinendash.dinendash.viewModels.NewReceiptViewModel"/>
+
+        <import type="android.view.View"/>
     </data>
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -18,5 +20,22 @@
         android:layout_gravity="center"
         android:orientation="vertical">
 
+        <ProgressBar
+            android:id="@+id/loadingSpinner"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:visibility="@{viewModel.processed ? View.GONE : View.VISIBLE}"
+            android:indeterminateDrawable="@drawable/circle_loading"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/receiptItemsRecyclerView"
+            android:scrollbars="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{viewModel.processed ? View.VISIBLE : View.GONE}"/>
     </android.support.constraint.ConstraintLayout>
 </layout>
