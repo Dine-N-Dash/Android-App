@@ -5,7 +5,7 @@ import android.arch.lifecycle.ViewModel;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 
-import com.dine.dinendash.dinendash.models.Contact;
+import com.dine.dinendash.dinendash.models.Transaction;
 import com.dine.dinendash.dinendash.models.Receipt;
 import com.dine.dinendash.dinendash.util.PhotoAnalyzer;
 
@@ -14,7 +14,7 @@ import java.util.List;
 public class NewReceiptViewModel extends ViewModel {
     private MutableLiveData<Bitmap> receiptBitmap;
     private MutableLiveData<Receipt> receipt;
-    private MutableLiveData<List<Contact>> contacts;
+    private MutableLiveData<List<Transaction>> transactions;
     private MutableLiveData<Boolean> processed;
 
     public NewReceiptViewModel() {
@@ -29,12 +29,12 @@ public class NewReceiptViewModel extends ViewModel {
         return receipt;
     }
 
-    public MutableLiveData<List<Contact>> getContacts() {
-        if(contacts == null) {
-            contacts = new MutableLiveData<>();
+    public MutableLiveData<List<Transaction>> getTransactions() {
+        if(transactions == null) {
+            transactions = new MutableLiveData<>();
         }
 
-        return contacts;
+        return transactions;
     }
 
     public void setReceipt(Receipt receipt) {
