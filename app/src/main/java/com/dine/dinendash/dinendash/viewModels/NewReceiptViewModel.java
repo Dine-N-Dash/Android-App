@@ -4,6 +4,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.dine.dinendash.dinendash.models.Transaction;
 import com.dine.dinendash.dinendash.models.Receipt;

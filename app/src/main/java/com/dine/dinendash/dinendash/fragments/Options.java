@@ -124,8 +124,6 @@ public class Options extends Fragment {
                 currentPhotoPath = data.getDataString();
             }
 
-            Log.d("Photo path: ", currentPhotoPath);
-
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), Uri.parse(currentPhotoPath));
             } catch (Exception e){
@@ -138,7 +136,8 @@ public class Options extends Fragment {
             }
 
             if(getView()!=null) {
-                Navigation.findNavController(getView()).navigate(R.id.action_options_to_receiptItems, null);
-            }        }
+                Navigation.findNavController(getView()).navigate(R.id.action_options_to_receiptItems, bundle);
+            }
+        }
     }
 }
