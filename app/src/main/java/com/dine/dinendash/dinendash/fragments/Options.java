@@ -116,6 +116,9 @@ public class Options extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Bitmap bitmap = null;
+        Bundle bundle = null;
+
         if (resultCode == RESULT_OK) {
             if(requestCode == Statics.REQUEST_GET_SINGLE_FILE) {
                 currentPhotoPath = data.getDataString();
@@ -124,16 +127,18 @@ public class Options extends Fragment {
             Log.d("Photo path: ", currentPhotoPath);
 
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), Uri.parse(currentPhotoPath));
-                NewReceiptViewModel viewModel = ViewModelProviders.of(getActivity()).get(NewReceiptViewModel.class);
-                viewModel.setReceiptBitmap(bitmap);
+                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), Uri.parse(currentPhotoPath));
             } catch (Exception e){
-                Log.e("PHOTO ERROR", e.toString());
+                Log.e("PHOTOERROR", e.toString());
+            }
+
+            if (bitmap != null) {
+                bundle = new Bundle();
+                bundle.putParcelable("bitmap", bitmap);
             }
 
             if(getView()!=null) {
                 Navigation.findNavController(getView()).navigate(R.id.action_options_to_receiptItems, null);
-            }
-        }
+            }        }
     }
 }

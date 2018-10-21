@@ -4,10 +4,6 @@
     <string name="upload_photo">Upload a Photo</string>
     <string name="settings">Settings</string>
     <string name="history">History</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="continuebutton">Continue</string>
-    <string name="paypal_me_username">PayPal.Me username</string>
+    <string name="price_format">$%.2f</string>
 </resources>
 
