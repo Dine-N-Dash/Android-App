@@ -36,6 +36,21 @@
             android:scrollbars="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="@{viewModel.processed ? View.VISIBLE : View.GONE}"/>
+            android:layout_marginBottom="75dp"
+            android:visibility="@{viewModel.processed ? View.VISIBLE : View.GONE}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/done_button"/>
+
+        <Button
+            android:id="@+id/done_button"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
+            android:background="@drawable/rounded_button"
+            android:textColor="@color/colorText"
+            android:text="@string/done"
+            android:onClick="@{() -> fragment.donePressed()}"
+            app:layout_constraintBottom_toBottomOf="parent"/>
     </android.support.constraint.ConstraintLayout>
 </layout>

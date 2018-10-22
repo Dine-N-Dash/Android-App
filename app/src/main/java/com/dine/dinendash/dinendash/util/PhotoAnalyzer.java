@@ -8,13 +8,8 @@ import com.dine.dinendash.dinendash.models.ReceiptItem;
 import java.util.ArrayList;
 
 public class PhotoAnalyzer {
-    private Bitmap bitmap;
 
-    public PhotoAnalyzer(Bitmap bitmap){
-        this.bitmap = bitmap;
-    }
-
-    public Receipt analyze() {
+    public static Receipt analyze(Bitmap bitmap) {
         Receipt receipt = new Receipt();
         ArrayList<ReceiptItem> items = new ArrayList<>();
 

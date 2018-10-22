@@ -21,6 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:theme="@style/checkboxStyle"
+            android:onCheckedChanged="@{(compoundButton, checked) -> viewModel.itemSelected(item, checked)}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 

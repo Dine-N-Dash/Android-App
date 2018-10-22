@@ -20,6 +20,14 @@ public class Transaction {
     public void addItem(ReceiptItem item) {
         if (getTotal().getValue() != null) {
             getTotal().postValue(getTotal().getValue() + item.getPrice());
+            item.setOwner(this);
+        }
+    }
+
+    public void removeItem(ReceiptItem item) {
+        if (getTotal().getValue() != null) {
+            getTotal().postValue(getTotal().getValue() - item.getPrice());
+            item.setOwner(null);
         }
     }
 

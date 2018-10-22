@@ -2,7 +2,6 @@ package com.dine.dinendash.dinendash.fragments;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -15,6 +14,8 @@ import com.dine.dinendash.dinendash.R;
 import com.dine.dinendash.dinendash.databinding.FragmentReceiptItemsBinding;
 import com.dine.dinendash.dinendash.fragments.adapters.ReceiptItemsAdapter;
 import com.dine.dinendash.dinendash.viewModels.NewReceiptViewModel;
+
+import androidx.navigation.Navigation;
 
 public class ReceiptItems extends Fragment {
     private NewReceiptViewModel viewModel;
@@ -29,10 +30,10 @@ public class ReceiptItems extends Fragment {
         viewModel = ViewModelProviders.of(getActivity()).get(NewReceiptViewModel.class);
 
         if (getArguments() != null) {
-            Bitmap bitmap = getArguments().getParcelable("bitmap");
+            String path = getArguments().getString("photoPath");
 
-            if (bitmap != null) {
-                viewModel.setReceiptBitmap(bitmap);
+            if (path != null) {
+                viewModel.analyzeImage(path, getActivity().getContentResolver());
             }
         }
     }
@@ -53,5 +54,11 @@ public class ReceiptItems extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+    public void donePressed() {
+        if (getView() != null) {
+            Navigation.findNavController(getView()).navigate(R.id.action_receiptItems_to_payment);
+        }
     }
 }

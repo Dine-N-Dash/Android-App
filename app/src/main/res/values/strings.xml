@@ -7,5 +7,6 @@
     <string name="price_format">$%.2f</string>
     <string name="continuebutton">Continue</string>
     <string name="paypal_me_username">PayPal.Me Username</string>
+    <string name="done">Done</string>
 </resources>
 
