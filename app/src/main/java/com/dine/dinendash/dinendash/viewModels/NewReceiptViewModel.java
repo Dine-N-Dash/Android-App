@@ -14,6 +14,8 @@ import com.dine.dinendash.dinendash.models.ReceiptItem;
 import com.dine.dinendash.dinendash.models.Transaction;
 import com.dine.dinendash.dinendash.util.PhotoAnalyzer;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public class NewReceiptViewModel extends ViewModel {
@@ -112,7 +114,11 @@ public class NewReceiptViewModel extends ViewModel {
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(resolver, Uri.parse(path));
             } catch (Exception e){
-                Log.e("PHOTOERROR", e.toString());
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(resolver,Uri.fromFile(new File(path)));
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
             }
 
             Receipt receipt = PhotoAnalyzer.analyze(bitmap);

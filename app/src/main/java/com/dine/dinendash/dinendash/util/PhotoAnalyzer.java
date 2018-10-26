@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 
 import com.dine.dinendash.dinendash.models.Receipt;
 import com.dine.dinendash.dinendash.models.ReceiptItem;
+import com.dine.dinendash.dinendash.models.Transaction;
 
 import java.util.ArrayList;
 

@@ -8,6 +8,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -40,6 +41,7 @@ public class Options extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         try{
             ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+
         }catch (Exception e){}
         super.onCreate(savedInstanceState);
     }
