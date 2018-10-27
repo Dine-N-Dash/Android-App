@@ -1,7 +1,7 @@
 package com.dine.dinendash.dinendash.viewModels;
 
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 public class FirstTimeLoginViewModel extends ViewModel {
     private MutableLiveData<String> username;

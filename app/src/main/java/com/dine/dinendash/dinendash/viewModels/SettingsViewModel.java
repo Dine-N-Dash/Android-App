@@ -1,9 +1,7 @@
 package com.dine.dinendash.dinendash.viewModels;
 
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
-
-import com.dine.dinendash.dinendash.models.Receipt;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 public class SettingsViewModel extends ViewModel {
 

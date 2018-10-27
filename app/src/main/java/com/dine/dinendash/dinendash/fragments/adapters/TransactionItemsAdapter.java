@@ -1,13 +1,12 @@
 package com.dine.dinendash.dinendash.fragments.adapters;
 
-import android.arch.lifecycle.LifecycleOwner;
-import android.arch.lifecycle.Observer;
-import android.databinding.DataBindingUtil;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
+import androidx.databinding.DataBindingUtil;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -15,10 +14,7 @@ import com.dine.dinendash.dinendash.R;
 import com.dine.dinendash.dinendash.databinding.TransactionItemBinding;
 import com.dine.dinendash.dinendash.fragments.Payment;
 import com.dine.dinendash.dinendash.models.Receipt;
-import com.dine.dinendash.dinendash.models.Transaction;
 import com.dine.dinendash.dinendash.viewModels.NewReceiptViewModel;
-
-import java.util.List;
 
 public class TransactionItemsAdapter extends RecyclerView.Adapter<TransactionItemsAdapter.TransactionItemsViewHolder> {
     private LayoutInflater inflater;

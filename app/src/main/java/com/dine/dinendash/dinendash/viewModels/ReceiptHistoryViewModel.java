@@ -1,6 +1,6 @@
 package com.dine.dinendash.dinendash.viewModels;
 
-import android.arch.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModel;
 
 public class ReceiptHistoryViewModel extends ViewModel {
 

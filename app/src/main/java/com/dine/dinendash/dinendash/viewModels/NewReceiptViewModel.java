@@ -1,13 +1,10 @@
 package com.dine.dinendash.dinendash.viewModels;
 
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
 import android.content.ContentResolver;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
-import android.util.Log;
 
 import com.dine.dinendash.dinendash.models.Receipt;
 import com.dine.dinendash.dinendash.models.ReceiptItem;
@@ -16,7 +13,11 @@ import com.dine.dinendash.dinendash.util.PhotoAnalyzer;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
 
 public class NewReceiptViewModel extends ViewModel {
     private MutableLiveData<Receipt> receipt;
@@ -43,6 +44,7 @@ public class NewReceiptViewModel extends ViewModel {
     public MutableLiveData<List<Transaction>> getTransactions() {
         if (transactions == null) {
             transactions = new MutableLiveData<>();
+            transactions.setValue(new ArrayList<Transaction>());
         }
 
         return transactions;
@@ -52,7 +54,7 @@ public class NewReceiptViewModel extends ViewModel {
         if (getTransactions().getValue() != null) {
             Transaction transaction = new Transaction(name, phoneNumber);
             getTransactions().getValue().add(transaction);
-            currentTransaction.postValue(transaction);
+            getCurrentTransaction().postValue(transaction);
         }
     }
 
@@ -78,6 +80,12 @@ public class NewReceiptViewModel extends ViewModel {
 
     public void setCurrentTransaction(Transaction transaction) {
         getCurrentTransaction().postValue(transaction);
+    }
+
+    public void setCurrentTransaction(int index) {
+        if (getTransactions().getValue() != null) {
+            getCurrentTransaction().postValue(getTransactions().getValue().get(index));
+        }
     }
 
     public MutableLiveData<Boolean> getProcessed() {

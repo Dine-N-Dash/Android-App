@@ -10,5 +10,6 @@
     <string name="done">Done</string>
     <string name="request_payment">Request Payment</string>
     <string name="contact">Contact:</string>
+    <string name="add_new_contact">Add New Contact</string>
 </resources>
 

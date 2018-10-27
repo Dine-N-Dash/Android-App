@@ -1,6 +1,6 @@
 package com.dine.dinendash.dinendash.models;
 
-import android.arch.lifecycle.MutableLiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import java.util.ArrayList;
 import java.util.List;

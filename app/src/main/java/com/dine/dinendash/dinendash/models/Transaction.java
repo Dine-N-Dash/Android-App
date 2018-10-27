@@ -1,6 +1,8 @@
 package com.dine.dinendash.dinendash.models;
 
-import android.arch.lifecycle.MutableLiveData;
+import androidx.lifecycle.MutableLiveData;
+
+import androidx.annotation.NonNull;
 
 public class Transaction {
     private MutableLiveData<String> name;
@@ -65,5 +67,16 @@ public class Transaction {
 
     public void setTotal(Double total) {
         getTotal().postValue(total);
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        if (getName() != null) {
+            if (getName().getValue() != null) {
+                return getName().getValue();
+            }
+        }
+        return super.toString();
     }
 }
