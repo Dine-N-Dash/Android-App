@@ -8,6 +8,7 @@
     <string name="continuebutton">Continue</string>
     <string name="paypal_me_username">PayPal.Me Username</string>
     <string name="done">Done</string>
+    <string name="request_payment">Request Payment</string>
     <string name="contact">Contact:</string>
 </resources>
 

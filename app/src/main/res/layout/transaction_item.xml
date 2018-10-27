@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="item"
+            type="com.dine.dinendash.dinendash.models.Transaction"/>
+
+        <variable
+            name="viewModel"
+            type="com.dine.dinendash.dinendash.viewModels.NewReceiptViewModel"/>
+        <variable
+            name="fragment"
+            type="com.dine.dinendash.dinendash.fragments.Payment"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/transactionName"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:gravity="start"
+            android:text="@{item.name}"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="75dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:text="@{@string/price_format(item.total)}"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:gravity="start"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/reqPayButton"
+            app:layout_constraintStart_toEndOf="@+id/transactionName"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/reqPayButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:onClick="@{() -> fragment.sendMessageTo(item.name, item.phoneNumber, item.total)}"
+            android:text="@string/request_payment"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+</layout>

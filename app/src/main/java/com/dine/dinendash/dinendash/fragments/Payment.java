@@ -15,6 +15,8 @@ import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,12 +24,16 @@ import android.widget.Toast;
 
 import com.dine.dinendash.dinendash.R;
 import com.dine.dinendash.dinendash.databinding.FragmentPaymentBinding;
+import com.dine.dinendash.dinendash.fragments.adapters.TransactionItemsAdapter;
+import com.dine.dinendash.dinendash.models.Transaction;
 import com.dine.dinendash.dinendash.util.Statics;
 import com.dine.dinendash.dinendash.viewModels.NewReceiptViewModel;
 
+import java.util.ArrayList;
+
 public class Payment extends Fragment {
     private NewReceiptViewModel viewModel;
-    private String amount;
+    private Double amount;
 
     public Payment() {
         // Required empty public constructor
@@ -38,22 +44,75 @@ public class Payment extends Fragment {
         super.onCreate(savedInstanceState);
         if(getActivity()!=null) {
             viewModel = ViewModelProviders.of(getActivity()).get(NewReceiptViewModel.class);
+
+            ArrayList<Transaction> transactionList = new ArrayList<>();
+            transactionList.add(new Transaction("Shelby", "3093100355"));
+            transactionList.add(new Transaction("Ryan", "3097060887"));
+
+            viewModel.getTransactions().postValue(transactionList);
+
+
         }
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentPaymentBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_payment, container, false);
-        View view = binding.getRoot();
         binding.setViewModel(viewModel);
         binding.setFragment(this);
-        return view;
+        binding.setLifecycleOwner(this);
+
+        Log.d("viewmodel",viewModel.toString());
+
+        binding.transactionItemsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.transactionItemsRecyclerView.setAdapter(new TransactionItemsAdapter(viewModel, this, this));
+
+
+        return binding.getRoot();
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
     }
+
+    public void sendMessageTo(String name, String phone, Double amount) {
+
+        Log.d("Data in send", name + " " + phone);
+
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(getActivity());
+        String username = sharedPreferences.getString("username", "");
+
+        Uri uri = Uri.parse("smsto:"+phone );
+        Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
+        intent.putExtra("sms_body", "Hi "+name+"! You owe me $" + amount +" dollars. You can pay me using this link: https://www.paypal.me/"+username+"/"+amount);
+        startActivity(intent);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public void chooseContact() {
         Intent intent= new Intent(Intent.ACTION_PICK,  ContactsContract.Contacts.CONTENT_URI);
@@ -127,18 +186,6 @@ public class Payment extends Fragment {
             sendMessageTo(name,phone,amount);
         }
     }
-
-    private void sendMessageTo(String name, String phone, String amount) {
-        SharedPreferences sharedPreferences = PreferenceManager
-                .getDefaultSharedPreferences(getActivity());
-        String username = sharedPreferences.getString("username", "");
-
-        Uri uri = Uri.parse("smsto:"+phone );
-        Intent it = new Intent(Intent.ACTION_SENDTO, uri);
-        it.putExtra("sms_body", "Hi "+name+"! You owe me" + amount +" dollars. You can pay me using this link:https://www.paypal.me/"+username+"/20");
-        startActivity(it);
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
