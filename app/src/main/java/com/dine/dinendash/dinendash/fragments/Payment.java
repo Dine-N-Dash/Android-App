@@ -25,7 +25,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 public class Payment extends Fragment {
     private NewReceiptViewModel viewModel;
-    private Double amount;
 
     public Payment() {
         // Required empty public constructor
