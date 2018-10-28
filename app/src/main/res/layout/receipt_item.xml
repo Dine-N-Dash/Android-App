@@ -22,6 +22,8 @@
             android:layout_height="wrap_content"
             app:theme="@style/checkboxStyle"
             android:onCheckedChanged="@{(compoundButton, checked) -> viewModel.itemSelected(item, checked)}"
+            android:enabled="@{item.owner == null || item.owner == viewModel.currentTransaction ? true : false}"
+            android:checked="@{item.owner != null}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
@@ -31,7 +33,7 @@
             android:gravity="center"
             android:textSize="22sp"
             android:text="@{item.name}"
-            android:textColor="@color/black"
+            android:textColor="@{item.owner == null || item.owner == viewModel.currentTransaction ? @color/black : @color/colorDisabledReceiptItem}"
             android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp"
             app:layout_constraintStart_toEndOf="@id/checkBox"
@@ -43,7 +45,7 @@
             android:layout_height="match_parent"
             android:textSize="22sp"
             android:text="@{@string/price_format(item.price)}"
-            android:textColor="@color/black"
+            android:textColor="@{item.owner == null || item.owner == viewModel.currentTransaction ? @color/black : @color/colorDisabledReceiptItem}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>

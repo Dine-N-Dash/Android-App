@@ -54,7 +54,7 @@ public class NewReceiptViewModel extends ViewModel {
         if (getTransactions().getValue() != null) {
             Transaction transaction = new Transaction(name, phoneNumber);
             getTransactions().getValue().add(transaction);
-            getCurrentTransaction().postValue(transaction);
+            getTransactions().setValue(getTransactions().getValue());
         }
     }
 

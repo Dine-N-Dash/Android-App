@@ -6,4 +6,5 @@
     <color name="colorAccent"></color>
     <color name="colorText">#ECEFF1</color>
     <color name="black">#000000</color>
+    <color name="colorDisabledReceiptItem">#757575</color>
 </resources>

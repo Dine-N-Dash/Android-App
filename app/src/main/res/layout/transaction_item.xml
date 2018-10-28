@@ -53,9 +53,12 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@drawable/rounded_button"
+            android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             android:onClick="@{() -> fragment.sendMessageTo(item.name, item.phoneNumber, item.total)}"
             android:text="@string/request_payment"
+            android:textColor="@color/colorText"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,18 +1,20 @@
 package com.dine.dinendash.dinendash.fragments.adapters;
 
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
-import androidx.databinding.DataBindingUtil;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.dine.dinendash.dinendash.R;
 import com.dine.dinendash.dinendash.databinding.ReceiptItemBinding;
 import com.dine.dinendash.dinendash.models.Receipt;
+import com.dine.dinendash.dinendash.models.Transaction;
 import com.dine.dinendash.dinendash.viewModels.NewReceiptViewModel;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class ReceiptItemsAdapter extends RecyclerView.Adapter<ReceiptItemsAdapter.ReceiptItemsViewHolder> {
     private LayoutInflater inflater;
@@ -27,6 +29,15 @@ public class ReceiptItemsAdapter extends RecyclerView.Adapter<ReceiptItemsAdapte
                 notifyDataSetChanged();
             }
         });
+
+        this.viewModel.getCurrentTransaction().observe(owner, new Observer<Transaction>() {
+            @Override
+            public void onChanged(Transaction transactions) {
+                notifyDataSetChanged();
+            }
+        });
+
+        setHasStableIds(true);
     }
 
     @NonNull

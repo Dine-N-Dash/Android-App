@@ -21,10 +21,13 @@ import com.dine.dinendash.dinendash.models.Transaction;
 import com.dine.dinendash.dinendash.util.Statics;
 import com.dine.dinendash.dinendash.viewModels.NewReceiptViewModel;
 
+import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -58,7 +61,7 @@ public class ReceiptItems extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        FragmentReceiptItemsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_receipt_items, container, false);
+        final FragmentReceiptItemsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_receipt_items, container, false);
         binding.setViewModel(viewModel);
         binding.setFragment(this);
         binding.setLifecycleOwner(this);
@@ -66,7 +69,22 @@ public class ReceiptItems extends Fragment {
         binding.receiptItemsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.receiptItemsRecyclerView.setAdapter(new ReceiptItemsAdapter(viewModel, this));
 
-        binding.contactSpinner.setAdapter(new ArrayAdapter<Transaction>(this.getContext(), R.layout.transaction_spinner_text_view, viewModel.getTransactions().getValue()));
+        final ArrayAdapter<Transaction> adapter = new ArrayAdapter<>(this.getContext(), R.layout.transaction_spinner_text_view, viewModel.getTransactions().getValue());
+        viewModel.getTransactions().observe(this, new Observer<List<Transaction>>() {
+            @Override
+            public void onChanged(List<Transaction> transactions) {
+                adapter.notifyDataSetChanged();
+                binding.contactSpinner.setSelection(viewModel.getTransactions().getValue().size());
+            }
+        });
+        viewModel.getCurrentTransaction().observe(this, new Observer<Transaction>() {
+            @Override
+            public void onChanged(Transaction transaction) {
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+        binding.contactSpinner.setAdapter(adapter);
 
         return binding.getRoot();
     }
