@@ -15,7 +15,7 @@ public class PhotoAnalyzer {
 
         items.add(new ReceiptItem("Big Italian", 7.56));
         items.add(new ReceiptItem("25\" Meat Lovers Pizza", 23.50));
-        items.add(new ReceiptItem("Captain and Coke", 2.30));
+        items.add(new ReceiptItem("Coke", 2.30));
         items.add(new ReceiptItem("Veggies", 5.50));
         items.add(new ReceiptItem("Wings", 4.45));
 

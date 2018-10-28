@@ -16,6 +16,8 @@ import com.dine.dinendash.dinendash.fragments.adapters.TransactionItemsAdapter;
 import com.dine.dinendash.dinendash.models.Transaction;
 import com.dine.dinendash.dinendash.viewModels.NewReceiptViewModel;
 
+import java.util.Locale;
+
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -61,7 +63,7 @@ public class Payment extends Fragment {
 
         Uri uri = Uri.parse("smsto:"+transaction.getPhoneNumber().getValue() );
         Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
-        intent.putExtra("sms_body", "Hi "+transaction.getName().getValue()+"! You owe me $" + String.format("%.2f", transaction.getTotal().getValue()) +". You can pay me using this link: https://www.paypal.me/"+username+"/"+transaction.getTotal().getValue());
+        intent.putExtra("sms_body", "Hi "+transaction.getName().getValue()+"! You owe me $" + String.format(Locale.US, "%.2f", transaction.getTotal().getValue()) +". You can pay me using this link: https://www.paypal.me/"+username+"/"+transaction.getTotal().getValue());
         startActivity(intent);
 
         transaction.setCompleted(true);
