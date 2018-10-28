@@ -58,14 +58,16 @@ public class NewReceiptViewModel extends ViewModel {
         }
     }
 
-    public void itemSelected(ReceiptItem item, boolean add) {
-        if (add) {
+    public void itemSelected(ReceiptItem item) {
+        if (item.getOwner() == null) {
             if (getCurrentTransaction().getValue() != null) {
                 getCurrentTransaction().getValue().addItem(item);
+                getCurrentTransaction().setValue(getCurrentTransaction().getValue());
             }
-        } else {
+        } else if (item.getOwner() == getCurrentTransaction().getValue()){
             if (getCurrentTransaction().getValue() != null) {
                 getCurrentTransaction().getValue().removeItem(item);
+                getCurrentTransaction().setValue(getCurrentTransaction().getValue());
             }
         }
     }
