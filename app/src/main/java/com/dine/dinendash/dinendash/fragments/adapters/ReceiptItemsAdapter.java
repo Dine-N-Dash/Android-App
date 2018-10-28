@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class ReceiptItemsAdapter extends RecyclerView.Adapter<ReceiptItemsAdapter.ReceiptItemsViewHolder> {
     private LayoutInflater inflater;
-    private NewReceiptViewModel viewModel;
+    private final NewReceiptViewModel viewModel;
 
     public ReceiptItemsAdapter(NewReceiptViewModel viewModel, LifecycleOwner owner) {
         this.viewModel = viewModel;
@@ -54,8 +54,10 @@ public class ReceiptItemsAdapter extends RecyclerView.Adapter<ReceiptItemsAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ReceiptItemsViewHolder receiptItemsViewHolder, int i) {
-        receiptItemsViewHolder.binding.setItem(viewModel.getReceipt().getValue().getItems().getValue().get(i));
-        receiptItemsViewHolder.binding.setViewModel(viewModel);
+        if (viewModel.getReceipt().getValue() != null && viewModel.getReceipt().getValue().getItems().getValue() != null) {
+            receiptItemsViewHolder.binding.setItem(viewModel.getReceipt().getValue().getItems().getValue().get(i));
+            receiptItemsViewHolder.binding.setViewModel(viewModel);
+        }
     }
 
     @Override
@@ -72,7 +74,7 @@ public class ReceiptItemsAdapter extends RecyclerView.Adapter<ReceiptItemsAdapte
     }
 
     public static class ReceiptItemsViewHolder extends RecyclerView.ViewHolder {
-        public ReceiptItemBinding binding;
+        public final ReceiptItemBinding binding;
 
         public ReceiptItemsViewHolder(ReceiptItemBinding binding) {
             super(binding.getRoot());

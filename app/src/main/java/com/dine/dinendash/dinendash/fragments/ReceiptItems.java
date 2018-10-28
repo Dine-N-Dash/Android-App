@@ -11,12 +11,12 @@ import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.dine.dinendash.dinendash.R;
 import com.dine.dinendash.dinendash.databinding.FragmentReceiptItemsBinding;
 import com.dine.dinendash.dinendash.fragments.adapters.ReceiptItemsAdapter;
+import com.dine.dinendash.dinendash.fragments.adapters.TransactionSpinnerAdapter;
 import com.dine.dinendash.dinendash.models.Transaction;
 import com.dine.dinendash.dinendash.util.Statics;
 import com.dine.dinendash.dinendash.viewModels.NewReceiptViewModel;
@@ -42,7 +42,10 @@ public class ReceiptItems extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewModel = ViewModelProviders.of(getActivity()).get(NewReceiptViewModel.class);
+
+        if (getActivity() != null) {
+            viewModel = ViewModelProviders.of(getActivity()).get(NewReceiptViewModel.class);
+        }
 
         if (getArguments() != null) {
             String path = getArguments().getString("photoPath");
@@ -53,7 +56,7 @@ public class ReceiptItems extends Fragment {
         }
 
         if(viewModel.getTransactions() != null) {
-            if (viewModel.getTransactions().getValue().size() == 0) {
+            if (viewModel.getTransactions().getValue() != null && viewModel.getTransactions().getValue().size() == 0) {
                 chooseContact();
             }
         }
@@ -69,29 +72,20 @@ public class ReceiptItems extends Fragment {
         binding.receiptItemsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.receiptItemsRecyclerView.setAdapter(new ReceiptItemsAdapter(viewModel, this));
 
-        final ArrayAdapter<Transaction> adapter = new ArrayAdapter<>(this.getContext(), R.layout.transaction_spinner_text_view, viewModel.getTransactions().getValue());
         viewModel.getTransactions().observe(this, new Observer<List<Transaction>>() {
             @Override
             public void onChanged(List<Transaction> transactions) {
-                adapter.notifyDataSetChanged();
-                binding.contactSpinner.setSelection(viewModel.getTransactions().getValue().size());
-            }
-        });
-        viewModel.getCurrentTransaction().observe(this, new Observer<Transaction>() {
-            @Override
-            public void onChanged(Transaction transaction) {
-                adapter.notifyDataSetChanged();
+                if (viewModel.getTransactions().getValue() != null) {
+                    binding.contactSpinner.setSelection(viewModel.getTransactions().getValue().size());
+                }
             }
         });
 
-        binding.contactSpinner.setAdapter(adapter);
+        if (getContext() != null) {
+            binding.contactSpinner.setAdapter(new TransactionSpinnerAdapter(getContext(), R.layout.transaction_spinner_text_view, this, viewModel));
+        }
 
         return binding.getRoot();
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
     }
 
     public void donePressed() {
@@ -158,7 +152,7 @@ public class ReceiptItems extends Fragment {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             chooseContact();
         }
@@ -169,12 +163,15 @@ public class ReceiptItems extends Fragment {
 
     private void chooseContact() {
         Intent intent= new Intent(Intent.ACTION_PICK,  ContactsContract.Contacts.CONTENT_URI);
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_CONTACTS},
-                    Statics.REQUEST_CODE_ASK_PERMISSIONS);
-        }
-        else {
-            startActivityForResult(intent, Statics.PICK_CONTACT);
+
+        if (getActivity() != null) {
+            if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_CONTACTS},
+                        Statics.REQUEST_CODE_ASK_PERMISSIONS);
+            }
+            else {
+                startActivityForResult(intent, Statics.PICK_CONTACT);
+            }
         }
     }
 }

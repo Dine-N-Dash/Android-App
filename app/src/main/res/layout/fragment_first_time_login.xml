@@ -28,7 +28,7 @@
             android:layout_marginTop="50dp"
             android:layout_marginEnd="20dp"
             android:layout_marginRight="20dp"
-            android:text="Welcome. Please enter your PayPal.Me username"
+            android:text="@string/login_welcome"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,9 +48,7 @@
             android:text="@={viewmodel.username}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView"
-            android:backgroundTint="@color/colorPrimary"
-            android:autofillHints="PayPal.Me username" />
+            app:layout_constraintTop_toBottomOf="@id/textView"/>
 
         <Button
             android:id="@+id/button"

@@ -8,6 +8,7 @@ public class Transaction {
     private MutableLiveData<String> name;
     private MutableLiveData<String> phoneNumber;
     private MutableLiveData<Double> total;
+    private MutableLiveData<Boolean> completed;
 
     public Transaction() {
         this("", "");
@@ -17,6 +18,7 @@ public class Transaction {
         setName(name);
         setPhoneNumber(phoneNumber);
         setTotal(0.0);
+        setCompleted(false);
     }
 
     public void addItem(ReceiptItem item) {
@@ -78,5 +80,17 @@ public class Transaction {
             }
         }
         return super.toString();
+    }
+
+    public MutableLiveData<Boolean> getCompleted() {
+        if (completed == null) {
+            completed = new MutableLiveData<>();
+        }
+
+        return completed;
+    }
+
+    public void setCompleted(Boolean completed) {
+        getCompleted().postValue(completed);
     }
 }

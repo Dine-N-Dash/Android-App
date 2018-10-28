@@ -1,9 +1,9 @@
 package com.dine.dinendash.dinendash.models;
 
-import androidx.lifecycle.MutableLiveData;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.lifecycle.MutableLiveData;
 
 public class Receipt {
     private MutableLiveData<List<ReceiptItem>> items;
@@ -19,7 +19,9 @@ public class Receipt {
     }
 
     public void AddItem(ReceiptItem item) {
-        getItems().getValue().add(item);
+        if (getItems().getValue() != null) {
+            getItems().getValue().add(item);
+        }
     }
 
     public MutableLiveData<List<ReceiptItem>> getItems() {

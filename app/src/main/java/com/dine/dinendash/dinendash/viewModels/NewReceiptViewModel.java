@@ -104,10 +104,17 @@ public class NewReceiptViewModel extends ViewModel {
         new AnalyzePhotoTask(path,this, resolver).execute();
     }
 
+    public void reset() {
+        receipt = null;
+        transactions = null;
+        currentTransaction = null;
+        processed.postValue(false);
+    }
+
     private static class AnalyzePhotoTask extends AsyncTask<Void, Void, Void> {
-        private String path;
-        private NewReceiptViewModel viewModel;
-        private ContentResolver resolver;
+        private final String path;
+        private final NewReceiptViewModel viewModel;
+        private final ContentResolver resolver;
 
         public AnalyzePhotoTask(String path, NewReceiptViewModel viewModel, ContentResolver resolver) {
             this.path = path;

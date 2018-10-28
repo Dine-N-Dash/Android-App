@@ -38,8 +38,4 @@ public class History extends Fragment {
         return view;
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
 }

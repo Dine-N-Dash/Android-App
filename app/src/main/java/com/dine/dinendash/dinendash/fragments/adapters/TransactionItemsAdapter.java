@@ -1,33 +1,34 @@
 package com.dine.dinendash.dinendash.fragments.adapters;
 
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
-import androidx.databinding.DataBindingUtil;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.dine.dinendash.dinendash.R;
 import com.dine.dinendash.dinendash.databinding.TransactionItemBinding;
 import com.dine.dinendash.dinendash.fragments.Payment;
-import com.dine.dinendash.dinendash.models.Receipt;
+import com.dine.dinendash.dinendash.models.Transaction;
 import com.dine.dinendash.dinendash.viewModels.NewReceiptViewModel;
+
+import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class TransactionItemsAdapter extends RecyclerView.Adapter<TransactionItemsAdapter.TransactionItemsViewHolder> {
     private LayoutInflater inflater;
-    private NewReceiptViewModel viewModel;
-    private Payment paymentFragment;
+    private final NewReceiptViewModel viewModel;
+    private final Payment paymentFragment;
 
     public TransactionItemsAdapter(NewReceiptViewModel viewModel, LifecycleOwner owner, Payment paymentFragment) {
         this.viewModel = viewModel;
         this.paymentFragment = paymentFragment;
 
-        this.viewModel.getReceipt().observe(owner, new Observer<Receipt>() {
+        this.viewModel.getTransactions().observe(owner, new Observer<List<Transaction>>() {
             @Override
-            public void onChanged(@Nullable Receipt receipt) {
+            public void onChanged(List<Transaction> transactions) {
                 notifyDataSetChanged();
             }
         });
@@ -46,9 +47,11 @@ public class TransactionItemsAdapter extends RecyclerView.Adapter<TransactionIte
 
     @Override
     public void onBindViewHolder(@NonNull TransactionItemsAdapter.TransactionItemsViewHolder transactionItemsViewHolder, int i) {
-        transactionItemsViewHolder.binding.setItem(viewModel.getTransactions().getValue().get(i));
-        transactionItemsViewHolder.binding.setViewModel(viewModel);
-        transactionItemsViewHolder.binding.setFragment(paymentFragment);
+        if (viewModel.getTransactions().getValue() != null) {
+            transactionItemsViewHolder.binding.setItem(viewModel.getTransactions().getValue().get(i));
+            transactionItemsViewHolder.binding.setViewModel(viewModel);
+            transactionItemsViewHolder.binding.setFragment(paymentFragment);
+        }
     }
 
     @Override
@@ -61,7 +64,7 @@ public class TransactionItemsAdapter extends RecyclerView.Adapter<TransactionIte
     }
 
     public static class TransactionItemsViewHolder extends RecyclerView.ViewHolder {
-        public TransactionItemBinding binding;
+        public final TransactionItemBinding binding;
 
         public TransactionItemsViewHolder(TransactionItemBinding binding) {
             super(binding.getRoot());

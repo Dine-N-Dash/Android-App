@@ -1,15 +1,10 @@
 package com.dine.dinendash.dinendash.fragments;
 
 import android.content.Intent;
-import androidx.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.core.content.FileProvider;
-import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +19,11 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import static android.app.Activity.RESULT_OK;
@@ -41,7 +41,9 @@ public class Options extends Fragment {
         try{
             ((AppCompatActivity) getActivity()).getSupportActionBar().show();
 
-        }catch (Exception e){}
+        } catch (Exception e){
+            Log.e("OptionsError", e.getMessage());
+        }
         super.onCreate(savedInstanceState);
     }
 
@@ -53,31 +55,30 @@ public class Options extends Fragment {
         return view;
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
-
     public void takePhotoPressed() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Ensure that there's a camera activity to handle the intent
-        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-            // Create the File where the photo should go
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                // Error occurred while creating the File
+
+        if(getActivity() != null && getActivity().getPackageManager() != null) {
+            // Ensure that there's a camera activity to handle the intent
+            if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                // Create the File where the photo should go
+                File photoFile = null;
+                try {
+                    photoFile = createImageFile();
+                } catch (IOException ex) {
+                    // Error occurred while creating the File
+                }
+                // Continue only if the File was successfully created
+                if (photoFile != null) {
+                    Uri photoURI = FileProvider.getUriForFile(getActivity(),
+                            "com.example.android.fileprovider",
+                            photoFile);
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                    startActivityForResult(takePictureIntent, Statics.REQUEST_IMAGE_CAPTURE);
+                }
             }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(getActivity(),
-                        "com.example.android.fileprovider",
-                        photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(takePictureIntent, Statics.REQUEST_IMAGE_CAPTURE);
-            }
-        }    }
+        }
+    }
 
     public void uploadPhotoPressed() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -112,7 +113,7 @@ public class Options extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Bundle bundle = null;
+        Bundle bundle;
 
         if (resultCode == RESULT_OK) {
             if(requestCode == Statics.REQUEST_GET_SINGLE_FILE) {

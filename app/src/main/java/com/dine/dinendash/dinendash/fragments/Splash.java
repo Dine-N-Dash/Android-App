@@ -1,12 +1,10 @@
 package com.dine.dinendash.dinendash.fragments;
 
 import android.content.SharedPreferences;
-import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
-import androidx.fragment.app.Fragment;
-import androidx.appcompat.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +12,10 @@ import android.view.ViewGroup;
 import com.dine.dinendash.dinendash.R;
 import com.dine.dinendash.dinendash.databinding.FragmentSplashBinding;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 public class Splash extends Fragment {
@@ -28,13 +30,15 @@ public class Splash extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         try{
             ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
-        }catch (Exception e){}
+        } catch (Exception e){
+            Log.e("SplashError", e.getMessage());
+        }
 
         super.onCreate(savedInstanceState);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentSplashBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_splash, container, false);
         View view = binding.getRoot();
         binding.setFragment(this);
@@ -44,11 +48,6 @@ public class Splash extends Fragment {
         username = sharedPreferences.getString("username", "");
 
         return view;
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
     }
 
     @Override

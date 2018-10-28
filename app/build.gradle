@@ -40,7 +40,6 @@ dependencies {
     implementation "android.arch.navigation:navigation-fragment:$nav_version"
     implementation "android.arch.navigation:navigation-ui:$nav_version"
 
-    def lifecycle_version = "1.1.1"
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
     annotationProcessor 'androidx.lifecycle:lifecycle-compiler:2.0.0'
     implementation 'androidx.exifinterface:exifinterface:1.0.0'
