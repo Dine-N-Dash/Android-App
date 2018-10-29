@@ -4,7 +4,10 @@ import com.dine.dinendash.dinendash.models.ReceiptItem;
 import com.dine.dinendash.dinendash.models.Transaction;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
@@ -13,6 +16,9 @@ import static org.junit.Assert.assertThat;
 
 public class ReceiptItemTest {
     private ReceiptItem item;
+
+    @Rule
+    public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
     @Before
     public void setup() {
