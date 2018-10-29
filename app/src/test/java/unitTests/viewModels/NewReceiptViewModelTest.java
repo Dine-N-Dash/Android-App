@@ -34,8 +34,7 @@ public class NewReceiptViewModelTest {
     @Test
     public void testNewReceiptViewModelConstructor() {
         viewModel = new NewReceiptViewModel();
-        Boolean processed = viewModel.getProcessed().getValue();
-        assertThat(processed, is(equalTo(false)));
+        assertThat(viewModel.getProcessed().getValue(), is(equalTo(false)));
     }
 
     @Test
