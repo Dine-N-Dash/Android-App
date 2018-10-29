@@ -138,11 +138,7 @@ public class NewReceiptViewModel extends ViewModel {
                 }
             }
 
-            Receipt receipt = PhotoAnalyzer.analyze(bitmap);
-
-            viewModel.getReceipt().postValue(receipt);
-
-            viewModel.setProcessed(true);
+            PhotoAnalyzer.analyze(bitmap, viewModel);
 
             if (bitmap != null) {
                 bitmap.recycle();

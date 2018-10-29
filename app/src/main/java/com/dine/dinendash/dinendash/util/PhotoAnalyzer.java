@@ -5,6 +5,7 @@ import android.graphics.Point;
 
 import com.dine.dinendash.dinendash.models.Receipt;
 import com.dine.dinendash.dinendash.models.ReceiptItem;
+import com.dine.dinendash.dinendash.viewModels.NewReceiptViewModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.ml.vision.FirebaseVision;
@@ -47,7 +48,7 @@ public class PhotoAnalyzer {
 
     }
 
-    public static Receipt analyze(Bitmap bitmap) {
+    public static void analyze(final Bitmap bitmap, final NewReceiptViewModel viewModel) {
         FirebaseVisionImage img = FirebaseVisionImage.fromBitmap(bitmap);
         FirebaseVisionTextRecognizer textRecognizer = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
 
@@ -103,10 +104,16 @@ public class PhotoAnalyzer {
                             }
                         }
                         Receipt r = new Receipt();
-                        for(lineObj q: prices)
-                            if(q.connect4 != null)
+                        for(lineObj q: prices) {
+                            if(q.connect4 != null) {
                                 r.AddItem(new ReceiptItem(q.connect4.line, Double.parseDouble(q.line)));
-                        //return r; fuck
+                            }
+                        }
+
+                        viewModel.getReceipt().postValue(r);
+                        viewModel.setProcessed(true);
+
+                        bitmap.recycle();
                     }
                 })
                 .addOnFailureListener(
@@ -114,10 +121,9 @@ public class PhotoAnalyzer {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 System.out.println("yikes");
+                                bitmap.recycle();
                             }
                         });
 
-
-        return new Receipt();
     }
 }
