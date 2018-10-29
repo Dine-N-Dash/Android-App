@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="item"
+            type="com.dine.dinendash.dinendash.models.ReceiptItem"/>
+
+        <variable
+            name="viewModel"
+            type="com.dine.dinendash.dinendash.viewModels.NewReceiptViewModel"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:onClick="@{() -> viewModel.itemSelected(item)}">
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:theme="@style/checkboxStyle"
+            android:enabled="@{item.owner == null || item.owner == viewModel.currentTransaction ? true : false}"
+            android:checked="@{item.owner != null}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/item_name_text"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:gravity="start"
+            android:textSize="22sp"
+            android:text="@{item.name}"
+            android:textColor="@{item.owner == null || item.owner == viewModel.currentTransaction ? @color/black : @color/colorDisabledReceiptItem}"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            app:layout_constraintStart_toEndOf="@id/checkBox"
+            app:layout_constraintEnd_toStartOf="@id/price_text"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/price_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="22sp"
+            android:text="@{@string/price_format(item.price)}"
+            android:textColor="@{item.owner == null || item.owner == viewModel.currentTransaction ? @color/black : @color/colorDisabledReceiptItem}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/item_name_text"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

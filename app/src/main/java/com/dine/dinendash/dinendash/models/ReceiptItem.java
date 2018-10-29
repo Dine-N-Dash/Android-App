@@ -3,7 +3,7 @@ package com.dine.dinendash.dinendash.models;
 public class ReceiptItem {
     private String name;
     private double price;
-    private String owner;
+    private Transaction owner;
     //private double tax;
     //private double tip;
 
@@ -14,7 +14,7 @@ public class ReceiptItem {
     public ReceiptItem(String name, double price) {
         this.name = name;
         this.price = price;
-        this.owner = "";
+        this.owner = null;
         //this.tax = 0;
         //this.tip = 0;
     }
@@ -23,7 +23,7 @@ public class ReceiptItem {
         return name;
     }
 
-    public String getOwner() {
+    public Transaction getOwner() {
         return  owner;
     }
 
@@ -39,7 +39,7 @@ public class ReceiptItem {
         this.price = price;
     }
 
-    public void setOwner(String owner) {
+    public void setOwner(Transaction owner) {
         this.owner = owner;
     }
 

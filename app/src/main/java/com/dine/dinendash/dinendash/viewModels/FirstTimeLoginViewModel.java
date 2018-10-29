@@ -3,11 +3,10 @@ package com.dine.dinendash.dinendash.viewModels;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class SettingsViewModel extends ViewModel {
-
+public class FirstTimeLoginViewModel extends ViewModel {
     private MutableLiveData<String> username;
 
-    public SettingsViewModel() {
+    public FirstTimeLoginViewModel() {
 
     }
 

@@ -1,10 +1,8 @@
 package com.dine.dinendash.dinendash.activities;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-
 import com.dine.dinendash.dinendash.R;
-
 import androidx.navigation.Navigation;
 
 public class MainActivity extends AppCompatActivity {

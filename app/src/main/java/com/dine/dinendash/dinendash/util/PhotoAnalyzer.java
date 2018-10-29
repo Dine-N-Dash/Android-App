@@ -2,8 +2,6 @@ package com.dine.dinendash.dinendash.util;
 
 import android.graphics.Bitmap;
 import android.graphics.Point;
-import android.graphics.Rect;
-import android.util.Log;
 
 import com.dine.dinendash.dinendash.models.Receipt;
 import com.dine.dinendash.dinendash.models.ReceiptItem;
@@ -13,21 +11,17 @@ import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.text.FirebaseVisionText;
 import com.google.firebase.ml.vision.text.FirebaseVisionTextRecognizer;
-import com.google.firebase.ml.vision.text.RecognizedLanguage;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import androidx.annotation.NonNull;
 
 public class PhotoAnalyzer {
-    private Bitmap bitmap;
 
-    private class lineObj implements Comparable{
+    private static class lineObj implements Comparable{
         String line;
         int midpoint;
         boolean isPrice;
@@ -53,11 +47,7 @@ public class PhotoAnalyzer {
 
     }
 
-    public PhotoAnalyzer(Bitmap bitmap){
-        this.bitmap = bitmap;
-    }
-
-    public Receipt analyze() {
+    public static Receipt analyze(Bitmap bitmap) {
         FirebaseVisionImage img = FirebaseVisionImage.fromBitmap(bitmap);
         FirebaseVisionTextRecognizer textRecognizer = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
 

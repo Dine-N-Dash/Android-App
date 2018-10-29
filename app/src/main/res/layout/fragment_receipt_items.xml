@@ -11,12 +11,90 @@
         <variable
             name="viewModel"
             type="com.dine.dinendash.dinendash.viewModels.NewReceiptViewModel"/>
+
+        <import type="android.view.View"/>
     </data>
-    <android.support.constraint.ConstraintLayout
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:orientation="vertical">
 
-    </android.support.constraint.ConstraintLayout>
+        <ProgressBar
+            android:id="@+id/loadingSpinner"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:indeterminateDrawable="@drawable/circle_loading"
+            android:visibility="@{viewModel.processed ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/contact_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/contact"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/add_new_contact"
+            android:onClick="@{() -> fragment.newTransaction()}"
+            android:src="@drawable/ic_add_black_24dp"
+            app:layout_constraintBottom_toTopOf="@id/divider"
+            app:layout_constraintEnd_toStartOf="@id/contact_spinner"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/contact_spinner"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:dropDownWidth="wrap_content"
+            android:onItemSelected="@{(parent, view, pos, id) -> viewModel.setCurrentTransaction(pos)}"
+            app:layout_constraintBottom_toTopOf="@id/divider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintTop_toBottomOf="@id/contact_text" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/receiptItemsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="60dp"
+            android:scrollbars="vertical"
+            android:visibility="@{viewModel.processed ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toTopOf="@id/done_button"
+            app:layout_constraintTop_toBottomOf="@id/divider" />
+
+        <Button
+            android:id="@+id/done_button"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:background="@drawable/rounded_button"
+            android:onClick="@{() -> fragment.donePressed()}"
+            android:text="@string/done"
+            android:textColor="@color/colorText"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

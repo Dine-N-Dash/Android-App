@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="checkboxStyle">
+        <item name="colorAccent">@color/colorPrimary</item>  // for checked
+        <item name="android:textColorSecondary">@color/black</item>  // for unchecked
+    </style>
+
 </resources>

@@ -1,9 +1,12 @@
 package com.dine.dinendash.dinendash.models;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import androidx.lifecycle.MutableLiveData;
 
 public class Receipt {
-    private ArrayList<ReceiptItem> items;
+    private MutableLiveData<List<ReceiptItem>> items;
     private double subTotal;
     private double totalTax;
     private double total;
@@ -16,24 +19,38 @@ public class Receipt {
     }
 
     public void AddItem(ReceiptItem item) {
-        getItems().add(item);
+        if (getItems().getValue() != null) {
+            getItems().getValue().add(item);
+        }
     }
 
-    public ArrayList<ReceiptItem> getItems() {
+    public MutableLiveData<List<ReceiptItem>> getItems() {
         if (items == null) {
-            items = new ArrayList<>();
+            items = new MutableLiveData<>();
         }
 
         return items;
     }
 
     public void setItems(ArrayList<ReceiptItem> items) {
-        this.items = items;
+        this.getItems().postValue(items);
+    }
+
+    public double getSubTotal() {
+        return subTotal;
     }
 
     public void setSubTotal(double subTotal){ this.subTotal = subTotal; }
 
+    public double getTotal() {
+        return total;
+    }
+
     public void setTotal(double Total){ this.total = Total; }
+
+    public double getTotalTax() {
+        return totalTax;
+    }
 
     public void setTotalTax(double totalTax){ this.totalTax = totalTax; }
 

@@ -12,11 +12,34 @@
             name="viewModel"
             type="com.dine.dinendash.dinendash.viewModels.NewReceiptViewModel"/>
     </data>
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:orientation="vertical">
 
-    </android.support.constraint.ConstraintLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/transactionItemsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            android:layout_marginBottom="60dp"
+            app:layout_constraintBottom_toTopOf="@id/finish_receipt_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/finish_receipt_button"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
+            android:background="@drawable/rounded_button"
+            android:textColor="@color/colorText"
+            android:text="@string/done"
+            android:textSize="18sp"
+            android:onClick="@{() -> fragment.finishTransactions()}"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
