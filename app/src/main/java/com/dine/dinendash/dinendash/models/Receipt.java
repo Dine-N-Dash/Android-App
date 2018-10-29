@@ -18,7 +18,7 @@ public class Receipt {
         total = 0;
     }
 
-    public void AddItem(ReceiptItem item) {
+    public void addItem(ReceiptItem item) {
         if (getItems().getValue() != null) {
             getItems().getValue().add(item);
         }
@@ -27,6 +27,7 @@ public class Receipt {
     public MutableLiveData<List<ReceiptItem>> getItems() {
         if (items == null) {
             items = new MutableLiveData<>();
+            items.setValue(new ArrayList<ReceiptItem>());
         }
 
         return items;

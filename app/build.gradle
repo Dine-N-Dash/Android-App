@@ -37,8 +37,9 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    testImplementation 'androidx.test:runner:1.1.0'
+    testImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    testImplementation 'android.arch.core:core-testing:1.1.1'
 
     def nav_version = "1.0.0-alpha06"
     implementation "android.arch.navigation:navigation-fragment:$nav_version"
