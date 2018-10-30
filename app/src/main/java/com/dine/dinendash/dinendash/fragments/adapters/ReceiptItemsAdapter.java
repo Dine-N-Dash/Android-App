@@ -73,6 +73,11 @@ public class ReceiptItemsAdapter extends RecyclerView.Adapter<ReceiptItemsAdapte
         return 0;
     }
 
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
     public static class ReceiptItemsViewHolder extends RecyclerView.ViewHolder {
         public final ReceiptItemBinding binding;
 
