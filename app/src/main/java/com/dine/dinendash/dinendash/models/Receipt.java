@@ -27,6 +27,7 @@ public class Receipt {
     public MutableLiveData<List<ReceiptItem>> getItems() {
         if (items == null) {
             items = new MutableLiveData<>();
+            items.setValue(new ArrayList<ReceiptItem>());
         }
 
         return items;

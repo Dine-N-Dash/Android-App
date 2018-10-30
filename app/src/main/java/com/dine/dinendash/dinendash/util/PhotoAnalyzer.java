@@ -2,6 +2,7 @@ package com.dine.dinendash.dinendash.util;
 
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.util.Log;
 
 import com.dine.dinendash.dinendash.models.Receipt;
 import com.dine.dinendash.dinendash.models.ReceiptItem;
@@ -80,7 +81,8 @@ public class PhotoAnalyzer {
                                 avH += lineCornerPoints[2].y - lineCornerPoints[0].y;
                             }
                         }
-                        avH /= count*2;
+                        if(count > 0)
+                            avH /= count*2;
                         Iterator<lineObj> i = notPrices.iterator();
                         Iterator<lineObj> j;
                         boolean found;
@@ -110,7 +112,7 @@ public class PhotoAnalyzer {
                             }
                         }
 
-                        viewModel.getReceipt().postValue(r);
+                        viewModel.setReceipt(r);
                         viewModel.setProcessed(true);
 
                         bitmap.recycle();
@@ -120,7 +122,7 @@ public class PhotoAnalyzer {
                         new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                System.out.println("yikes");
+                                Log.d("good", "yikes");
                                 bitmap.recycle();
                             }
                         });

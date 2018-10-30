@@ -38,7 +38,7 @@ public class NewReceiptViewModel extends ViewModel {
     }
 
     public void setReceipt(Receipt receipt) {
-        getReceipt().setValue(receipt);
+        getReceipt().postValue(receipt);
     }
 
     public MutableLiveData<List<Transaction>> getTransactions() {
@@ -139,11 +139,6 @@ public class NewReceiptViewModel extends ViewModel {
             }
 
             PhotoAnalyzer.analyze(bitmap, viewModel);
-
-            if (bitmap != null) {
-                bitmap.recycle();
-                bitmap = null;
-            }
 
             return null;
         }
