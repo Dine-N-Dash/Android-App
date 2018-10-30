@@ -108,7 +108,7 @@ public class PhotoAnalyzer {
                         Receipt r = new Receipt();
                         for(lineObj q: prices) {
                             if(q.connect4 != null) {
-                                r.AddItem(new ReceiptItem(q.connect4.line, Double.parseDouble(q.line)));
+                                r.addItem(new ReceiptItem(q.connect4.line, Double.parseDouble(q.line)));
                             }
                         }
 

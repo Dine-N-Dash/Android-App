@@ -22,6 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:theme="@style/checkboxStyle"
+            android:onClick="@{() -> viewModel.itemSelected(item)}"
             android:enabled="@{item.owner == null || item.owner == viewModel.currentTransaction ? true : false}"
             android:checked="@{item.owner != null}"
             app:layout_constraintTop_toTopOf="parent"
