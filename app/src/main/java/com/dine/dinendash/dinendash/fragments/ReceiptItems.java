@@ -44,10 +44,12 @@ public class ReceiptItems extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Get the correct view model
         if (getActivity() != null) {
             viewModel = ViewModelProviders.of(getActivity()).get(NewReceiptViewModel.class);
         }
 
+        // If a photo path was sent as an argument, have the view model analyze it
         if (getArguments() != null) {
             String path = getArguments().getString("photoPath");
 
@@ -55,24 +57,22 @@ public class ReceiptItems extends Fragment {
                 viewModel.analyzeImage(path, getActivity().getContentResolver());
             }
         }
-
-        if(viewModel.getTransactions() != null) {
-            if (viewModel.getTransactions().getValue() != null && viewModel.getTransactions().getValue().size() == 0) {
-                chooseContact();
-            }
-        }
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final FragmentReceiptItemsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_receipt_items, container, false);
+
+        // Bind the fragment and view model to the View
         binding.setViewModel(viewModel);
         binding.setFragment(this);
         binding.setLifecycleOwner(this);
 
+        // Set up the RecyclerView
         binding.receiptItemsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.receiptItemsRecyclerView.setAdapter(new ReceiptItemsAdapter(viewModel, this));
 
+        // When a new Transaction is added, set it to be the current transaction
         viewModel.getTransactions().observe(this, new Observer<List<Transaction>>() {
             @Override
             public void onChanged(List<Transaction> transactions) {
@@ -82,6 +82,7 @@ public class ReceiptItems extends Fragment {
             }
         });
 
+        // Set up the Spinner
         if (getContext() != null) {
             binding.contactSpinner.setAdapter(new TransactionSpinnerAdapter(getContext(), R.layout.transaction_spinner_text_view, this, viewModel));
         }
@@ -90,6 +91,7 @@ public class ReceiptItems extends Fragment {
     }
 
     public void donePressed() {
+        // Navigate to the payment view
         if (getView() != null) {
             Navigation.findNavController(getView()).navigate(R.id.action_receiptItems_to_payment);
         }
@@ -153,6 +155,7 @@ public class ReceiptItems extends Fragment {
     }
 
     private void chooseContact() {
+        // Create and launch an Intent to pick a contact
         Intent intent= new Intent(Intent.ACTION_PICK,  ContactsContract.Contacts.CONTENT_URI);
 
         if (getActivity() != null) {
@@ -168,7 +171,6 @@ public class ReceiptItems extends Fragment {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             chooseContact();
         }

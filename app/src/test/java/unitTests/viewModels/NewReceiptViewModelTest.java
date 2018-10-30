@@ -14,10 +14,7 @@ import java.util.ArrayList;
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.beans.HasPropertyWithValue.hasProperty;
 import static org.junit.Assert.assertThat;
 
 public class NewReceiptViewModelTest {

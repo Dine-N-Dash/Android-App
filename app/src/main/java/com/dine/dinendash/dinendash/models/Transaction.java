@@ -22,6 +22,7 @@ public class Transaction {
     }
 
     public void addItem(ReceiptItem item) {
+        // Add item total to transaction total and set this transaction as the item's owner
         if (getTotal().getValue() != null) {
             getTotal().postValue(getTotal().getValue() + item.getPrice());
             item.setOwner(this);
@@ -29,6 +30,7 @@ public class Transaction {
     }
 
     public void removeItem(ReceiptItem item) {
+        // Subtract item total from transaction total and remove this transaction as the item's owner
         if (getTotal().getValue() != null) {
             getTotal().postValue(getTotal().getValue() - item.getPrice());
             item.setOwner(null);

@@ -23,6 +23,7 @@ public class ReceiptItemsAdapter extends RecyclerView.Adapter<ReceiptItemsAdapte
     public ReceiptItemsAdapter(NewReceiptViewModel viewModel, LifecycleOwner owner) {
         this.viewModel = viewModel;
 
+        // Update UI when receipt is updated
         this.viewModel.getReceipt().observe(owner, new Observer<Receipt>() {
             @Override
             public void onChanged(@Nullable Receipt receipt) {
@@ -30,6 +31,7 @@ public class ReceiptItemsAdapter extends RecyclerView.Adapter<ReceiptItemsAdapte
             }
         });
 
+        // Update UI when current transaction is updated
         this.viewModel.getCurrentTransaction().observe(owner, new Observer<Transaction>() {
             @Override
             public void onChanged(Transaction transactions) {
@@ -37,6 +39,7 @@ public class ReceiptItemsAdapter extends RecyclerView.Adapter<ReceiptItemsAdapte
             }
         });
 
+        // Prevents items from being duplicated and shuffled as the RecyclerView tries to reuse ViewHolders
         setHasStableIds(true);
     }
 
@@ -55,6 +58,7 @@ public class ReceiptItemsAdapter extends RecyclerView.Adapter<ReceiptItemsAdapte
     @Override
     public void onBindViewHolder(@NonNull ReceiptItemsViewHolder receiptItemsViewHolder, int i) {
         if (viewModel.getReceipt().getValue() != null && viewModel.getReceipt().getValue().getItems().getValue() != null) {
+            // Bind view model and correct receipt item to ViewHolder
             receiptItemsViewHolder.binding.setItem(viewModel.getReceipt().getValue().getItems().getValue().get(i));
             receiptItemsViewHolder.binding.setViewModel(viewModel);
         }
@@ -75,6 +79,7 @@ public class ReceiptItemsAdapter extends RecyclerView.Adapter<ReceiptItemsAdapte
 
     @Override
     public long getItemId(int position) {
+        // Prevents items from being duplicated and shuffled as the RecyclerView tries to reuse ViewHolders
         return position;
     }
 

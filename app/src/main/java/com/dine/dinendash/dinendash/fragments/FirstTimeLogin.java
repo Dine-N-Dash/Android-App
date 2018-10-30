@@ -29,12 +29,16 @@ public class FirstTimeLogin extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        try{
+        super.onCreate(savedInstanceState);
+
+        // Show the Action bar if it was hidden by the splash screen
+        try {
             ((AppCompatActivity) getActivity()).getSupportActionBar().show();
         } catch (Exception e){
             Log.e("FirstTimeLoginError", e.getMessage());
         }
-        super.onCreate(savedInstanceState);
+
+        // Get the correct view model
         viewModel = ViewModelProviders.of(getActivity()).get(FirstTimeLoginViewModel.class);
     }
 
@@ -42,12 +46,17 @@ public class FirstTimeLogin extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentFirstTimeLoginBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_first_time_login, container, false);
         View view = binding.getRoot();
+
+        // Bind fragment and view model to View
         binding.setFragment(this);
         binding.setViewmodel(viewModel);
+        binding.setLifecycleOwner(this);
+
         return view;
     }
 
     public void continueButtonPressed() {
+        // Store the username and navigate to the Options fragment
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(getActivity());
         SharedPreferences.Editor editor = sharedPreferences.edit();

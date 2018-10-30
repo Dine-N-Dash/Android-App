@@ -24,6 +24,7 @@ public class History extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Get the correct view model
         if(getActivity()!=null) {
             viewModel = ViewModelProviders.of(getActivity()).get(ReceiptHistoryViewModel.class);
         }
@@ -33,8 +34,12 @@ public class History extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentHistoryBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_history, container, false);
         View view = binding.getRoot();
+
+        // Bind fragment and view model to view
         binding.setViewModel(viewModel);
         binding.setFragment(this);
+        binding.setLifecycleOwner(this);
+
         return view;
     }
 
