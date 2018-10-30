@@ -13,12 +13,12 @@ public class Receipt {
 
     public Receipt() {
         items = null;
-        subTotal = -1;
+        subTotal = 0;
         totalTax = 0;
         total = 0;
     }
 
-    public void AddItem(ReceiptItem item) {
+    public void addItem(ReceiptItem item) {
         if (getItems().getValue() != null) {
             getItems().getValue().add(item);
         }

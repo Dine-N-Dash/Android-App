@@ -7,7 +7,7 @@ public class FirstTimeLoginViewModel extends ViewModel {
     private MutableLiveData<String> username;
 
     public FirstTimeLoginViewModel() {
-
+        setUsername("");
     }
 
     public MutableLiveData<String> getUsername() {
