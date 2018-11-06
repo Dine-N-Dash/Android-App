@@ -41,17 +41,17 @@
             android:id="@+id/reqPayButton"
             android:layout_width="150dp"
             android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:background="@drawable/rounded_button"
             android:padding="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="18sp"
+            android:enabled="@{item.completed == true ? false : true}"
             android:onClick="@{() -> fragment.sendMessageTo(item)}"
             android:text="@{@string/price_format(item.total)}"
             android:textColor="@color/colorText"
             android:maxLines="1"
             android:ellipsize="end"
             app:layout_constraintTop_toTopOf="parent"
-            android:textSize="18sp"
-            android:enabled="@{item.completed == true ? false : true}"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -48,7 +48,8 @@
             android:text="@={viewmodel.username}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView"/>
+            app:layout_constraintTop_toBottomOf="@id/textView"
+            tools:ignore="Autofill" />
 
         <Button
             android:id="@+id/button"
@@ -63,9 +64,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/editText" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 </layout>

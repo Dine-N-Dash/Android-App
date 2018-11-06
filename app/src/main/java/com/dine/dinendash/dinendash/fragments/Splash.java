@@ -79,6 +79,8 @@ public class Splash extends Fragment {
                     }
                 }
             }
-        }.start();
+        };
+
+        timer.start();
     }
 }

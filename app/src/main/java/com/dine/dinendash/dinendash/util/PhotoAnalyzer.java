@@ -46,7 +46,6 @@ public class PhotoAnalyzer {
         @Override
         @NonNull
         public String toString(){ return this.line; }
-
     }
 
     public static void analyze(final Bitmap bitmap, final NewReceiptViewModel viewModel) {
@@ -66,46 +65,58 @@ public class PhotoAnalyzer {
                             for (FirebaseVisionText.Line line: block.getLines()) {
                                 String lineText = line.getText();
                                 Point[] lineCornerPoints = line.getCornerPoints();
-                                int midpoint = lineCornerPoints[2].y - ((lineCornerPoints[2].y - lineCornerPoints[0].y)/2);
-                                Matcher m = p.matcher(lineText);
-                                if(m.find()) {
-                                    lineText = m.group(0);
-                                    if(midpoint < midLow) midLow = midpoint;
-                                    if(midpoint > midHigh) midHigh = midpoint;
-                                    prices.add(new lineObj(lineText, midpoint, true));
+
+                                if (lineCornerPoints != null) {
+                                    int midpoint = lineCornerPoints[2].y - ((lineCornerPoints[2].y - lineCornerPoints[0].y)/2);
+                                    Matcher m = p.matcher(lineText);
+
+                                    if (m.find()) {
+                                        lineText = m.group(0);
+                                        if(midpoint < midLow) midLow = midpoint;
+                                        if(midpoint > midHigh) midHigh = midpoint;
+                                        prices.add(new lineObj(lineText, midpoint, true));
+                                    }
+                                    else {
+                                        notPrices.add(new lineObj(lineText, midpoint, false));
+                                    }
+
+                                    count++;
+                                    avH += lineCornerPoints[2].y - lineCornerPoints[0].y;
                                 }
-                                else{
-                                    notPrices.add(new lineObj(lineText, midpoint, false));
-                                }
-                                count++;
-                                avH += lineCornerPoints[2].y - lineCornerPoints[0].y;
                             }
                         }
-                        if(count > 0)
+
+                        if (count > 0) {
                             avH /= count*2;
+                        }
+
                         Iterator<lineObj> i = notPrices.iterator();
                         Iterator<lineObj> j;
                         boolean found;
-                        while (i.hasNext()){
+
+                        while (i.hasNext()) {
                             lineObj o = i.next();
-                            if (o.midpoint > midHigh + avH || o.midpoint < midLow - avH){
+
+                            if (o.midpoint > midHigh + avH || o.midpoint < midLow - avH) {
                                 i.remove();
-                            }
-                            else{
+                            } else {
                                 found = false;
                                 j = prices.iterator();
-                                while (j.hasNext() && !found){
+                                while (j.hasNext() && !found) {
                                     lineObj oP = j.next();
-                                    if (o.midpoint <= oP.midpoint + avH && o.midpoint >= oP.midpoint - avH){
+                                    if (o.midpoint <= oP.midpoint + avH && o.midpoint >= oP.midpoint - avH) {
                                         oP.addConnection(o);
                                         found = true;
                                     }
                                 }
-                                if (!found)
+                                if (!found) {
                                     i.remove();
+                                }
                             }
                         }
+
                         Receipt r = new Receipt();
+
                         for(lineObj q: prices) {
                             if(q.connect4 != null) {
                                 r.addItem(new ReceiptItem(q.connect4.line, Double.parseDouble(q.line)));
@@ -122,7 +133,7 @@ public class PhotoAnalyzer {
                         new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Log.d("good", "yikes");
+                                Log.e("PHOTOANALYZER", e.toString());
                                 bitmap.recycle();
                             }
                         });
