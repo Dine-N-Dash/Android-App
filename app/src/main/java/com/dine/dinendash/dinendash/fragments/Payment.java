@@ -13,6 +13,7 @@ import com.dine.dinendash.dinendash.R;
 import com.dine.dinendash.dinendash.databinding.FragmentPaymentBinding;
 import com.dine.dinendash.dinendash.fragments.adapters.TransactionItemsAdapter;
 import com.dine.dinendash.dinendash.models.Transaction;
+import com.dine.dinendash.dinendash.util.DBController;
 import com.dine.dinendash.dinendash.viewModels.NewReceiptViewModel;
 
 import java.util.Locale;
@@ -76,7 +77,8 @@ public class Payment extends Fragment {
     }
 
     public void finishTransactions() {
-        // Save in database here
+        // Save in database
+        DBController.addReceipt(viewModel.getReceipt().getValue());
 
         // Reset the view model so that new receipts can be processed
         viewModel.reset();
