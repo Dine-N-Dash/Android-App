@@ -78,7 +78,10 @@ public class Payment extends Fragment {
 
     public void finishTransactions() {
         // Save in database
-        DBController.addReceipt(viewModel.getReceipt().getValue());
+        if (viewModel.getReceipt().getValue() != null) {
+            viewModel.getReceipt().getValue().setTransactions(viewModel.getTransactions().getValue());
+            DBController.addReceipt(viewModel.getReceipt().getValue());
+        }
 
         // Reset the view model so that new receipts can be processed
         viewModel.reset();

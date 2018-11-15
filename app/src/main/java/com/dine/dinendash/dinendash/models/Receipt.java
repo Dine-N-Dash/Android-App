@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 
 public class Receipt {
     private MutableLiveData<List<ReceiptItem>> items;
+    private List<Transaction> transactions;
     private double subTotal;
     private double totalTax;
     private double total;
@@ -35,6 +36,14 @@ public class Receipt {
 
     public void setItems(ArrayList<ReceiptItem> items) {
         this.getItems().postValue(items);
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
     }
 
     public double getSubTotal() {

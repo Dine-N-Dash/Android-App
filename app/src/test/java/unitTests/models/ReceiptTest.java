@@ -2,6 +2,7 @@ package unitTests.models;
 
 import com.dine.dinendash.dinendash.models.Receipt;
 import com.dine.dinendash.dinendash.models.ReceiptItem;
+import com.dine.dinendash.dinendash.models.Transaction;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -82,5 +83,16 @@ public class ReceiptTest {
         receipt.setTotalTax(2.80);
         double totalTax = receipt.getTotalTax();
         assertThat(totalTax, is(equalTo(2.80)));
+    }
+
+    @Test
+    public void testSetTransactions() {
+        ArrayList<Transaction> testTransactions = new ArrayList<>();
+        testTransactions.add(new Transaction("Bob", "1234567890"));
+        receipt.setTransactions(testTransactions);
+
+        List<Transaction> transactions = receipt.getTransactions();
+
+        assertThat(testTransactions, is(equalTo(transactions)));
     }
 }
