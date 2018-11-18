@@ -100,7 +100,7 @@ public class Options extends Fragment {
     }
 
     public void settingsPressed() {
-        Log.d("PIZZA", "settings");
+        Navigation.findNavController(getView()).navigate(R.id.action_options_to_settings, null);
     }
 
     private File createImageFile() throws IOException {
