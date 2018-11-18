@@ -1,11 +1,13 @@
 package com.dine.dinendash.dinendash.fragments;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 import com.dine.dinendash.dinendash.R;
 import com.dine.dinendash.dinendash.databinding.FragmentSettingsBinding;
@@ -52,18 +54,18 @@ public class Settings extends Fragment {
         return view;
     }
 
-    public void setUsername(String username) {
-        viewModel.setUsername(username);
-    }
-
     public void onUsernameChangeConfirmed(String newUsername) {
+        InputMethodManager inputManager = (InputMethodManager)
+                getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
+
+
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(getActivity());
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("username", newUsername);
         editor.apply();
-
-        setUsername(newUsername);
-    }
+        }
 
 }
