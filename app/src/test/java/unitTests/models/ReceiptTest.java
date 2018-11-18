@@ -91,7 +91,7 @@ public class ReceiptTest {
         testTransactions.add(new Transaction("Bob", "1234567890"));
         receipt.setTransactions(testTransactions);
 
-        List<Transaction> transactions = receipt.getTransactions();
+        List<Transaction> transactions = receipt.getTransactions().getValue();
 
         assertThat(testTransactions, is(equalTo(transactions)));
     }
