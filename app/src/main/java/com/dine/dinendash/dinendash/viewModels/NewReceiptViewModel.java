@@ -21,7 +21,6 @@ import androidx.lifecycle.ViewModel;
 
 public class NewReceiptViewModel extends ViewModel {
     private MutableLiveData<Receipt> receipt;
-    private MutableLiveData<List<Transaction>> transactions;
     private MutableLiveData<Transaction> currentTransaction;
     private MutableLiveData<Boolean> processed;
 
@@ -32,6 +31,7 @@ public class NewReceiptViewModel extends ViewModel {
     public MutableLiveData<Receipt> getReceipt() {
         if(receipt == null) {
             receipt = new MutableLiveData<>();
+            receipt.setValue(new Receipt());
         }
 
         return receipt;
@@ -39,15 +39,6 @@ public class NewReceiptViewModel extends ViewModel {
 
     public void setReceipt(Receipt receipt) {
         getReceipt().postValue(receipt);
-    }
-
-    public MutableLiveData<List<Transaction>> getTransactions() {
-        if (transactions == null) {
-            transactions = new MutableLiveData<>();
-            transactions.setValue(new ArrayList<Transaction>());
-        }
-
-        return transactions;
     }
 
     public MutableLiveData<Transaction> getCurrentTransaction() {
@@ -63,8 +54,8 @@ public class NewReceiptViewModel extends ViewModel {
     }
 
     public void setCurrentTransaction(int index) {
-        if (getTransactions().getValue() != null) {
-            getCurrentTransaction().postValue(getTransactions().getValue().get(index));
+        if (getReceipt().getValue() != null && getReceipt().getValue().getTransactions().getValue() != null) {
+            getCurrentTransaction().postValue(getReceipt().getValue().getTransactions().getValue().get(index));
         }
     }
 
@@ -81,11 +72,10 @@ public class NewReceiptViewModel extends ViewModel {
     }
 
     public void addTransaction(String name, String phoneNumber) {
-        // Add new Transaction with given name and number to transaction list and update binding
-        if (getTransactions().getValue() != null) {
+        // Add new Transaction with given name and number to transaction list
+        if (getReceipt().getValue() != null) {
             Transaction transaction = new Transaction(name, phoneNumber);
-            getTransactions().getValue().add(transaction);
-            getTransactions().setValue(getTransactions().getValue());
+            getReceipt().getValue().addTransaction(transaction);
         }
     }
 
@@ -111,7 +101,6 @@ public class NewReceiptViewModel extends ViewModel {
 
     public void reset() {
         receipt = null;
-        transactions = null;
         currentTransaction = null;
         processed.postValue(false);
     }

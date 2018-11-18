@@ -118,12 +118,11 @@ public class PhotoAnalyzer {
                         Receipt r = new Receipt();
 
                         for(lineObj q: prices) {
-                            if(q.connect4 != null) {
-                                r.addItem(new ReceiptItem(q.connect4.line, Double.parseDouble(q.line)));
+                            if(q.connect4 != null && viewModel.getReceipt().getValue() != null) {
+                                viewModel.getReceipt().getValue().addItem(new ReceiptItem(q.connect4.line, Double.parseDouble(q.line)));
                             }
                         }
 
-                        viewModel.setReceipt(r);
                         viewModel.setProcessed(true);
 
                         bitmap.recycle();

@@ -73,11 +73,11 @@ public class ReceiptItems extends Fragment {
         binding.receiptItemsRecyclerView.setAdapter(new ReceiptItemsAdapter(viewModel, this));
 
         // When a new Transaction is added, set it to be the current transaction
-        viewModel.getTransactions().observe(this, new Observer<List<Transaction>>() {
+        viewModel.getReceipt().getValue().getTransactions().observe(this, new Observer<List<Transaction>>() {
             @Override
             public void onChanged(List<Transaction> transactions) {
-                if (viewModel.getTransactions().getValue() != null) {
-                    binding.contactSpinner.setSelection(viewModel.getTransactions().getValue().size());
+                if (viewModel.getReceipt().getValue().getTransactions().getValue() != null) {
+                    binding.contactSpinner.setSelection(viewModel.getReceipt().getValue().getTransactions().getValue().size());
                 }
             }
         });

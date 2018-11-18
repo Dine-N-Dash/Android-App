@@ -73,13 +73,11 @@ public class Payment extends Fragment {
 
         // Set transaction to be completed and update binding
         transaction.setCompleted(true);
-        viewModel.getTransactions().setValue(viewModel.getTransactions().getValue());
     }
 
     public void finishTransactions() {
         // Save in database
         if (viewModel.getReceipt().getValue() != null) {
-            viewModel.getReceipt().getValue().setTransactions(viewModel.getTransactions().getValue());
             DBController.addReceipt(viewModel.getReceipt().getValue());
         }
 
