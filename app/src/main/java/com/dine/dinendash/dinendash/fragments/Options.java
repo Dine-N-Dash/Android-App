@@ -39,24 +39,30 @@ public class Options extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        try{
+        super.onCreate(savedInstanceState);
+
+        // Show the Action bar if it was hidden by the splash screen
+        try {
             ((AppCompatActivity) getActivity()).getSupportActionBar().show();
 
         } catch (Exception e){
             Log.e("OptionsError", e.getMessage());
         }
-        super.onCreate(savedInstanceState);
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentOptionsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_options, container, false);
         View view = binding.getRoot();
+
+        // Bind fragment to View
         binding.setFragment(this);
+
         return view;
     }
 
     public void takePhotoPressed() {
+        // Launch an Intent to take a picture
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
         if(getActivity() != null && getActivity().getPackageManager() != null) {
@@ -67,7 +73,7 @@ public class Options extends Fragment {
                 try {
                     photoFile = createImageFile();
                 } catch (IOException ex) {
-                    // Error occurred while creating the File
+                    Log.e("ImageCreationError", ex.getMessage());
                 }
                 // Continue only if the File was successfully created
                 if (photoFile != null) {
@@ -82,6 +88,7 @@ public class Options extends Fragment {
     }
 
     public void uploadPhotoPressed() {
+        // Launch an Intent to select an image from the device library
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("image/*");
@@ -130,6 +137,7 @@ public class Options extends Fragment {
             bundle.putString("photoPath", currentPhotoPath);
 
 
+            // If we successfully got a photo, navigate to the receipt items view and send the photo path as an argument
             if(getView()!=null) {
                 Navigation.findNavController(getView()).navigate(R.id.action_options_to_receiptItems, bundle);
             }

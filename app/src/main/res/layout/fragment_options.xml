@@ -32,12 +32,12 @@
             android:layout_margin="10dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            app:layout_constraintTop_toBottomOf="@id/takePhotoButton"
             android:text="@string/upload_photo"
             android:textSize="18sp"
             android:background="@drawable/rounded_button"
             android:textColor="@color/colorText"
-            android:onClick="@{() -> fragment.uploadPhotoPressed()}"/>
+            android:onClick="@{() -> fragment.uploadPhotoPressed()}"
+            app:layout_constraintTop_toBottomOf="@id/takePhotoButton"/>
 
         <Button
             android:id="@+id/historyButton"
@@ -45,12 +45,12 @@
             android:layout_margin="10dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            app:layout_constraintTop_toBottomOf="@id/uploadPhotoButton"
             android:text="@string/history"
             android:textSize="18sp"
             android:background="@drawable/rounded_button"
             android:textColor="@color/colorText"
-            android:onClick="@{() -> fragment.historyPressed()}"/>
+            android:onClick="@{() -> fragment.historyPressed()}"
+            app:layout_constraintTop_toBottomOf="@id/uploadPhotoButton"/>
 
         <Button
             android:id="@+id/settingsButton"
@@ -58,11 +58,11 @@
             android:layout_margin="10dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            app:layout_constraintTop_toBottomOf="@id/historyButton"
             android:text="@string/settings"
             android:textSize="18sp"
             android:background="@drawable/rounded_button"
             android:textColor="@color/colorText"
-            android:onClick="@{() -> fragment.settingsPressed()}"/>
+            android:onClick="@{() -> fragment.settingsPressed()}"
+            app:layout_constraintTop_toBottomOf="@id/historyButton"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

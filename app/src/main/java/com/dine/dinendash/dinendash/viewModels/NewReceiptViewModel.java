@@ -38,7 +38,7 @@ public class NewReceiptViewModel extends ViewModel {
     }
 
     public void setReceipt(Receipt receipt) {
-        getReceipt().setValue(receipt);
+        getReceipt().postValue(receipt);
     }
 
     public MutableLiveData<List<Transaction>> getTransactions() {
@@ -48,28 +48,6 @@ public class NewReceiptViewModel extends ViewModel {
         }
 
         return transactions;
-    }
-
-    public void addTransaction(String name, String phoneNumber) {
-        if (getTransactions().getValue() != null) {
-            Transaction transaction = new Transaction(name, phoneNumber);
-            getTransactions().getValue().add(transaction);
-            getTransactions().setValue(getTransactions().getValue());
-        }
-    }
-
-    public void itemSelected(ReceiptItem item) {
-        if (item.getOwner() == null) {
-            if (getCurrentTransaction().getValue() != null) {
-                getCurrentTransaction().getValue().addItem(item);
-                getCurrentTransaction().setValue(getCurrentTransaction().getValue());
-            }
-        } else if (item.getOwner() == getCurrentTransaction().getValue()){
-            if (getCurrentTransaction().getValue() != null) {
-                getCurrentTransaction().getValue().removeItem(item);
-                getCurrentTransaction().setValue(getCurrentTransaction().getValue());
-            }
-        }
     }
 
     public MutableLiveData<Transaction> getCurrentTransaction() {
@@ -100,6 +78,31 @@ public class NewReceiptViewModel extends ViewModel {
 
     public void setProcessed(Boolean processed) {
         getProcessed().postValue(processed);
+    }
+
+    public void addTransaction(String name, String phoneNumber) {
+        // Add new Transaction with given name and number to transaction list and update binding
+        if (getTransactions().getValue() != null) {
+            Transaction transaction = new Transaction(name, phoneNumber);
+            getTransactions().getValue().add(transaction);
+            getTransactions().setValue(getTransactions().getValue());
+        }
+    }
+
+    public void itemSelected(ReceiptItem item) {
+        if (item.getOwner() == null) {
+            // If the item has no owner, add it to the current transaction and update binding
+            if (getCurrentTransaction().getValue() != null) {
+                getCurrentTransaction().getValue().addItem(item);
+                getCurrentTransaction().setValue(getCurrentTransaction().getValue());
+            }
+        } else if (item.getOwner() == getCurrentTransaction().getValue()) {
+            // Otherwise, if the item's owner is the current transaction, remove it from the current transaction
+            if (getCurrentTransaction().getValue() != null) {
+                getCurrentTransaction().getValue().removeItem(item);
+                getCurrentTransaction().setValue(getCurrentTransaction().getValue());
+            }
+        }
     }
 
     public void analyzeImage(String path, ContentResolver resolver) {
@@ -138,16 +141,7 @@ public class NewReceiptViewModel extends ViewModel {
                 }
             }
 
-            Receipt receipt = PhotoAnalyzer.analyze(bitmap);
-
-            viewModel.getReceipt().postValue(receipt);
-
-            viewModel.setProcessed(true);
-
-            if (bitmap != null) {
-                bitmap.recycle();
-                bitmap = null;
-            }
+            PhotoAnalyzer.analyze(bitmap, viewModel);
 
             return null;
         }

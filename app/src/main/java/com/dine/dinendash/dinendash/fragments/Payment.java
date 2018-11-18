@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,7 @@ import com.dine.dinendash.dinendash.R;
 import com.dine.dinendash.dinendash.databinding.FragmentPaymentBinding;
 import com.dine.dinendash.dinendash.fragments.adapters.TransactionItemsAdapter;
 import com.dine.dinendash.dinendash.models.Transaction;
+import com.dine.dinendash.dinendash.util.DBController;
 import com.dine.dinendash.dinendash.viewModels.NewReceiptViewModel;
 
 import java.util.Locale;
@@ -35,6 +35,8 @@ public class Payment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Get the correct view model
         if(getActivity()!=null) {
             viewModel = ViewModelProviders.of(getActivity()).get(NewReceiptViewModel.class);
         }
@@ -43,12 +45,13 @@ public class Payment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentPaymentBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_payment, container, false);
+
+        // Bind fragment and view model to View
         binding.setViewModel(viewModel);
         binding.setFragment(this);
         binding.setLifecycleOwner(this);
 
-        Log.d("viewmodel",viewModel.toString());
-
+        // Set up the RecyclerView
         binding.transactionItemsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.transactionItemsRecyclerView.setAdapter(new TransactionItemsAdapter(viewModel, this, this));
 
@@ -57,24 +60,33 @@ public class Payment extends Fragment {
     }
 
     public void sendMessageTo(Transaction transaction) {
+        // Get Paypal.me username from SharedPreferences
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(getActivity());
         String username = sharedPreferences.getString("username", "");
 
+        // Construct and send SMS intent
         Uri uri = Uri.parse("smsto:"+transaction.getPhoneNumber().getValue() );
         Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
         intent.putExtra("sms_body", "Hi "+transaction.getName().getValue()+"! You owe me $" + String.format(Locale.US, "%.2f", transaction.getTotal().getValue()) +". You can pay me using this link: https://www.paypal.me/"+username+"/"+transaction.getTotal().getValue());
         startActivity(intent);
 
+        // Set transaction to be completed and update binding
         transaction.setCompleted(true);
         viewModel.getTransactions().setValue(viewModel.getTransactions().getValue());
     }
 
     public void finishTransactions() {
-        // Save in database here
+        // Save in database
+        if (viewModel.getReceipt().getValue() != null) {
+            viewModel.getReceipt().getValue().setTransactions(viewModel.getTransactions().getValue());
+            DBController.addReceipt(viewModel.getReceipt().getValue());
+        }
 
+        // Reset the view model so that new receipts can be processed
         viewModel.reset();
 
+        // Navigate back to options view
         if (getView() != null) {
             Navigation.findNavController(getView()).navigate(R.id.action_payment_to_options );
         }

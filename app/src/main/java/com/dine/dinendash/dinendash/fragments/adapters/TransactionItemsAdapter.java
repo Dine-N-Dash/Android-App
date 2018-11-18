@@ -26,12 +26,16 @@ public class TransactionItemsAdapter extends RecyclerView.Adapter<TransactionIte
         this.viewModel = viewModel;
         this.paymentFragment = paymentFragment;
 
+        // Update UI when transactions change
         this.viewModel.getTransactions().observe(owner, new Observer<List<Transaction>>() {
             @Override
             public void onChanged(List<Transaction> transactions) {
                 notifyDataSetChanged();
             }
         });
+
+        // Prevents items from being duplicated and shuffled as the RecyclerView tries to reuse ViewHolders
+        setHasStableIds(true);
     }
 
     @NonNull
@@ -48,6 +52,7 @@ public class TransactionItemsAdapter extends RecyclerView.Adapter<TransactionIte
     @Override
     public void onBindViewHolder(@NonNull TransactionItemsAdapter.TransactionItemsViewHolder transactionItemsViewHolder, int i) {
         if (viewModel.getTransactions().getValue() != null) {
+            // Bind view model, fragment, and correct transaction to ViewHolder
             transactionItemsViewHolder.binding.setItem(viewModel.getTransactions().getValue().get(i));
             transactionItemsViewHolder.binding.setViewModel(viewModel);
             transactionItemsViewHolder.binding.setFragment(paymentFragment);
@@ -56,11 +61,16 @@ public class TransactionItemsAdapter extends RecyclerView.Adapter<TransactionIte
 
     @Override
     public int getItemCount() {
-
         if(viewModel.getTransactions().getValue() != null) {
             return viewModel.getTransactions().getValue().size();
         }
         return 0;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        // Prevents items from being duplicated and shuffled as the RecyclerView tries to reuse ViewHolders
+        return position;
     }
 
     public static class TransactionItemsViewHolder extends RecyclerView.ViewHolder {

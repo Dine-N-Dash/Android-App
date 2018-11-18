@@ -22,6 +22,7 @@ public class Transaction {
     }
 
     public void addItem(ReceiptItem item) {
+        // Add item total to transaction total and set this transaction as the item's owner
         if (getTotal().getValue() != null) {
             getTotal().postValue(getTotal().getValue() + item.getPrice());
             item.setOwner(this);
@@ -29,6 +30,7 @@ public class Transaction {
     }
 
     public void removeItem(ReceiptItem item) {
+        // Subtract item total from transaction total and remove this transaction as the item's owner
         if (getTotal().getValue() != null) {
             getTotal().postValue(getTotal().getValue() - item.getPrice());
             item.setOwner(null);
@@ -71,17 +73,6 @@ public class Transaction {
         getTotal().postValue(total);
     }
 
-    @NonNull
-    @Override
-    public String toString() {
-        if (getName() != null) {
-            if (getName().getValue() != null) {
-                return getName().getValue();
-            }
-        }
-        return super.toString();
-    }
-
     public MutableLiveData<Boolean> getCompleted() {
         if (completed == null) {
             completed = new MutableLiveData<>();
@@ -92,5 +83,16 @@ public class Transaction {
 
     public void setCompleted(Boolean completed) {
         getCompleted().postValue(completed);
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        if (getName() != null) {
+            if (getName().getValue() != null) {
+                return getName().getValue();
+            }
+        }
+        return super.toString();
     }
 }

@@ -17,12 +17,15 @@ public class TransactionSpinnerAdapter extends ArrayAdapter<Transaction> impleme
     public TransactionSpinnerAdapter(@NonNull Context context, int resource, LifecycleOwner owner, final NewReceiptViewModel viewModel) {
         super(context, resource, viewModel.getTransactions().getValue());
 
+        // Update UI when transactions change
         viewModel.getTransactions().observe(owner, new Observer<List<Transaction>>() {
             @Override
             public void onChanged(List<Transaction> transactions) {
                 notifyDataSetChanged();
             }
         });
+
+        // Update UI when current transaction change
         viewModel.getCurrentTransaction().observe(owner, new Observer<Transaction>() {
             @Override
             public void onChanged(Transaction transaction) {

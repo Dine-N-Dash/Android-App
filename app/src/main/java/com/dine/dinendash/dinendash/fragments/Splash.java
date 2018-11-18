@@ -28,21 +28,25 @@ public class Splash extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        try{
+        super.onCreate(savedInstanceState);
+
+        // Hide the action bar so it doesn't interfere with the Splash screen
+        try {
             ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         } catch (Exception e){
             Log.e("SplashError", e.getMessage());
         }
-
-        super.onCreate(savedInstanceState);
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentSplashBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_splash, container, false);
         View view = binding.getRoot();
+
+        // Bind fragment to View
         binding.setFragment(this);
 
+        // Retrieve username from SharedPreferences
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(getActivity());
         username = sharedPreferences.getString("username", "");
@@ -52,6 +56,7 @@ public class Splash extends Fragment {
 
     @Override
     public void onResume() {
+        super.onResume();
 
         // Show splash screen with app logo until timer runs out
         CountDownTimer timer = new CountDownTimer(1000, 1000) {
@@ -61,19 +66,21 @@ public class Splash extends Fragment {
             }
             @Override
             public void onFinish() {
-                if(username.isEmpty()) {
+                if (username.isEmpty()) {
+                    // If there is no saved username, navigate to the login page
                     if(getView()!=null) {
                         Navigation.findNavController(getView()).navigate(R.id.action_splash_to_firstTimeLogin, null);
                     }
                 }
-                else{
+                else {
+                    // Otherwise, navigate to the options page
                     if(getView()!=null) {
                         Navigation.findNavController(getView()).navigate(R.id.action_splash_to_options, null);
                     }
                 }
             }
-        }.start();
+        };
 
-        super.onResume();
+        timer.start();
     }
 }

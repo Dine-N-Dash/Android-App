@@ -27,7 +27,9 @@ public class Settings extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(getActivity()!=null) {
+
+        // Get the correct view model
+        if (getActivity()!=null) {
             viewModel = ViewModelProviders.of(getActivity()).get(SettingsViewModel.class);
         }
     }
@@ -36,13 +38,17 @@ public class Settings extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         FragmentSettingsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_settings, container, false);
         View view = binding.getRoot();
+
+        // Bind fragment and view model to View
         binding.setViewModel(viewModel);
         binding.setFragment(this);
+        binding.setLifecycleOwner(this);
 
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(getActivity());
         username = sharedPreferences.getString("username", "");
         viewModel.setUsername(username);
+
         return view;
     }
 

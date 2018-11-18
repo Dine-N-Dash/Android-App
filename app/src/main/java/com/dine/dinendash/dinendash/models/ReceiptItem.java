@@ -23,20 +23,20 @@ public class ReceiptItem {
         return name;
     }
 
-    public Transaction getOwner() {
-        return  owner;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public double getPrice() {
         return price;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public Transaction getOwner() {
+        return  owner;
     }
 
     public void setOwner(Transaction owner) {
