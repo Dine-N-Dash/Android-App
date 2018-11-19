@@ -19,7 +19,6 @@ import com.dine.dinendash.dinendash.viewModels.NewReceiptViewModel;
 import java.util.Locale;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -92,11 +91,10 @@ public class Payment extends Fragment {
     }
 
     public void calculateTip() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AddTipDialogFragment dialog = new AddTipDialogFragment();
 
-        builder.setView(R.layout.tip_layout);
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        if (getFragmentManager() != null) {
+            dialog.show(getFragmentManager(), "test");
+        }
     }
 }

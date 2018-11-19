@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="fragment"
+            type="com.dine.dinendash.dinendash.fragments.AddTipDialogFragment"/>
+
+        <variable
+            name="viewModel"
+            type="com.dine.dinendash.dinendash.viewModels.NewReceiptViewModel"/>
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <NumberPicker
+                android:id="@+id/tip_percent_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:value="@={viewModel.tipPercent}"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/decimal"
+                android:textSize="18sp"
+                android:gravity="center"/>
+
+            <NumberPicker
+                android:id="@+id/tip_percent_picker_decimal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:value="@={viewModel.tipPercentDecimal}"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/percent"
+                android:textSize="18sp"
+                android:gravity="center"/>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

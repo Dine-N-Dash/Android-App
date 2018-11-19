@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
+import android.util.Log;
 
 import com.dine.dinendash.dinendash.models.Receipt;
 import com.dine.dinendash.dinendash.models.ReceiptItem;
@@ -21,6 +22,8 @@ public class NewReceiptViewModel extends ViewModel {
     private MutableLiveData<Receipt> receipt;
     private MutableLiveData<Transaction> currentTransaction;
     private MutableLiveData<Boolean> processed;
+    private MutableLiveData<Integer> tipPercent;
+    private MutableLiveData<Integer> tipPercentDecimal;
 
     public NewReceiptViewModel() {
         getProcessed().setValue(false);
@@ -79,18 +82,53 @@ public class NewReceiptViewModel extends ViewModel {
         }
     }
 
+    public MutableLiveData<Integer> getTipPercent() {
+        if (tipPercent == null) {
+            tipPercent = new MutableLiveData<>();
+            tipPercent.setValue(0);
+        }
+
+        return tipPercent;
+    }
+
+    public void setTipPercent(Integer percent) {
+        tipPercent.postValue(percent);
+    }
+
+    public MutableLiveData<Integer> getTipPercentDecimal() {
+        if (tipPercentDecimal == null) {
+            tipPercentDecimal = new MutableLiveData<>();
+            tipPercentDecimal.setValue(0);
+        }
+
+        return tipPercentDecimal;
+    }
+
+    public void setTipPercentDecimal(Integer percent) {
+        tipPercentDecimal.postValue(percent);
+    }
+
+    public void addTip() {
+        if (getTipPercent().getValue() != null && getTipPercentDecimal().getValue() != null) {
+            double percent = getTipPercent().getValue().doubleValue();
+            percent += (getTipPercentDecimal().getValue().doubleValue() / 10.0);
+
+            Log.d("PIZZA", String.valueOf(percent));
+        }
+    }
+
     public void itemSelected(ReceiptItem item) {
         if (item.getOwner() == null) {
             // If the item has no owner, add it to the current transaction and update binding
             if (getCurrentTransaction().getValue() != null) {
                 getCurrentTransaction().getValue().addItem(item);
-                getCurrentTransaction().postValue(getCurrentTransaction().getValue());
+                getCurrentTransaction().setValue(getCurrentTransaction().getValue());
             }
         } else if (item.getOwner() == getCurrentTransaction().getValue()) {
             // Otherwise, if the item's owner is the current transaction, remove it from the current transaction
             if (getCurrentTransaction().getValue() != null) {
                 getCurrentTransaction().getValue().removeItem(item);
-                getCurrentTransaction().postValue(getCurrentTransaction().getValue());
+                getCurrentTransaction().setValue(getCurrentTransaction().getValue());
             }
         }
     }
