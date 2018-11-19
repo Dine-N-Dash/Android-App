@@ -12,5 +12,6 @@
     <string name="add_new_contact">Add New Contact</string>
     <string name="login_welcome">Welcome. Please enter your PayPal.Me username</string>
     <string name="update">Update</string>
+    <string name="add_tip">Add Tip</string>
 </resources>
 

@@ -89,4 +89,8 @@ public class Payment extends Fragment {
             Navigation.findNavController(getView()).navigate(R.id.action_payment_to_options );
         }
     }
+
+    public void calculateTip() {
+
+    }
 }
