@@ -54,6 +54,17 @@ public class ReceiptTest {
     }
 
     @Test
+    public void testAddTransaction() {
+        receipt.setTransactions(new ArrayList<Transaction>());
+        int size = receipt.getTransactions().getValue().size();
+        assertThat(size, is(equalTo(0)));
+
+        receipt.addTransaction(new Transaction("Bob", "1234567890"));
+        size = receipt.getTransactions().getValue().size();
+        assertThat(size, is(equalTo(1)));
+    }
+
+    @Test
     public void testSetItems() {
         ArrayList<ReceiptItem> testItems = new ArrayList<>();
         testItems.add(new ReceiptItem("Pizza", 14.23));

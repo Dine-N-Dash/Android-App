@@ -20,7 +20,6 @@ import androidx.lifecycle.ViewModelProviders;
 
 public class Settings extends Fragment {
     private SettingsViewModel viewModel;
-    private String username;
 
     public Settings() {
         // Required empty public constructor
@@ -48,24 +47,24 @@ public class Settings extends Fragment {
 
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(getActivity());
-        username = sharedPreferences.getString("username", "");
-        viewModel.setUsername(username);
+        viewModel.setUsername(sharedPreferences.getString("username", ""));
 
         return view;
     }
 
     public void onUsernameChangeConfirmed(String newUsername) {
-        InputMethodManager inputManager = (InputMethodManager)
-                getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),
-                InputMethodManager.HIDE_NOT_ALWAYS);
-
+        if (getActivity() != null && getActivity().getCurrentFocus() != null) {
+            InputMethodManager inputManager = (InputMethodManager)
+                    getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
+        }
 
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(getActivity());
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("username", newUsername);
         editor.apply();
-        }
+    }
 
 }

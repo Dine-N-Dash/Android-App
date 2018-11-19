@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.util.Log;
 
-import com.dine.dinendash.dinendash.models.Receipt;
 import com.dine.dinendash.dinendash.models.ReceiptItem;
 import com.dine.dinendash.dinendash.viewModels.NewReceiptViewModel;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -56,7 +55,6 @@ public class PhotoAnalyzer {
                 .addOnSuccessListener(new OnSuccessListener<FirebaseVisionText>() {
                     @Override
                     public void onSuccess(FirebaseVisionText result) {
-                        String resultText = result.getText();
                         int count = 0, avH = 0, midLow = Integer.MAX_VALUE, midHigh = 0;
                         Pattern p = Pattern.compile("\\d*\\.\\d{1,2}(?=\\D|\\b)");
                         ArrayList<lineObj> prices = new ArrayList<>();
@@ -114,8 +112,6 @@ public class PhotoAnalyzer {
                                 }
                             }
                         }
-
-                        Receipt r = new Receipt();
 
                         for(lineObj q: prices) {
                             if(q.connect4 != null && viewModel.getReceipt().getValue() != null) {

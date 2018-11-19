@@ -19,6 +19,6 @@ public class FirstTimeLoginViewModel extends ViewModel {
     }
 
     public void setUsername(String username) {
-        getUsername().setValue(username);
+        getUsername().postValue(username);
     }
 }

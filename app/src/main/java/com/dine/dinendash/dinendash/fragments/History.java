@@ -25,7 +25,7 @@ public class History extends Fragment {
         super.onCreate(savedInstanceState);
 
         // Get the correct view model
-        if(getActivity()!=null) {
+        if (getActivity() != null) {
             viewModel = ViewModelProviders.of(getActivity()).get(ReceiptHistoryViewModel.class);
         }
     }

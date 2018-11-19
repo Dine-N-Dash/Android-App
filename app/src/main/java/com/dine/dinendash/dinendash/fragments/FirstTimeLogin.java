@@ -3,7 +3,6 @@ package com.dine.dinendash.dinendash.fragments;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,14 +31,15 @@ public class FirstTimeLogin extends Fragment {
         super.onCreate(savedInstanceState);
 
         // Show the Action bar if it was hidden by the splash screen
-        try {
-            ((AppCompatActivity) getActivity()).getSupportActionBar().show();
-        } catch (Exception e){
-            Log.e("FirstTimeLoginError", e.getMessage());
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        if (activity != null && activity.getSupportActionBar() != null) {
+            activity.getSupportActionBar().show();
         }
 
         // Get the correct view model
-        viewModel = ViewModelProviders.of(getActivity()).get(FirstTimeLoginViewModel.class);
+        if (getActivity() != null) {
+            viewModel = ViewModelProviders.of(getActivity()).get(FirstTimeLoginViewModel.class);
+        }
     }
 
     @Override

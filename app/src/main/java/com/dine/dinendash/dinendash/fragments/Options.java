@@ -42,11 +42,9 @@ public class Options extends Fragment {
         super.onCreate(savedInstanceState);
 
         // Show the Action bar if it was hidden by the splash screen
-        try {
-            ((AppCompatActivity) getActivity()).getSupportActionBar().show();
-
-        } catch (Exception e){
-            Log.e("OptionsError", e.getMessage());
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        if (activity != null && activity.getSupportActionBar() != null) {
+            activity.getSupportActionBar().show();
         }
     }
 
@@ -100,7 +98,9 @@ public class Options extends Fragment {
     }
 
     public void settingsPressed() {
-        Navigation.findNavController(getView()).navigate(R.id.action_options_to_settings, null);
+        if (getView() != null) {
+            Navigation.findNavController(getView()).navigate(R.id.action_options_to_settings, null);
+        }
     }
 
     private File createImageFile() throws IOException {

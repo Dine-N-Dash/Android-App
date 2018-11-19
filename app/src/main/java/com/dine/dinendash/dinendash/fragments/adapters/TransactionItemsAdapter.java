@@ -27,12 +27,14 @@ public class TransactionItemsAdapter extends RecyclerView.Adapter<TransactionIte
         this.paymentFragment = paymentFragment;
 
         // Update UI when transactions change
-        this.viewModel.getReceipt().getValue().getTransactions().observe(owner, new Observer<List<Transaction>>() {
-            @Override
-            public void onChanged(List<Transaction> transactions) {
-                notifyDataSetChanged();
-            }
-        });
+        if (this.viewModel.getReceipt().getValue() != null) {
+            this.viewModel.getReceipt().getValue().getTransactions().observe(owner, new Observer<List<Transaction>>() {
+                @Override
+                public void onChanged(List<Transaction> transactions) {
+                    notifyDataSetChanged();
+                }
+            });
+        }
 
         // Prevents items from being duplicated and shuffled as the RecyclerView tries to reuse ViewHolders
         setHasStableIds(true);
@@ -51,7 +53,7 @@ public class TransactionItemsAdapter extends RecyclerView.Adapter<TransactionIte
 
     @Override
     public void onBindViewHolder(@NonNull TransactionItemsAdapter.TransactionItemsViewHolder transactionItemsViewHolder, int i) {
-        if (viewModel.getReceipt().getValue().getTransactions().getValue() != null) {
+        if (viewModel.getReceipt().getValue() != null && viewModel.getReceipt().getValue().getTransactions().getValue() != null) {
             // Bind view model, fragment, and correct transaction to ViewHolder
             transactionItemsViewHolder.binding.setItem(viewModel.getReceipt().getValue().getTransactions().getValue().get(i));
             transactionItemsViewHolder.binding.setViewModel(viewModel);
@@ -61,9 +63,10 @@ public class TransactionItemsAdapter extends RecyclerView.Adapter<TransactionIte
 
     @Override
     public int getItemCount() {
-        if(viewModel.getReceipt().getValue().getTransactions().getValue() != null) {
+        if(viewModel.getReceipt().getValue() != null && viewModel.getReceipt().getValue().getTransactions().getValue() != null) {
             return viewModel.getReceipt().getValue().getTransactions().getValue().size();
         }
+
         return 0;
     }
 

@@ -13,8 +13,6 @@ import com.dine.dinendash.dinendash.util.PhotoAnalyzer;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -44,6 +42,7 @@ public class NewReceiptViewModel extends ViewModel {
     public MutableLiveData<Transaction> getCurrentTransaction() {
         if (currentTransaction == null) {
             currentTransaction = new MutableLiveData<>();
+            currentTransaction.setValue(new Transaction());
         }
 
         return currentTransaction;
@@ -62,6 +61,7 @@ public class NewReceiptViewModel extends ViewModel {
     public MutableLiveData<Boolean> getProcessed() {
         if (processed == null) {
             processed = new MutableLiveData<>();
+            processed.setValue(false);
         }
 
         return processed;
@@ -84,13 +84,13 @@ public class NewReceiptViewModel extends ViewModel {
             // If the item has no owner, add it to the current transaction and update binding
             if (getCurrentTransaction().getValue() != null) {
                 getCurrentTransaction().getValue().addItem(item);
-                getCurrentTransaction().setValue(getCurrentTransaction().getValue());
+                getCurrentTransaction().postValue(getCurrentTransaction().getValue());
             }
         } else if (item.getOwner() == getCurrentTransaction().getValue()) {
             // Otherwise, if the item's owner is the current transaction, remove it from the current transaction
             if (getCurrentTransaction().getValue() != null) {
                 getCurrentTransaction().getValue().removeItem(item);
-                getCurrentTransaction().setValue(getCurrentTransaction().getValue());
+                getCurrentTransaction().postValue(getCurrentTransaction().getValue());
             }
         }
     }
@@ -102,7 +102,7 @@ public class NewReceiptViewModel extends ViewModel {
     public void reset() {
         receipt = null;
         currentTransaction = null;
-        processed.postValue(false);
+        processed = null;
     }
 
     private static class AnalyzePhotoTask extends AsyncTask<Void, Void, Void> {

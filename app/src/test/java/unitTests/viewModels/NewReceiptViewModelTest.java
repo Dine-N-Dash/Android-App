@@ -43,10 +43,10 @@ public class NewReceiptViewModelTest {
 
     @Test
     public void testAddTransaction() {
-        viewModel.getTransactions().setValue(new ArrayList<Transaction>());
-        assertThat(viewModel.getTransactions().getValue().size(), is(equalTo(0)));
+        viewModel.getReceipt().getValue().getTransactions().setValue(new ArrayList<Transaction>());
+        assertThat(viewModel.getReceipt().getValue().getTransactions().getValue().size(), is(equalTo(0)));
         viewModel.addTransaction("Bob", "1234567890");
-        assertThat(viewModel.getTransactions().getValue().size(), is(equalTo(1)));
+        assertThat(viewModel.getReceipt().getValue().getTransactions().getValue().size(), is(equalTo(1)));
     }
 
     @Test
@@ -74,7 +74,7 @@ public class NewReceiptViewModelTest {
     @Test
     public void testSetCurrentTransactionByIndex() {
         viewModel.addTransaction("Jim", "1234567890");
-        Transaction transaction = viewModel.getTransactions().getValue().get(0);
+        Transaction transaction = viewModel.getReceipt().getValue().getTransactions().getValue().get(0);
         viewModel.setCurrentTransaction(0);
 
         assertThat(viewModel.getCurrentTransaction().getValue(), is(equalTo(transaction)));
@@ -89,9 +89,8 @@ public class NewReceiptViewModelTest {
     @Test
     public void testReset() {
         viewModel.reset();
-        assertThat(viewModel.getReceipt().getValue(), is(equalTo(null)));
-        assertThat(viewModel.getTransactions().getValue().size(), is(equalTo(0)));
-        assertThat(viewModel.getCurrentTransaction().getValue(), is(equalTo(null)));
+        assertThat(viewModel.getReceipt().getValue().getItems().getValue().size(), is(equalTo(0)));
+        assertThat(viewModel.getCurrentTransaction().getValue().getTotal().getValue(), is(equalTo(0.0)));
         assertThat(viewModel.getProcessed().getValue(), is(equalTo(false)));
     }
 }
