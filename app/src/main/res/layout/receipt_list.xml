@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="receipt"
+            type="com.dine.dinendash.dinendash.models.Receipt"/>
+
+        <variable
+            name="viewModel"
+            type="com.dine.dinendash.dinendash.viewModels.ReceiptHistoryViewModel"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:onClick="@{() -> viewModel.itemSelected(receipt)}">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/receipt_date_text"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:ellipsize="end"
+            android:gravity="start"
+            android:maxLines="1"
+            android:text="@{receipt.date}"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

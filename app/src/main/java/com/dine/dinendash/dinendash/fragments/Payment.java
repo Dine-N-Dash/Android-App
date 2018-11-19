@@ -93,9 +93,7 @@ public class Payment extends Fragment {
 
     public void calculateTip() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
         builder.setView(R.layout.tip_layout);
-
         AlertDialog dialog = builder.create();
         dialog.show();
     }

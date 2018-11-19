@@ -1,17 +1,20 @@
 package com.dine.dinendash.dinendash.fragments;
 
-import androidx.lifecycle.ViewModelProviders;
-import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.dine.dinendash.dinendash.R;
 import com.dine.dinendash.dinendash.databinding.FragmentHistoryBinding;
+import com.dine.dinendash.dinendash.fragments.adapters.ReceiptListAdapter;
 import com.dine.dinendash.dinendash.viewModels.ReceiptHistoryViewModel;
+
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 public class History extends Fragment {
     private ReceiptHistoryViewModel viewModel;
@@ -39,6 +42,10 @@ public class History extends Fragment {
         binding.setViewModel(viewModel);
         binding.setFragment(this);
         binding.setLifecycleOwner(this);
+
+        // Set up the RecyclerView
+        binding.receiptListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.receiptListRecyclerView.setAdapter(new ReceiptListAdapter(viewModel, this));
 
         return view;
     }

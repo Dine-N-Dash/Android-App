@@ -1,6 +1,7 @@
 package com.dine.dinendash.dinendash.models;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import androidx.lifecycle.MutableLiveData;
@@ -11,11 +12,13 @@ public class Receipt {
     private double subTotal;
     private double totalTax;
     private double total;
+    private String date;
 
     public Receipt() {
         subTotal = 0;
         totalTax = 0;
         total = 0;
+        date = new Date().toString();
     }
 
     public void addItem(ReceiptItem item) {
@@ -77,6 +80,8 @@ public class Receipt {
     }
 
     public void setTotalTax(double totalTax){ this.totalTax = totalTax; }
+
+    public String getDate() { return date; }
 
     /* Add later for tax and tip per item instead of per user
     public void calcTax(){

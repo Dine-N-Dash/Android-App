@@ -94,7 +94,9 @@ public class Options extends Fragment {
     }
 
     public void historyPressed() {
-        Log.d("PIZZA", "history");
+        if (getView() != null) {
+            Navigation.findNavController(getView()).navigate(R.id.action_options_to_history, null);
+        }
     }
 
     public void settingsPressed() {
