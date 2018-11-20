@@ -5,6 +5,7 @@ import android.view.ViewGroup;
 
 import com.dine.dinendash.dinendash.R;
 import com.dine.dinendash.dinendash.databinding.ReceiptListBinding;
+import com.dine.dinendash.dinendash.fragments.History;
 import com.dine.dinendash.dinendash.models.Receipt;
 import com.dine.dinendash.dinendash.viewModels.ReceiptHistoryViewModel;
 
@@ -19,9 +20,11 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ReceiptListAdapter extends RecyclerView.Adapter<ReceiptListAdapter.ReceiptListViewHolder> {
     private LayoutInflater inflater;
     private final ReceiptHistoryViewModel viewModel;
+    private History historyFragment;
 
-    public ReceiptListAdapter(ReceiptHistoryViewModel viewModel, LifecycleOwner owner) {
+    public ReceiptListAdapter(ReceiptHistoryViewModel viewModel, LifecycleOwner owner, History historyFragment) {
         this.viewModel = viewModel;
+        this.historyFragment = historyFragment;
 
         // Update UI when receipt is updated
         this.viewModel.getReceipts().observe(owner, new Observer<List<Receipt>>() {
@@ -50,9 +53,10 @@ public class ReceiptListAdapter extends RecyclerView.Adapter<ReceiptListAdapter.
     @Override
     public void onBindViewHolder(@NonNull ReceiptListViewHolder receiptListViewHolder, int i) {
         if (viewModel.getReceipts().getValue() != null && viewModel.getReceipts().getValue().get(0).getItems().getValue() != null) {
-            // Bind view model and correct receipt item to ViewHolder
+            // Bind view model and correct receipt to ViewHolder
             receiptListViewHolder.binding.setReceipt(viewModel.getReceipts().getValue().get(i));
             receiptListViewHolder.binding.setViewModel(viewModel);
+            receiptListViewHolder.binding.setFragment(historyFragment);
         }
     }
 

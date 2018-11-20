@@ -34,9 +34,18 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="32" />
-                            <option name="y" value="722" />
+                            <option name="x" value="-73" />
+                            <option name="y" value="694" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_history_to_historyTransactions">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -46,8 +55,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="302" />
-                            <option name="y" value="104" />
+                            <option name="x" value="249" />
+                            <option name="y" value="698" />
                           </Point>
                         </option>
                       </LayoutPositions>

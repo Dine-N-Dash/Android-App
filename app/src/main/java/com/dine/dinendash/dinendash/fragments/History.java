@@ -1,10 +1,10 @@
 package com.dine.dinendash.dinendash.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.dine.dinendash.dinendash.R;
 import com.dine.dinendash.dinendash.databinding.FragmentHistoryBinding;
@@ -16,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 public class History extends Fragment {
@@ -47,13 +48,18 @@ public class History extends Fragment {
 
         // Set up the RecyclerView
         binding.receiptListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        binding.receiptListRecyclerView.setAdapter(new ReceiptListAdapter(viewModel, this));
+        binding.receiptListRecyclerView.setAdapter(new ReceiptListAdapter(viewModel, this, this));
 
         return view;
     }
 
-    public void itemSelected(Receipt receipt) {
-        Toast.makeText(getContext(),"Janet",Toast.LENGTH_LONG);
+    public void receiptSelected(Receipt receipt) {
+
+        int index = viewModel.getReceipts().getValue().indexOf(receipt);
+        Bundle bundle = new Bundle();
+        bundle.putInt("index", index);
+
+        Navigation.findNavController(getView()).navigate(R.id.action_history_to_historyTransactions, bundle);
     }
 
 }
