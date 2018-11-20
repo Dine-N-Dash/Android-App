@@ -13,5 +13,9 @@
     <string name="login_welcome">Welcome. Please enter your PayPal.Me username</string>
     <string name="update">Update</string>
     <string name="add_tip">Add Tip</string>
+    <string name="decimal">.</string>
+    <string name="percent">%</string>
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
 </resources>
 

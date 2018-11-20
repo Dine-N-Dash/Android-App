@@ -81,6 +81,37 @@ public class NewReceiptViewModelTest {
     }
 
     @Test
+    public void testSetTipPercent() {
+        viewModel.setTipPercent(15);
+        assertThat(viewModel.getTipPercent().getValue(), is(equalTo(15)));
+    }
+
+    @Test
+    public void testSetTipPercentDecimal() {
+        viewModel.setTipPercentDecimal(5);
+        assertThat(viewModel.getTipPercentDecimal().getValue(), is(equalTo(5)));
+    }
+
+    @Test
+    public void testAddTip() {
+        viewModel.reset();
+
+        viewModel.addTransaction("Jim", "1234567890");
+
+        ReceiptItem item = new ReceiptItem("Pizza", 10.00);
+        viewModel.getReceipt().getValue().addItem(item);
+        viewModel.setCurrentTransaction(0);
+        viewModel.itemSelected(item);
+
+        viewModel.setTipPercent(10);
+        viewModel.setTipPercentDecimal(0);
+
+        viewModel.addTip();
+
+        assertThat(viewModel.getCurrentTransaction().getValue().getTotal().getValue(), is(equalTo(11.00)));
+    }
+
+    @Test
     public void testSetProcessed() {
         viewModel.setProcessed(true);
         assertThat(viewModel.getProcessed().getValue(), is(equalTo(true)));

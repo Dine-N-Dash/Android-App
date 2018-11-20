@@ -19,7 +19,6 @@ import com.dine.dinendash.dinendash.viewModels.NewReceiptViewModel;
 import java.util.Locale;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -69,7 +68,10 @@ public class Payment extends Fragment {
         // Construct and send SMS intent
         Uri uri = Uri.parse("smsto:"+transaction.getPhoneNumber().getValue() );
         Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
-        intent.putExtra("sms_body", "Hi "+transaction.getName().getValue()+"! You owe me $" + String.format(Locale.US, "%.2f", transaction.getTotal().getValue()) +". You can pay me using this link: https://www.paypal.me/"+username+"/"+transaction.getTotal().getValue());
+        intent.putExtra("sms_body", "Hi " + transaction.getName().getValue() + "! You owe me $" +
+                String.format(Locale.US, "%.2f", transaction.getTotal().getValue()) +
+                ". You can pay me using this link: https://www.paypal.me/" + username + "/" +
+                String.format(Locale.US, "%.2f", transaction.getTotal().getValue()));
         startActivity(intent);
 
         // Set transaction to be completed and update binding
@@ -92,9 +94,10 @@ public class Payment extends Fragment {
     }
 
     public void calculateTip() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(R.layout.tip_layout);
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        AddTipDialogFragment dialog = new AddTipDialogFragment();
+
+        if (getFragmentManager() != null) {
+            dialog.show(getFragmentManager(), "test");
+        }
     }
 }
