@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.dine.dinendash.dinendash.R;
 import com.dine.dinendash.dinendash.databinding.FragmentHistoryBinding;
 import com.dine.dinendash.dinendash.fragments.adapters.ReceiptListAdapter;
+import com.dine.dinendash.dinendash.models.Receipt;
 import com.dine.dinendash.dinendash.viewModels.ReceiptHistoryViewModel;
 
 import androidx.annotation.NonNull;
@@ -48,6 +50,10 @@ public class History extends Fragment {
         binding.receiptListRecyclerView.setAdapter(new ReceiptListAdapter(viewModel, this));
 
         return view;
+    }
+
+    public void itemSelected(Receipt receipt) {
+        Toast.makeText(getContext(),"Janet",Toast.LENGTH_LONG);
     }
 
 }

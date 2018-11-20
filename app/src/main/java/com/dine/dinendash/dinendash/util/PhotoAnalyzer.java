@@ -48,6 +48,18 @@ public class PhotoAnalyzer {
     }
 
     public static void analyze(final Bitmap bitmap, final NewReceiptViewModel viewModel) {
+
+        //this code will allow photos in vertical orientation to work, however if uploaded - it will not work
+
+//        Matrix matrix = new Matrix();
+//
+//        matrix.postRotate(90);
+//
+//        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getHeight(), true);
+//
+//        Bitmap rotatedBitmap = Bitmap.createBitmap(scaledBitmap, 0, 0, scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
+
+
         FirebaseVisionImage img = FirebaseVisionImage.fromBitmap(bitmap);
         FirebaseVisionTextRecognizer textRecognizer = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
 

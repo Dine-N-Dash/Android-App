@@ -9,13 +9,18 @@
         <variable
             name="viewModel"
             type="com.dine.dinendash.dinendash.viewModels.ReceiptHistoryViewModel"/>
+
+        <variable
+            name="fragment"
+            type="com.dine.dinendash.dinendash.fragments.History"
+            />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="20dp"
-        android:onClick="@{() -> viewModel.itemSelected(receipt)}">
+        android:onClick="@{() -> fragment.itemSelected(receipt)}">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/receipt_date_text"

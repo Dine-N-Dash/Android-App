@@ -47,7 +47,6 @@ public class ReceiptListAdapter extends RecyclerView.Adapter<ReceiptListAdapter.
         return new ReceiptListViewHolder(binding);
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull ReceiptListViewHolder receiptListViewHolder, int i) {
         if (viewModel.getReceipts().getValue() != null && viewModel.getReceipts().getValue().get(0).getItems().getValue() != null) {
