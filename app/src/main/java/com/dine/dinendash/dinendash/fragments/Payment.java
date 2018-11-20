@@ -68,7 +68,10 @@ public class Payment extends Fragment {
         // Construct and send SMS intent
         Uri uri = Uri.parse("smsto:"+transaction.getPhoneNumber().getValue() );
         Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
-        intent.putExtra("sms_body", "Hi "+transaction.getName().getValue()+"! You owe me $" + String.format(Locale.US, "%.2f", transaction.getTotal().getValue()) +". You can pay me using this link: https://www.paypal.me/"+username+"/"+transaction.getTotal().getValue());
+        intent.putExtra("sms_body", "Hi " + transaction.getName().getValue() + "! You owe me $" +
+                String.format(Locale.US, "%.2f", transaction.getTotal().getValue()) +
+                ". You can pay me using this link: https://www.paypal.me/" + username + "/" +
+                String.format(Locale.US, "%.2f", transaction.getTotal().getValue()));
         startActivity(intent);
 
         // Set transaction to be completed and update binding
