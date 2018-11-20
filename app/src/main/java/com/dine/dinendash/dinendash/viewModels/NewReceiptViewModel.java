@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
-import android.util.Log;
 
 import com.dine.dinendash.dinendash.models.Receipt;
 import com.dine.dinendash.dinendash.models.ReceiptItem;
@@ -92,7 +91,7 @@ public class NewReceiptViewModel extends ViewModel {
     }
 
     public void setTipPercent(Integer percent) {
-        tipPercent.postValue(percent);
+        getTipPercent().postValue(percent);
     }
 
     public MutableLiveData<Integer> getTipPercentDecimal() {
@@ -105,15 +104,22 @@ public class NewReceiptViewModel extends ViewModel {
     }
 
     public void setTipPercentDecimal(Integer percent) {
-        tipPercentDecimal.postValue(percent);
+        getTipPercentDecimal().postValue(percent);
     }
 
     public void addTip() {
         if (getTipPercent().getValue() != null && getTipPercentDecimal().getValue() != null) {
             double percent = getTipPercent().getValue().doubleValue();
             percent += (getTipPercentDecimal().getValue().doubleValue() / 10.0);
+            percent /= 100.0;
 
-            Log.d("PIZZA", String.valueOf(percent));
+            if (getReceipt().getValue() != null && getReceipt().getValue().getTransactions().getValue() != null) {
+                for (Transaction transaction : getReceipt().getValue().getTransactions().getValue()) {
+                    transaction.applyTip(percent);
+                }
+            }
+
+            getReceipt().getValue().setTransactions(getReceipt().getValue().getTransactions().getValue());
         }
     }
 
