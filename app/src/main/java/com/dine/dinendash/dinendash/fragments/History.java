@@ -1,7 +1,6 @@
 package com.dine.dinendash.dinendash.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,9 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class History extends Fragment {
     private ReceiptHistoryViewModel viewModel;
@@ -50,11 +51,14 @@ public class History extends Fragment {
         binding.receiptListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.receiptListRecyclerView.setAdapter(new ReceiptListAdapter(viewModel, this, this));
 
+        //add horizontal dividers
+        RecyclerView recyclerView = view.findViewById(R.id.receiptListRecyclerView);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+
         return view;
     }
 
     public void receiptSelected(Receipt receipt) {
-
         int index = viewModel.getReceipts().getValue().indexOf(receipt);
         Bundle bundle = new Bundle();
         bundle.putInt("index", index);

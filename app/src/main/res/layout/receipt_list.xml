@@ -19,17 +19,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp"
+        android:padding="30dp"
         android:onClick="@{() -> fragment.receiptSelected(receipt)}">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/receipt_date_text"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"
             android:ellipsize="end"
             android:gravity="start"
             android:maxLines="1"

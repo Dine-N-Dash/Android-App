@@ -14,12 +14,12 @@ public class ReceiptHistoryViewModel extends ViewModel {
     private MutableLiveData<List<Receipt>> receipts;
 
     public ReceiptHistoryViewModel() {
+
+        //dummy data
         Receipt receipt = new Receipt();
         receipt.addItem(new ReceiptItem("Pizza", 12.00));
         receipt.addTransaction(new Transaction("Shelby", "13023"));
         receipt.addTransaction(new Transaction("Shelby123", "13023123123"));
-
-
 
         Receipt receipt2 = new Receipt();
         receipt2.addItem(new ReceiptItem("Pie", 100.00));

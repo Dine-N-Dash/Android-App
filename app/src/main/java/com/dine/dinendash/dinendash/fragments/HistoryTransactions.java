@@ -15,12 +15,10 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class HistoryTransactions extends Fragment {
     private ReceiptHistoryViewModel viewModel;
     private int index;
@@ -28,7 +26,6 @@ public class HistoryTransactions extends Fragment {
     public HistoryTransactions() {
         // Required empty public constructor
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,6 +56,10 @@ public class HistoryTransactions extends Fragment {
         // Set up the RecyclerView
         binding.historyTransactionsListRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.historyTransactionsListRecyclerView.setAdapter(new HistoryTransactionItemsAdapter(viewModel, this, this, index));
+
+        //add horizontal line diveders
+        RecyclerView recyclerView = view.findViewById(R.id.historyTransactionsListRecyclerView);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
 
         return view;
     }
