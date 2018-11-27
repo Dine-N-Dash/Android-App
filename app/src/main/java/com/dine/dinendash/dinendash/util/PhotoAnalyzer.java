@@ -46,7 +46,7 @@ public class PhotoAnalyzer {
         public String toString(){ return this.line; }
     }
 
-    
+
     public static void analyze(final Bitmap bitmap, final NewReceiptViewModel viewModel) {
         //Firebase API initializers
         FirebaseVisionImage img = FirebaseVisionImage.fromBitmap(bitmap);
