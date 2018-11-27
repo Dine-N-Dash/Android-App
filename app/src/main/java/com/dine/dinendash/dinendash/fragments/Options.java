@@ -56,6 +56,8 @@ public class Options extends Fragment {
         // Bind fragment to View
         binding.setFragment(this);
 
+        hideBackButton();
+
         return view;
     }
 
@@ -143,6 +145,12 @@ public class Options extends Fragment {
             if(getView()!=null) {
                 Navigation.findNavController(getView()).navigate(R.id.action_options_to_receiptItems, bundle);
             }
+        }
+    }
+
+    public void hideBackButton() {
+        if (getActivity() instanceof AppCompatActivity) {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         }
     }
 }

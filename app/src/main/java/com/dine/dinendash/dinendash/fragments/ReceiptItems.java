@@ -24,6 +24,7 @@ import com.dine.dinendash.dinendash.viewModels.NewReceiptViewModel;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -88,6 +89,8 @@ public class ReceiptItems extends Fragment {
         if (getContext() != null) {
             binding.contactSpinner.setAdapter(new TransactionSpinnerAdapter(getContext(), R.layout.transaction_spinner_text_view, this, viewModel));
         }
+
+        showBackButton();
 
         return binding.getRoot();
     }
@@ -185,6 +188,12 @@ public class ReceiptItems extends Fragment {
         }
         else {
             Toast.makeText(getActivity(),"This application requires the use of contacts", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void showBackButton() {
+        if (getActivity() instanceof AppCompatActivity) {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }
 }

@@ -12,6 +12,7 @@ import com.dine.dinendash.dinendash.models.Receipt;
 import com.dine.dinendash.dinendash.viewModels.ReceiptHistoryViewModel;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -55,6 +56,8 @@ public class History extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.receiptListRecyclerView);
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
 
+        showBackButton();
+
         return view;
     }
 
@@ -64,6 +67,12 @@ public class History extends Fragment {
         bundle.putInt("index", index);
 
         Navigation.findNavController(getView()).navigate(R.id.action_history_to_historyTransactions, bundle);
+    }
+
+    public void showBackButton() {
+        if (getActivity() instanceof AppCompatActivity) {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
 }

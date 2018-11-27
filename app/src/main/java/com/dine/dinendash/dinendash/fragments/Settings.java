@@ -14,6 +14,7 @@ import com.dine.dinendash.dinendash.databinding.FragmentSettingsBinding;
 import com.dine.dinendash.dinendash.viewModels.SettingsViewModel;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -49,6 +50,8 @@ public class Settings extends Fragment {
                 .getDefaultSharedPreferences(getActivity());
         viewModel.setUsername(sharedPreferences.getString("username", ""));
 
+        showBackButton();
+
         return view;
     }
 
@@ -65,6 +68,12 @@ public class Settings extends Fragment {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("username", newUsername);
         editor.apply();
+    }
+
+    public void showBackButton() {
+        if (getActivity() instanceof AppCompatActivity) {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
 }
