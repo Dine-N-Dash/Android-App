@@ -44,6 +44,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
         android:text="@{@string/price_format(item.total)}"
         android:maxLines="1"
         android:ellipsize="end"
+        android:gravity="right"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
