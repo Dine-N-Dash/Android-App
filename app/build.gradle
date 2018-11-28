@@ -19,10 +19,7 @@ android {
     dataBinding {
         enabled = true
     }
-    // Temporary
-    packagingOptions {
-        exclude 'META-INF/proguard/androidx-annotations.pro'
-    }
+
     testOptions {
         unitTests.returnDefaultValues = true
     }

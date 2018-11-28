@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="fragment"
+            type="com.dine.dinendash.dinendash.fragments.NameReceiptDialogFragment"/>
+
+        <variable
+            name="viewModel"
+            type="com.dine.dinendash.dinendash.viewModels.NewReceiptViewModel"/>
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/receipt_name_entry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/name"
+            android:inputType="text"
+            android:text="@={viewModel.receiptName}"
+            tools:ignore="Autofill" />
+    </LinearLayout>
+</layout>

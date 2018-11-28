@@ -1,17 +1,23 @@
 package com.dine.dinendash.dinendash.fragments;
 
-import androidx.lifecycle.ViewModelProviders;
-import androidx.databinding.DataBindingUtil;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 import com.dine.dinendash.dinendash.R;
 import com.dine.dinendash.dinendash.databinding.FragmentSettingsBinding;
 import com.dine.dinendash.dinendash.viewModels.SettingsViewModel;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
 public class Settings extends Fragment {
     private SettingsViewModel viewModel;
@@ -40,7 +46,34 @@ public class Settings extends Fragment {
         binding.setFragment(this);
         binding.setLifecycleOwner(this);
 
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(getActivity());
+        viewModel.setUsername(sharedPreferences.getString("username", ""));
+
+        showBackButton();
+
         return view;
+    }
+
+    public void onUsernameChangeConfirmed(String newUsername) {
+        if (getActivity() != null && getActivity().getCurrentFocus() != null) {
+            InputMethodManager inputManager = (InputMethodManager)
+                    getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(getActivity());
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("username", newUsername);
+        editor.apply();
+    }
+
+    public void showBackButton() {
+        if (getActivity() instanceof AppCompatActivity) {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
 }

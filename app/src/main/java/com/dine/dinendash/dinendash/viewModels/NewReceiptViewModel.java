@@ -13,17 +13,17 @@ import com.dine.dinendash.dinendash.util.PhotoAnalyzer;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 public class NewReceiptViewModel extends ViewModel {
     private MutableLiveData<Receipt> receipt;
-    private MutableLiveData<List<Transaction>> transactions;
     private MutableLiveData<Transaction> currentTransaction;
     private MutableLiveData<Boolean> processed;
+    private MutableLiveData<Integer> tipPercent;
+    private MutableLiveData<Integer> tipPercentDecimal;
+    private MutableLiveData<String> receiptName;
 
     public NewReceiptViewModel() {
         getProcessed().setValue(false);
@@ -32,6 +32,7 @@ public class NewReceiptViewModel extends ViewModel {
     public MutableLiveData<Receipt> getReceipt() {
         if(receipt == null) {
             receipt = new MutableLiveData<>();
+            receipt.setValue(new Receipt());
         }
 
         return receipt;
@@ -41,18 +42,10 @@ public class NewReceiptViewModel extends ViewModel {
         getReceipt().postValue(receipt);
     }
 
-    public MutableLiveData<List<Transaction>> getTransactions() {
-        if (transactions == null) {
-            transactions = new MutableLiveData<>();
-            transactions.setValue(new ArrayList<Transaction>());
-        }
-
-        return transactions;
-    }
-
     public MutableLiveData<Transaction> getCurrentTransaction() {
         if (currentTransaction == null) {
             currentTransaction = new MutableLiveData<>();
+            currentTransaction.setValue(new Transaction());
         }
 
         return currentTransaction;
@@ -63,14 +56,15 @@ public class NewReceiptViewModel extends ViewModel {
     }
 
     public void setCurrentTransaction(int index) {
-        if (getTransactions().getValue() != null) {
-            getCurrentTransaction().postValue(getTransactions().getValue().get(index));
+        if (getReceipt().getValue() != null && getReceipt().getValue().getTransactions().getValue() != null) {
+            getCurrentTransaction().postValue(getReceipt().getValue().getTransactions().getValue().get(index));
         }
     }
 
     public MutableLiveData<Boolean> getProcessed() {
         if (processed == null) {
             processed = new MutableLiveData<>();
+            processed.setValue(false);
         }
 
         return processed;
@@ -81,11 +75,71 @@ public class NewReceiptViewModel extends ViewModel {
     }
 
     public void addTransaction(String name, String phoneNumber) {
-        // Add new Transaction with given name and number to transaction list and update binding
-        if (getTransactions().getValue() != null) {
+        // Add new Transaction with given name and number to transaction list
+        if (getReceipt().getValue() != null) {
             Transaction transaction = new Transaction(name, phoneNumber);
-            getTransactions().getValue().add(transaction);
-            getTransactions().setValue(getTransactions().getValue());
+            getReceipt().getValue().addTransaction(transaction);
+        }
+    }
+
+    public MutableLiveData<Integer> getTipPercent() {
+        if (tipPercent == null) {
+            tipPercent = new MutableLiveData<>();
+            tipPercent.setValue(0);
+        }
+
+        return tipPercent;
+    }
+
+    public void setTipPercent(Integer percent) {
+        getTipPercent().postValue(percent);
+    }
+
+    public MutableLiveData<Integer> getTipPercentDecimal() {
+        if (tipPercentDecimal == null) {
+            tipPercentDecimal = new MutableLiveData<>();
+            tipPercentDecimal.setValue(0);
+        }
+
+        return tipPercentDecimal;
+    }
+
+    public void setTipPercentDecimal(Integer percent) {
+        getTipPercentDecimal().postValue(percent);
+    }
+
+    public void addTip() {
+        if (getTipPercent().getValue() != null && getTipPercentDecimal().getValue() != null) {
+            double percent = getTipPercent().getValue().doubleValue();
+            percent += (getTipPercentDecimal().getValue().doubleValue() / 10.0);
+            percent /= 100.0;
+
+            if (getReceipt().getValue() != null && getReceipt().getValue().getTransactions().getValue() != null) {
+                for (Transaction transaction : getReceipt().getValue().getTransactions().getValue()) {
+                    transaction.applyTip(percent);
+                }
+            }
+
+            getReceipt().getValue().setTransactions(getReceipt().getValue().getTransactions().getValue());
+        }
+    }
+
+    public MutableLiveData<String> getReceiptName() {
+        if (receiptName == null) {
+            receiptName = new MutableLiveData<>();
+            receiptName.setValue("");
+        }
+
+        return receiptName;
+    }
+
+    public void setReceiptName(String name) {
+        getReceiptName().postValue(name);
+    }
+
+    public void applyReceiptName() {
+        if (getReceipt().getValue() != null) {
+            getReceipt().getValue().setName(getReceiptName().getValue());
         }
     }
 
@@ -111,9 +165,8 @@ public class NewReceiptViewModel extends ViewModel {
 
     public void reset() {
         receipt = null;
-        transactions = null;
         currentTransaction = null;
-        processed.postValue(false);
+        processed = null;
     }
 
     private static class AnalyzePhotoTask extends AsyncTask<Void, Void, Void> {

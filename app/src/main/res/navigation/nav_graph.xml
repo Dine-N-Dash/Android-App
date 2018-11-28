@@ -24,7 +24,11 @@
         android:id="@+id/history"
         android:name="com.dine.dinendash.dinendash.fragments.History"
         android:label="fragment_history"
-        tools:layout="@layout/fragment_history" />
+        tools:layout="@layout/fragment_history" >
+        <action
+            android:id="@+id/action_history_to_historyTransactions"
+            app:destination="@id/historyTransactions" />
+    </fragment>
     <fragment
         android:id="@+id/settings"
         android:name="com.dine.dinendash.dinendash.fragments.Settings"
@@ -77,4 +81,9 @@
             app:popUpTo="@+id/splash"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/historyTransactions"
+        android:name="com.dine.dinendash.dinendash.fragments.HistoryTransactions"
+        android:label="fragment_history_transactions"
+        tools:layout="@layout/fragment_history_transactions" />
 </navigation>

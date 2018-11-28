@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.util.Log;
 
-import com.dine.dinendash.dinendash.models.Receipt;
 import com.dine.dinendash.dinendash.models.ReceiptItem;
 import com.dine.dinendash.dinendash.viewModels.NewReceiptViewModel;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -46,7 +45,6 @@ public class PhotoAnalyzer {
         public String toString(){ return this.line; }
     }
 
-    
     public static void analyze(final Bitmap bitmap, final NewReceiptViewModel viewModel) {
         //Firebase API initializers
         FirebaseVisionImage img = FirebaseVisionImage.fromBitmap(bitmap);
@@ -135,16 +133,12 @@ public class PhotoAnalyzer {
                             }
                         }
 
-                        Receipt receipt = new Receipt();
-
-                        //Loop through all prices and add the item and price to the receipt object
                         for(lineObj q: prices) {
-                            if(q.itemName != null) {
-                                receipt.addItem(new ReceiptItem(q.itemName.line, Double.parseDouble(q.line)));
+                            if(q.itemName != null && viewModel.getReceipt().getValue() != null) {
+                                viewModel.getReceipt().getValue().addItem(new ReceiptItem(q.itemName.line, Double.parseDouble(q.line)));
                             }
                         }
 
-                        viewModel.setReceipt(receipt);
                         viewModel.setProcessed(true);
 
                         bitmap.recycle();
