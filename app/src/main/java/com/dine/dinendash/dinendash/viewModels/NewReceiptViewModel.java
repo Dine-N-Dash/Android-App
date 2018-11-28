@@ -23,6 +23,7 @@ public class NewReceiptViewModel extends ViewModel {
     private MutableLiveData<Boolean> processed;
     private MutableLiveData<Integer> tipPercent;
     private MutableLiveData<Integer> tipPercentDecimal;
+    private MutableLiveData<String> receiptName;
 
     public NewReceiptViewModel() {
         getProcessed().setValue(false);
@@ -120,6 +121,25 @@ public class NewReceiptViewModel extends ViewModel {
             }
 
             getReceipt().getValue().setTransactions(getReceipt().getValue().getTransactions().getValue());
+        }
+    }
+
+    public MutableLiveData<String> getReceiptName() {
+        if (receiptName == null) {
+            receiptName = new MutableLiveData<>();
+            receiptName.setValue("");
+        }
+
+        return receiptName;
+    }
+
+    public void setReceiptName(String name) {
+        getReceiptName().postValue(name);
+    }
+
+    public void applyReceiptName() {
+        if (getReceipt().getValue() != null) {
+            getReceipt().getValue().setName(getReceiptName().getValue());
         }
     }
 

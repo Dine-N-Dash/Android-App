@@ -29,7 +29,7 @@
             android:ellipsize="end"
             android:gravity="start"
             android:maxLines="1"
-            android:text="@{receipt.date}"
+            android:text="@{receipt.name}"
             android:textSize="22sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

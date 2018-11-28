@@ -62,7 +62,7 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/rounded_button"
             android:onClick="@{() -> fragment.finishTransactions()}"
-            android:text="@string/done"
+            android:text="@string/save"
             android:textColor="@color/colorText"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"

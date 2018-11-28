@@ -53,17 +53,22 @@ public class History extends Fragment {
 
         //add horizontal dividers
         RecyclerView recyclerView = view.findViewById(R.id.receiptListRecyclerView);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        if (getContext() != null) {
+            recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        }
 
         return view;
     }
 
     public void receiptSelected(Receipt receipt) {
-        int index = viewModel.getReceipts().getValue().indexOf(receipt);
-        Bundle bundle = new Bundle();
-        bundle.putInt("index", index);
+        if (viewModel.getReceipts().getValue() != null) {
+            int index = viewModel.getReceipts().getValue().indexOf(receipt);
+            Bundle bundle = new Bundle();
+            bundle.putInt("index", index);
 
-        Navigation.findNavController(getView()).navigate(R.id.action_history_to_historyTransactions, bundle);
+            if (getView() != null) {
+                Navigation.findNavController(getView()).navigate(R.id.action_history_to_historyTransactions, bundle);
+            }
+        }
     }
-
 }

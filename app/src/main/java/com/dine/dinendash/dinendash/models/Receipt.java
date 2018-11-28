@@ -1,7 +1,6 @@
 package com.dine.dinendash.dinendash.models;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import androidx.lifecycle.MutableLiveData;
@@ -9,16 +8,10 @@ import androidx.lifecycle.MutableLiveData;
 public class Receipt {
     private MutableLiveData<List<ReceiptItem>> items;
     private MutableLiveData<List<Transaction>> transactions;
-    private double subTotal;
-    private double totalTax;
-    private double total;
-    private String date;
+    private MutableLiveData<String> name;
 
     public Receipt() {
-        subTotal = 0;
-        totalTax = 0;
-        total = 0;
-        date = new Date().toString();
+
     }
 
     public void addItem(ReceiptItem item) {
@@ -39,7 +32,7 @@ public class Receipt {
     }
 
     public void setItems(List<ReceiptItem> items) {
-        this.getItems().postValue(items);
+        this.getItems().setValue(items);
     }
 
     public void addTransaction(Transaction transaction) {
@@ -60,41 +53,19 @@ public class Receipt {
     }
 
     public void setTransactions(List<Transaction> transactions) {
-        getTransactions().postValue(transactions);
+        getTransactions().setValue(transactions);
     }
 
-    public double getSubTotal() {
-        return subTotal;
-    }
-
-    public void setSubTotal(double subTotal){ this.subTotal = subTotal; }
-
-    public double getTotal() {
-        return total;
-    }
-
-    public void setTotal(double Total){ this.total = Total; }
-
-    public double getTotalTax() {
-        return totalTax;
-    }
-
-    public void setTotalTax(double totalTax){ this.totalTax = totalTax; }
-
-    public String getDate() { return date; }
-
-    /* Add later for tax and tip per item instead of per user
-    public void calcTax(){
-        double runningTotal = 0;
-        double itemTax = 0;
-        if(items != null && totalTax != 0 && subTotal != 0){
-            for(int i = 0; i < items.size(); i++){
-                runningTotal += ((itemTax = items.get(i).getPrice() / subTotal)*totalTax);
-                items.get(i).setTax(itemTax);
-            }
-            if(runningTotal != totalTax){
-                items.get(items.size() - 1).setTax(items.get(items.size() - 1).getTax() + totalTax - runningTotal);
-            }
+    public MutableLiveData<String> getName() {
+        if (name == null) {
+            name = new MutableLiveData<>();
+            name.setValue("");
         }
-    }*/
+
+        return name;
+    }
+
+    public void setName(String name) {
+        getName().setValue(name);
+    }
 }

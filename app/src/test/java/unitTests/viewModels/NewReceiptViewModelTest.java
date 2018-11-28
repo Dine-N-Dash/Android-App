@@ -118,6 +118,12 @@ public class NewReceiptViewModelTest {
     }
 
     @Test
+    public void testSetReceiptName() {
+        viewModel.setReceiptName("McDonalds");
+        assertThat(viewModel.getReceiptName().getValue(), is(equalTo("McDonalds")));
+    }
+
+    @Test
     public void testReset() {
         viewModel.reset();
         assertThat(viewModel.getReceipt().getValue().getItems().getValue().size(), is(equalTo(0)));

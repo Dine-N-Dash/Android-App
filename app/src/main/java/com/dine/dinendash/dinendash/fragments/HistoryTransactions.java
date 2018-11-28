@@ -59,9 +59,11 @@ public class HistoryTransactions extends Fragment {
 
         //add horizontal line diveders
         RecyclerView recyclerView = view.findViewById(R.id.historyTransactionsListRecyclerView);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+
+        if (getContext() != null) {
+            recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        }
 
         return view;
     }
-
 }

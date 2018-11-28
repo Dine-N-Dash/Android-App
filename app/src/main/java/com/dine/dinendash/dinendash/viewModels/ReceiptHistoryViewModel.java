@@ -40,7 +40,7 @@ public class ReceiptHistoryViewModel extends ViewModel {
 
     public MutableLiveData<List<Receipt>> getReceipts() {
         if (receipts == null) {
-            receipts = new MutableLiveData<List<Receipt>>();
+            receipts = new MutableLiveData<>();
             receipts.setValue(new ArrayList<Receipt>());
         }
 

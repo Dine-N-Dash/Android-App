@@ -20,12 +20,13 @@ import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-public class Payment extends Fragment {
+public class Payment extends Fragment implements NameReceiptDialogFragment.NameReceiptDialogListener {
     private NewReceiptViewModel viewModel;
 
     public Payment() {
@@ -79,6 +80,24 @@ public class Payment extends Fragment {
     }
 
     public void finishTransactions() {
+        NameReceiptDialogFragment dialog = new NameReceiptDialogFragment();
+        dialog.setListener(this);
+
+        if (getFragmentManager() != null) {
+            dialog.show(getFragmentManager(), "Name");
+        }
+    }
+
+    public void calculateTip() {
+        AddTipDialogFragment dialog = new AddTipDialogFragment();
+
+        if (getFragmentManager() != null) {
+            dialog.show(getFragmentManager(), "Tip");
+        }
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
         // Save in database
         if (viewModel.getReceipt().getValue() != null) {
             DBController.addReceipt(viewModel.getReceipt().getValue());
@@ -90,14 +109,6 @@ public class Payment extends Fragment {
         // Navigate back to options view
         if (getView() != null) {
             Navigation.findNavController(getView()).navigate(R.id.action_payment_to_options );
-        }
-    }
-
-    public void calculateTip() {
-        AddTipDialogFragment dialog = new AddTipDialogFragment();
-
-        if (getFragmentManager() != null) {
-            dialog.show(getFragmentManager(), "test");
         }
     }
 }
