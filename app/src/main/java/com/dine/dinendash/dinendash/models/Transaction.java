@@ -69,7 +69,7 @@ public class Transaction {
     }
 
     public void setPhoneNumber(String phoneNumber) {
-        getPhoneNumber().postValue(phoneNumber);
+        getPhoneNumber().setValue(phoneNumber);
     }
 
     public MutableLiveData<Double> getTotal() {
@@ -81,7 +81,7 @@ public class Transaction {
     }
 
     public void setTotal(Double total) {
-        getTotal().postValue(total);
+        getTotal().setValue(total);
     }
 
     public MutableLiveData<Boolean> getCompleted() {
@@ -93,7 +93,7 @@ public class Transaction {
     }
 
     public void setCompleted(Boolean completed) {
-        getCompleted().postValue(completed);
+        getCompleted().setValue(completed);
     }
 
     @NonNull

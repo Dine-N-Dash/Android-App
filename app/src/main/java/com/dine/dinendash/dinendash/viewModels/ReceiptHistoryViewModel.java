@@ -17,14 +17,33 @@ public class ReceiptHistoryViewModel extends ViewModel {
 
         //dummy data
         Receipt receipt = new Receipt();
-        receipt.addItem(new ReceiptItem("Pizza", 12.00));
-        receipt.addTransaction(new Transaction("Shelby", "13023"));
-        receipt.addTransaction(new Transaction("Shelby123", "13023123123"));
+
+        ReceiptItem pizza = new ReceiptItem("Pizza", 12.00);
+        receipt.addItem(pizza);
+        ReceiptItem pie = new ReceiptItem("Pie", 4.00);
+        receipt.addItem(pie);
+
+        Transaction t1 = new Transaction("Shelby", "13023");
+        receipt.addTransaction(t1);
+        t1.addItem(pizza);
+
+        Transaction t2 = new Transaction("Shelby123", "13023123123");
+        receipt.addTransaction(t2);
+        t2.addItem(pie);
+
+        receipt.setName("Friday Food");
 
         Receipt receipt2 = new Receipt();
-        receipt2.addItem(new ReceiptItem("Pie", 100.00));
-        receipt2.addTransaction(new Transaction("Pigman", "13023"));
-        receipt2.addTransaction(new Transaction("Piman", "13023123123"));
+        receipt2.addItem(pizza);
+        receipt2.addItem(pie);
+
+        receipt2.addTransaction(t1);
+        t1.addItem(pizza);
+
+        receipt2.addTransaction(t2);
+        t2.addItem(pie);
+
+        receipt2.setName("Another Food Outing");
 
         addReceipt(receipt);
         addReceipt(receipt2);
