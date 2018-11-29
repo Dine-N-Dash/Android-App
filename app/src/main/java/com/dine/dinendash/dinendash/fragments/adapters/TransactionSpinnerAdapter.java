@@ -15,10 +15,10 @@ import androidx.lifecycle.Observer;
 
 public class TransactionSpinnerAdapter extends ArrayAdapter<Transaction> implements SpinnerAdapter {
     public TransactionSpinnerAdapter(@NonNull Context context, int resource, LifecycleOwner owner, final NewReceiptViewModel viewModel) {
-        super(context, resource, viewModel.getTransactions().getValue());
+        super(context, resource, viewModel.getReceipt().getValue().getTransactions().getValue());
 
         // Update UI when transactions change
-        viewModel.getTransactions().observe(owner, new Observer<List<Transaction>>() {
+        viewModel.getReceipt().getValue().getTransactions().observe(owner, new Observer<List<Transaction>>() {
             @Override
             public void onChanged(List<Transaction> transactions) {
                 notifyDataSetChanged();

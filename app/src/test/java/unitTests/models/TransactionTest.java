@@ -66,6 +66,19 @@ public class TransactionTest {
     }
 
     @Test
+    public void testAppyTip() {
+        transaction.setTotal(10.00);
+
+        transaction.applyTip(0.1);
+        Double total = transaction.getTotal().getValue();
+        assertThat(total, is(equalTo(11.00)));
+
+        transaction.applyTip(0.25);
+        total = transaction.getTotal().getValue();
+        assertThat(total, is(equalTo(12.50)));
+    }
+
+    @Test
     public void testSetName() {
         transaction.setName("Mr. Man");
         String name = transaction.getName().getValue();

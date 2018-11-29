@@ -12,6 +12,7 @@
             name="viewModel"
             type="com.dine.dinendash.dinendash.viewModels.NewReceiptViewModel"/>
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,24 +23,50 @@
             android:id="@+id/transactionItemsRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="vertical"
             android:layout_marginBottom="60dp"
+            android:scrollbars="vertical"
             app:layout_constraintBottom_toTopOf="@id/finish_receipt_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
+            android:id="@+id/add_tip_button"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/rounded_button"
+            android:onClick="@{() -> fragment.calculateTip()}"
+            android:text="@string/add_tip"
+            android:textColor="@color/colorText"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/finish_receipt_button"
+            app:layout_constraintEnd_toStartOf="@+id/transactionItemsRecyclerView"
+            app:layout_constraintStart_toEndOf="@+id/transactionItemsRecyclerView" />
+
+        <Button
             android:id="@+id/finish_receipt_button"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_margin="10dp"
             android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
             android:background="@drawable/rounded_button"
-            android:textColor="@color/colorText"
-            android:text="@string/done"
-            android:textSize="18sp"
             android:onClick="@{() -> fragment.finishTransactions()}"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            android:text="@string/save"
+            android:textColor="@color/colorText"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

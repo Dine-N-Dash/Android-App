@@ -20,12 +20,13 @@ import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-public class Payment extends Fragment {
+public class Payment extends Fragment implements NameReceiptDialogFragment.NameReceiptDialogListener {
     private NewReceiptViewModel viewModel;
 
     public Payment() {
@@ -68,18 +69,37 @@ public class Payment extends Fragment {
         // Construct and send SMS intent
         Uri uri = Uri.parse("smsto:"+transaction.getPhoneNumber().getValue() );
         Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
-        intent.putExtra("sms_body", "Hi "+transaction.getName().getValue()+"! You owe me $" + String.format(Locale.US, "%.2f", transaction.getTotal().getValue()) +". You can pay me using this link: https://www.paypal.me/"+username+"/"+transaction.getTotal().getValue());
+        intent.putExtra("sms_body", "Hi " + transaction.getName().getValue() + "! You owe me $" +
+                String.format(Locale.US, "%.2f", transaction.getTotal().getValue()) +
+                ". You can pay me using this link: https://www.paypal.me/" + username + "/" +
+                String.format(Locale.US, "%.2f", transaction.getTotal().getValue()));
         startActivity(intent);
 
         // Set transaction to be completed and update binding
         transaction.setCompleted(true);
-        viewModel.getTransactions().setValue(viewModel.getTransactions().getValue());
     }
 
     public void finishTransactions() {
+        NameReceiptDialogFragment dialog = new NameReceiptDialogFragment();
+        dialog.setListener(this);
+
+        if (getFragmentManager() != null) {
+            dialog.show(getFragmentManager(), "Name");
+        }
+    }
+
+    public void calculateTip() {
+        AddTipDialogFragment dialog = new AddTipDialogFragment();
+
+        if (getFragmentManager() != null) {
+            dialog.show(getFragmentManager(), "Tip");
+        }
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
         // Save in database
         if (viewModel.getReceipt().getValue() != null) {
-            viewModel.getReceipt().getValue().setTransactions(viewModel.getTransactions().getValue());
             DBController.addReceipt(viewModel.getReceipt().getValue());
         }
 

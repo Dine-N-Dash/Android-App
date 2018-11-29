@@ -9,6 +9,7 @@ public class Transaction {
     private MutableLiveData<String> phoneNumber;
     private MutableLiveData<Double> total;
     private MutableLiveData<Boolean> completed;
+    private double tipPercent;
 
     public Transaction() {
         this("", "");
@@ -19,12 +20,13 @@ public class Transaction {
         setPhoneNumber(phoneNumber);
         setTotal(0.0);
         setCompleted(false);
+        tipPercent = 0.0;
     }
 
     public void addItem(ReceiptItem item) {
         // Add item total to transaction total and set this transaction as the item's owner
         if (getTotal().getValue() != null) {
-            getTotal().postValue(getTotal().getValue() + item.getPrice());
+            setTotal(getTotal().getValue() + item.getPrice());
             item.setOwner(this);
         }
     }
@@ -32,8 +34,17 @@ public class Transaction {
     public void removeItem(ReceiptItem item) {
         // Subtract item total from transaction total and remove this transaction as the item's owner
         if (getTotal().getValue() != null) {
-            getTotal().postValue(getTotal().getValue() - item.getPrice());
+            setTotal(getTotal().getValue() - item.getPrice());
             item.setOwner(null);
+        }
+    }
+
+    public void applyTip(double percent) {
+        if (total.getValue() != null) {
+            double preTax = total.getValue() / (1 + tipPercent);
+            double newTotal = preTax + (preTax * percent);
+            total.postValue(newTotal);
+            tipPercent = percent;
         }
     }
 

@@ -24,6 +24,7 @@ import com.dine.dinendash.dinendash.viewModels.NewReceiptViewModel;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -73,19 +74,23 @@ public class ReceiptItems extends Fragment {
         binding.receiptItemsRecyclerView.setAdapter(new ReceiptItemsAdapter(viewModel, this));
 
         // When a new Transaction is added, set it to be the current transaction
-        viewModel.getTransactions().observe(this, new Observer<List<Transaction>>() {
-            @Override
-            public void onChanged(List<Transaction> transactions) {
-                if (viewModel.getTransactions().getValue() != null) {
-                    binding.contactSpinner.setSelection(viewModel.getTransactions().getValue().size());
+        if (viewModel.getReceipt().getValue() != null) {
+            viewModel.getReceipt().getValue().getTransactions().observe(this, new Observer<List<Transaction>>() {
+                @Override
+                public void onChanged(List<Transaction> transactions) {
+                    if (viewModel.getReceipt().getValue().getTransactions().getValue() != null) {
+                        binding.contactSpinner.setSelection(viewModel.getReceipt().getValue().getTransactions().getValue().size());
+                    }
                 }
-            }
-        });
+            });
+        }
 
         // Set up the Spinner
         if (getContext() != null) {
             binding.contactSpinner.setAdapter(new TransactionSpinnerAdapter(getContext(), R.layout.transaction_spinner_text_view, this, viewModel));
         }
+
+        showBackButton();
 
         return binding.getRoot();
     }
@@ -113,44 +118,51 @@ public class ReceiptItems extends Fragment {
             int nameIdx;    // Index of DISPLAY_NAME column
             String name = "";
             String phone = "";
-            // Get the name
-            cursor = getActivity().getContentResolver().query(contactData,
-                    new String[]{ContactsContract.Contacts.DISPLAY_NAME},
-                    null, null, null);
-            if (cursor.moveToFirst()) {
-                nameIdx = cursor.getColumnIndex(
-                        ContactsContract.Contacts.DISPLAY_NAME);
-                name = cursor.getString(nameIdx);
-                // Set up the projection
-                String[] projection = {
-                        ContactsContract.Data.DISPLAY_NAME,
-                        ContactsContract.Contacts.Data.DATA1,
-                        ContactsContract.Contacts.Data.MIMETYPE};
-                // Query ContactsContract.Data
-                cursor = getActivity().getContentResolver().query(
-                        ContactsContract.Data.CONTENT_URI, projection,
-                        ContactsContract.Data.DISPLAY_NAME + " = ?",
-                        new String[]{name},
-                        null);
-                if (cursor.moveToFirst()) {
-                    // Get the indexes of the MIME type and data
-                    mimeIdx = cursor.getColumnIndex(
-                            ContactsContract.Contacts.Data.MIMETYPE);
-                    dataIdx = cursor.getColumnIndex(
-                            ContactsContract.Contacts.Data.DATA1);
-                    // Match the data to the MIME type, store in variables
-                    do {
-                        mime = cursor.getString(mimeIdx);
-                        if (ContactsContract.CommonDataKinds.Phone
-                                .CONTENT_ITEM_TYPE.equalsIgnoreCase(mime)) {
-                            phone = cursor.getString(dataIdx);
-                        }
-                    } while (cursor.moveToNext());
-                }
-            }
-            cursor.close();
 
-            viewModel.addTransaction(name, phone);
+            if (getActivity() != null && contactData != null) {
+                // Get the name
+                cursor = getActivity().getContentResolver().query(contactData,
+                        new String[]{ContactsContract.Contacts.DISPLAY_NAME},
+                        null, null, null);
+                if (cursor != null && cursor.moveToFirst()) {
+                    nameIdx = cursor.getColumnIndex(
+                            ContactsContract.Contacts.DISPLAY_NAME);
+                    name = cursor.getString(nameIdx);
+                    // Set up the projection
+                    String[] projection = {
+                            ContactsContract.Data.DISPLAY_NAME,
+                            ContactsContract.Contacts.Data.DATA1,
+                            ContactsContract.Contacts.Data.MIMETYPE};
+                    // Query ContactsContract.Data
+                    cursor = getActivity().getContentResolver().query(
+                            ContactsContract.Data.CONTENT_URI, projection,
+                            ContactsContract.Data.DISPLAY_NAME + " = ?",
+                            new String[]{name},
+                            null);
+                    if (cursor != null && cursor.moveToFirst()) {
+                        // Get the indexes of the MIME type and data
+                        mimeIdx = cursor.getColumnIndex(
+                                ContactsContract.Contacts.Data.MIMETYPE);
+                        dataIdx = cursor.getColumnIndex(
+                                ContactsContract.Contacts.Data.DATA1);
+                        // Match the data to the MIME type, store in variables
+                        do {
+                            mime = cursor.getString(mimeIdx);
+                            if (ContactsContract.CommonDataKinds.Phone
+                                    .CONTENT_ITEM_TYPE.equalsIgnoreCase(mime)) {
+                                phone = cursor.getString(dataIdx);
+                            }
+                        } while (cursor.moveToNext());
+                    }
+                }
+
+                if (cursor != null) {
+                    cursor.close();
+                }
+
+                viewModel.addTransaction(name, phone);
+            }
+
         }
     }
 
@@ -176,6 +188,12 @@ public class ReceiptItems extends Fragment {
         }
         else {
             Toast.makeText(getActivity(),"This application requires the use of contacts", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void showBackButton() {
+        if (getActivity() instanceof AppCompatActivity) {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }
 }

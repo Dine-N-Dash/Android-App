@@ -4,7 +4,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,11 +29,10 @@ public class Splash extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Hide the action bar so it doesn't interfere with the Splash screen
-        try {
-            ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
-        } catch (Exception e){
-            Log.e("SplashError", e.getMessage());
+        // Show the Action bar if it was hidden by the splash screen
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        if (activity != null && activity.getSupportActionBar() != null) {
+            activity.getSupportActionBar().show();
         }
     }
 

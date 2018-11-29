@@ -1,7 +1,6 @@
 package com.dine.dinendash.dinendash.util;
 
 import com.dine.dinendash.dinendash.models.Receipt;
-import com.dine.dinendash.dinendash.models.Transaction;
 
 import java.util.ArrayList;
 import java.util.List;

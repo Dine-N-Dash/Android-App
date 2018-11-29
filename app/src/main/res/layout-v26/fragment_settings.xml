@@ -30,7 +30,6 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
                 android:layout_marginStart="20dp"
                 android:text="@string/paypal_me_username" />
 
@@ -54,7 +53,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/button2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="Autofill"/>
+                    android:importantForAutofill="no" />
 
                 <Button
                     android:id="@+id/button2"

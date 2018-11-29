@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.util.Log;
 
-import com.dine.dinendash.dinendash.models.Receipt;
 import com.dine.dinendash.dinendash.models.ReceiptItem;
 import com.dine.dinendash.dinendash.viewModels.NewReceiptViewModel;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -135,18 +134,14 @@ public class PhotoAnalyzer {
                             }
                         }
 
-                        Receipt receipt = new Receipt();
-
-                        //Loop through all prices and add the item and price to the receipt object
                         for(lineObj q: prices) {
-                            if(q.itemName != null) {
+                            if(q.itemName != null && viewModel.getReceipt().getValue() != null) {
                                 String test = q.itemName.line.toLowerCase();
                                 if(!(test.contains("tax") || test.contains("total") || test.contains("subtotal") || test.contains("sub total") || Double.parseDouble(q.line) == 0))
-                                    receipt.addItem(new ReceiptItem(q.itemName.line, Double.parseDouble(q.line)));
+                                    viewModel.getReceipt().getValue().addItem(new ReceiptItem(q.itemName.line, Double.parseDouble(q.line)));
                             }
                         }
 
-                        viewModel.setReceipt(receipt);
                         viewModel.setProcessed(true);
 
                         bitmap.recycle();
