@@ -103,9 +103,6 @@ public class Payment extends Fragment implements NameReceiptDialogFragment.NameR
             DBController.addReceipt(viewModel.getReceipt().getValue());
         }
 
-        // Reset the view model so that new receipts can be processed
-        viewModel.reset();
-
         // Navigate back to options view
         if (getView() != null) {
             Navigation.findNavController(getView()).navigate(R.id.action_payment_to_options );

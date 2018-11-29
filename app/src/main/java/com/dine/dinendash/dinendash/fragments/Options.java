@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import com.dine.dinendash.dinendash.R;
 import com.dine.dinendash.dinendash.databinding.FragmentOptionsBinding;
 import com.dine.dinendash.dinendash.util.Statics;
+import com.dine.dinendash.dinendash.viewModels.NewReceiptViewModel;
+import com.dine.dinendash.dinendash.viewModels.ReceiptHistoryViewModel;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,6 +27,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 import static android.app.Activity.RESULT_OK;
@@ -35,6 +38,16 @@ public class Options extends Fragment {
 
     public Options() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Remove any previous receipt data
+        if (getActivity() != null) {
+            ViewModelProviders.of(getActivity()).get(NewReceiptViewModel.class).reset();
+        }
     }
 
     @Override
