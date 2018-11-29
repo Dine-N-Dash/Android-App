@@ -140,7 +140,9 @@ public class PhotoAnalyzer {
                         //Loop through all prices and add the item and price to the receipt object
                         for(lineObj q: prices) {
                             if(q.itemName != null) {
-                                receipt.addItem(new ReceiptItem(q.itemName.line, Double.parseDouble(q.line)));
+                                String test = q.itemName.line.toLowerCase();
+                                if(!(test.contains("tax") || test.contains("total") || test.contains("subtotal") || test.contains("sub total") || Double.parseDouble(q.line) == 0))
+                                    receipt.addItem(new ReceiptItem(q.itemName.line, Double.parseDouble(q.line)));
                             }
                         }
 
