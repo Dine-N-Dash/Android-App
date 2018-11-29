@@ -45,6 +45,7 @@ public class PhotoAnalyzer {
         public String toString(){ return this.line; }
     }
 
+
     public static void analyze(final Bitmap bitmap, final NewReceiptViewModel viewModel) {
         //Firebase API initializers
         FirebaseVisionImage img = FirebaseVisionImage.fromBitmap(bitmap);
@@ -135,7 +136,9 @@ public class PhotoAnalyzer {
 
                         for(lineObj q: prices) {
                             if(q.itemName != null && viewModel.getReceipt().getValue() != null) {
-                                viewModel.getReceipt().getValue().addItem(new ReceiptItem(q.itemName.line, Double.parseDouble(q.line)));
+                                String test = q.itemName.line.toLowerCase();
+                                if(!(test.contains("tax") || test.contains("total") || test.contains("subtotal") || test.contains("sub total") || Double.parseDouble(q.line) == 0))
+                                    viewModel.getReceipt().getValue().addItem(new ReceiptItem(q.itemName.line, Double.parseDouble(q.line)));
                             }
                         }
 
