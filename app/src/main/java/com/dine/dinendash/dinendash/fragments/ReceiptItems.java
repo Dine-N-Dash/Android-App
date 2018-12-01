@@ -160,6 +160,17 @@ public class ReceiptItems extends Fragment {
                     cursor.close();
                 }
 
+                if (viewModel.getReceipt().getValue() != null && viewModel.getReceipt().getValue().getTransactions().getValue() != null) {
+                    for (Transaction t: viewModel.getReceipt().getValue().getTransactions().getValue()) {
+                        if (t.getName().getValue() != null && t.getPhoneNumber().getValue() != null) {
+                            if (t.getName().getValue().equals(name) && t.getPhoneNumber().getValue().equals(phone)) {
+                                Toast.makeText(getActivity(), t.getName().getValue() + " has already been added!", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                        }
+                    }
+                }
+
                 viewModel.addTransaction(name, phone);
             }
 
