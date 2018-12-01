@@ -28,7 +28,7 @@
             android:layout_marginRight="20dp"
             android:gravity="start"
             android:text="@{item.name}"
-            android:textColor="@{item.completed == false ? @color/black : @color/colorDisabledReceiptItem}"
+            android:textColor="@{item.completed == false ? @color/black : @color/colorDisabledButton}"
             android:textSize="22sp"
             android:maxLines="1"
             android:ellipsize="end"

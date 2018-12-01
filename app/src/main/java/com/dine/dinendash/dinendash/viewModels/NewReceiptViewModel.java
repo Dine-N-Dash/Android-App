@@ -144,17 +144,19 @@ public class NewReceiptViewModel extends ViewModel {
     }
 
     public void itemSelected(ReceiptItem item) {
-        if (item.getOwner() == null) {
-            // If the item has no owner, add it to the current transaction and update binding
-            if (getCurrentTransaction().getValue() != null) {
-                getCurrentTransaction().getValue().addItem(item);
-                getCurrentTransaction().setValue(getCurrentTransaction().getValue());
-            }
-        } else if (item.getOwner() == getCurrentTransaction().getValue()) {
-            // Otherwise, if the item's owner is the current transaction, remove it from the current transaction
-            if (getCurrentTransaction().getValue() != null) {
-                getCurrentTransaction().getValue().removeItem(item);
-                getCurrentTransaction().setValue(getCurrentTransaction().getValue());
+        if (getCurrentTransaction().getValue() != null && getCurrentTransaction().getValue().getName().getValue() != null && !getCurrentTransaction().getValue().getName().getValue().equals("")) {
+            if (item.getOwner() == null) {
+                // If the item has no owner, add it to the current transaction and update binding
+                if (getCurrentTransaction().getValue() != null) {
+                    getCurrentTransaction().getValue().addItem(item);
+                    getCurrentTransaction().setValue(getCurrentTransaction().getValue());
+                }
+            } else if (item.getOwner() == getCurrentTransaction().getValue()) {
+                // Otherwise, if the item's owner is the current transaction, remove it from the current transaction
+                if (getCurrentTransaction().getValue() != null) {
+                    getCurrentTransaction().getValue().removeItem(item);
+                    getCurrentTransaction().setValue(getCurrentTransaction().getValue());
+                }
             }
         }
     }
