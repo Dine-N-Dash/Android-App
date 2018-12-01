@@ -5,9 +5,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.hardware.Camera;
+import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraCharacteristics;
+import android.hardware.camera2.CameraDevice;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +24,14 @@ import com.dine.dinendash.dinendash.databinding.FragmentReceiptItemsBinding;
 import com.dine.dinendash.dinendash.fragments.adapters.ReceiptItemsAdapter;
 import com.dine.dinendash.dinendash.fragments.adapters.TransactionSpinnerAdapter;
 import com.dine.dinendash.dinendash.models.Transaction;
+import com.dine.dinendash.dinendash.util.ImageRotate;
 import com.dine.dinendash.dinendash.util.Statics;
 import com.dine.dinendash.dinendash.viewModels.NewReceiptViewModel;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -41,6 +49,7 @@ public class ReceiptItems extends Fragment {
         // Required empty public constructor
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,9 +62,10 @@ public class ReceiptItems extends Fragment {
         // If a photo path was sent as an argument, have the view model analyze it
         if (getArguments() != null) {
             String path = getArguments().getString("photoPath");
+            int rotate = getArguments().getInt("rotate", 0);
 
             if (path != null) {
-                viewModel.analyzeImage(path, getActivity().getContentResolver());
+                viewModel.analyzeImage(path, getActivity().getContentResolver(), rotate);
             }
         }
     }
@@ -191,7 +201,7 @@ public class ReceiptItems extends Fragment {
         }
     }
 
-    public void showBackButton() {
+    private void showBackButton() {
         if (getActivity() instanceof AppCompatActivity) {
             ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
