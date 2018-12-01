@@ -21,17 +21,6 @@
         android:layout_gravity="center"
         android:orientation="vertical">
 
-        <ProgressBar
-            android:id="@+id/loadingSpinner"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:indeterminateDrawable="@drawable/circle_loading"
-            android:visibility="@{viewModel.processed ? View.GONE : View.VISIBLE}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
             android:id="@+id/contact_text"
             android:layout_width="wrap_content"
@@ -73,6 +62,17 @@
             android:background="@android:color/darker_gray"
             app:layout_constraintTop_toBottomOf="@id/contact_text" />
 
+        <ProgressBar
+            android:id="@+id/loadingSpinner"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:indeterminateDrawable="@drawable/circle_loading"
+            android:visibility="@{viewModel.processed ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toTopOf="@id/done_button"
+            app:layout_constraintTop_toBottomOf="@id/divider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/receiptItemsRecyclerView"
             android:layout_width="match_parent"
@@ -80,9 +80,30 @@
             android:layout_marginTop="50dp"
             android:layout_marginBottom="60dp"
             android:scrollbars="vertical"
-            android:visibility="@{viewModel.processed ? View.VISIBLE : View.GONE}"
+            android:visibility="@{viewModel.processed &amp;&amp; viewModel.receipt.items.size > 0 ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toTopOf="@id/done_button"
-            app:layout_constraintTop_toBottomOf="@id/divider" />
+            app:layout_constraintTop_toBottomOf="@id/divider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/noItemsMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="60dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
+            android:visibility="@{viewModel.processed &amp;&amp; viewModel.receipt.items.size == 0 ? View.VISIBLE : View.GONE}"
+            android:text="@string/no_items_message"
+            android:textSize="18sp"
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@id/done_button"
+            app:layout_constraintTop_toBottomOf="@id/divider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <Button
             android:id="@+id/done_button"

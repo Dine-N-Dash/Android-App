@@ -20,5 +20,6 @@
     <string name="save_receipt">Save Receipt</string>
     <string name="save">Save</string>
     <string name="name">Name</string>
+    <string name="no_items_message">Oops! We didn\'t find any items.\nMake sure you take your photo in portrait orientation.</string>
 </resources>
 
