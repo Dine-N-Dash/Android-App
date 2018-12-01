@@ -54,7 +54,7 @@ public class ReceiptItems extends Fragment {
         if (getArguments() != null) {
             String path = getArguments().getString("photoPath");
 
-            if (path != null) {
+            if (path != null && viewModel.getProcessed().getValue() != null && !viewModel.getProcessed().getValue()) {
                 viewModel.analyzeImage(path, getActivity().getContentResolver());
             }
         }
