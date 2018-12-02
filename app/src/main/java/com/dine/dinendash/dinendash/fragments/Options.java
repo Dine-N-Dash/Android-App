@@ -3,7 +3,6 @@ package com.dine.dinendash.dinendash.fragments;
 import android.content.Intent;
 import android.hardware.camera2.CameraAccessException;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -25,7 +24,6 @@ import java.util.Date;
 import java.util.Locale;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 import androidx.databinding.DataBindingUtil;
@@ -144,7 +142,6 @@ public class Options extends Fragment {
         return null;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Bundle bundle;

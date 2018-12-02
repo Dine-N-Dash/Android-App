@@ -1,12 +1,10 @@
 package com.dine.dinendash.dinendash.util;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraManager;
-import android.os.Build;
 import android.util.SparseIntArray;
 import android.view.Surface;
 
@@ -22,7 +20,6 @@ public class ImageRotate {
         ORIENTATIONS.append(Surface.ROTATION_270, 180);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static int getRotate(Activity activity, String cameraId, Context context) throws CameraAccessException {
         int deviceRotation = activity.getWindowManager().getDefaultDisplay().getRotation();
         int rotationCompensation = ORIENTATIONS.get(deviceRotation);
