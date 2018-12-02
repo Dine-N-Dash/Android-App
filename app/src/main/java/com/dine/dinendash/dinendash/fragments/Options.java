@@ -17,7 +17,6 @@ import com.dine.dinendash.dinendash.databinding.FragmentOptionsBinding;
 import com.dine.dinendash.dinendash.util.ImageRotate;
 import com.dine.dinendash.dinendash.util.Statics;
 import com.dine.dinendash.dinendash.viewModels.NewReceiptViewModel;
-import com.dine.dinendash.dinendash.viewModels.ReceiptHistoryViewModel;
 
 import java.io.File;
 import java.io.IOException;
@@ -160,7 +159,7 @@ public class Options extends Fragment {
             bundle = new Bundle();
             bundle.putString("photoPath", currentPhotoPath);
 
-            if(!uploaded) {
+            if(!uploaded && getActivity() != null && getContext() != null) {
                 int rotate = 0;
                 try {
                     rotate = ImageRotate.getRotate(getActivity(), "0", getContext());
@@ -183,7 +182,11 @@ public class Options extends Fragment {
 
     private void hideBackButton() {
         if (getActivity() instanceof AppCompatActivity) {
-            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            AppCompatActivity activity = (AppCompatActivity) getActivity();
+
+            if (activity.getSupportActionBar() != null) {
+                activity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            }
         }
     }
 }

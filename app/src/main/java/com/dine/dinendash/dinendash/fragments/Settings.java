@@ -72,8 +72,11 @@ public class Settings extends Fragment {
 
     public void showBackButton() {
         if (getActivity() instanceof AppCompatActivity) {
-            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            AppCompatActivity activity = (AppCompatActivity) getActivity();
+
+            if (activity.getSupportActionBar() != null) {
+                activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            }
         }
     }
-
 }

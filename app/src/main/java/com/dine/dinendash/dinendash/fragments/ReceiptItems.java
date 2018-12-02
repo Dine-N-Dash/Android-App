@@ -5,15 +5,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.hardware.Camera;
-import android.hardware.camera2.CameraAccessException;
-import android.hardware.camera2.CameraCharacteristics;
-import android.hardware.camera2.CameraDevice;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +19,6 @@ import com.dine.dinendash.dinendash.databinding.FragmentReceiptItemsBinding;
 import com.dine.dinendash.dinendash.fragments.adapters.ReceiptItemsAdapter;
 import com.dine.dinendash.dinendash.fragments.adapters.TransactionSpinnerAdapter;
 import com.dine.dinendash.dinendash.models.Transaction;
-import com.dine.dinendash.dinendash.util.ImageRotate;
 import com.dine.dinendash.dinendash.util.Statics;
 import com.dine.dinendash.dinendash.viewModels.NewReceiptViewModel;
 
@@ -214,7 +208,11 @@ public class ReceiptItems extends Fragment {
 
     public void showBackButton() {
         if (getActivity() instanceof AppCompatActivity) {
-            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            AppCompatActivity activity = (AppCompatActivity) getActivity();
+
+            if (activity.getSupportActionBar() != null) {
+                activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            }
         }
     }
 }

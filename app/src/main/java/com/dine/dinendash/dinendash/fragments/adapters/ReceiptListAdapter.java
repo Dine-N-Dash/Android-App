@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ReceiptListAdapter extends RecyclerView.Adapter<ReceiptListAdapter.ReceiptListViewHolder> {
     private LayoutInflater inflater;
     private final ReceiptHistoryViewModel viewModel;
-    private History historyFragment;
+    private final History historyFragment;
 
     public ReceiptListAdapter(ReceiptHistoryViewModel viewModel, LifecycleOwner owner, History historyFragment) {
         this.viewModel = viewModel;
