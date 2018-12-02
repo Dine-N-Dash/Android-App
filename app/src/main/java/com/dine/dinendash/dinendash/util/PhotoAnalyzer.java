@@ -1,6 +1,7 @@
 package com.dine.dinendash.dinendash.util;
 
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.graphics.Point;
 import android.util.Log;
 
@@ -46,9 +47,15 @@ public class PhotoAnalyzer {
     }
 
 
-    public static void analyze(final Bitmap bitmap, final NewReceiptViewModel viewModel) {
+    public static void analyze(final Bitmap bitmap, final NewReceiptViewModel viewModel, int rotate) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(rotate);
+
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getHeight(), true);
+        Bitmap rotatedBitmap = Bitmap.createBitmap(scaledBitmap, 0, 0, scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
+
         //Firebase API initializers
-        FirebaseVisionImage img = FirebaseVisionImage.fromBitmap(bitmap);
+        FirebaseVisionImage img = FirebaseVisionImage.fromBitmap(rotatedBitmap);
         FirebaseVisionTextRecognizer textRecognizer = FirebaseVision.getInstance().getOnDeviceTextRecognizer();
 
         textRecognizer.processImage(img)

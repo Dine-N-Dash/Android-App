@@ -1,7 +1,9 @@
 package com.dine.dinendash.dinendash.fragments;
 
 import android.content.Intent;
+import android.hardware.camera2.CameraAccessException;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -12,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.dine.dinendash.dinendash.R;
 import com.dine.dinendash.dinendash.databinding.FragmentOptionsBinding;
+import com.dine.dinendash.dinendash.util.ImageRotate;
 import com.dine.dinendash.dinendash.util.Statics;
 import com.dine.dinendash.dinendash.viewModels.NewReceiptViewModel;
 import com.dine.dinendash.dinendash.viewModels.ReceiptHistoryViewModel;
@@ -23,6 +26,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 import androidx.databinding.DataBindingUtil;
@@ -141,18 +145,34 @@ public class Options extends Fragment {
         return null;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Bundle bundle;
+        boolean uploaded = false;
 
         if (resultCode == RESULT_OK) {
             if(requestCode == Statics.REQUEST_GET_SINGLE_FILE) {
                 currentPhotoPath = data.getDataString();
+                uploaded = true;
             }
 
             bundle = new Bundle();
             bundle.putString("photoPath", currentPhotoPath);
 
+            if(!uploaded) {
+                int rotate = 0;
+                try {
+                    rotate = ImageRotate.getRotate(getActivity(), "0", getContext());
+                } catch (CameraAccessException e) {
+                    e.printStackTrace();
+                }
+
+                Log.d("Rotate", String.valueOf(rotate));
+
+
+                bundle.putInt("rotate", rotate);
+            }
 
             // If we successfully got a photo, navigate to the receipt items view and send the photo path as an argument
             if(getView()!=null) {
@@ -161,7 +181,7 @@ public class Options extends Fragment {
         }
     }
 
-    public void hideBackButton() {
+    private void hideBackButton() {
         if (getActivity() instanceof AppCompatActivity) {
             ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         }

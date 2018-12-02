@@ -161,8 +161,8 @@ public class NewReceiptViewModel extends ViewModel {
         }
     }
 
-    public void analyzeImage(String path, ContentResolver resolver) {
-        new AnalyzePhotoTask(path,this, resolver).execute();
+    public void analyzeImage(String path, ContentResolver resolver, int rotate) {
+        new AnalyzePhotoTask(path,this, resolver, rotate).execute();
     }
 
     public void reset() {
@@ -175,11 +175,13 @@ public class NewReceiptViewModel extends ViewModel {
         private final String path;
         private final NewReceiptViewModel viewModel;
         private final ContentResolver resolver;
+        private final int rotate;
 
-        public AnalyzePhotoTask(String path, NewReceiptViewModel viewModel, ContentResolver resolver) {
+        protected AnalyzePhotoTask(String path, NewReceiptViewModel viewModel, ContentResolver resolver, int rotate) {
             this.path = path;
             this.viewModel = viewModel;
             this.resolver = resolver;
+            this.rotate = rotate;
         }
 
         @Override
@@ -196,7 +198,7 @@ public class NewReceiptViewModel extends ViewModel {
                 }
             }
 
-            PhotoAnalyzer.analyze(bitmap, viewModel);
+            PhotoAnalyzer.analyze(bitmap, viewModel, rotate);
 
             return null;
         }

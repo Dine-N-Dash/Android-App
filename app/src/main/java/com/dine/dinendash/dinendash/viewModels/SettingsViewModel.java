@@ -8,7 +8,6 @@ public class SettingsViewModel extends ViewModel {
     private MutableLiveData<String> username;
 
     public SettingsViewModel() {
-
     }
 
     public MutableLiveData<String> getUsername() {
