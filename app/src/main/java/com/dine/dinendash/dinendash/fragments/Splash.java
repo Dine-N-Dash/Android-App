@@ -29,10 +29,10 @@ public class Splash extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Show the Action bar if it was hidden by the splash screen
+        // Hide the Action bar
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         if (activity != null && activity.getSupportActionBar() != null) {
-            activity.getSupportActionBar().show();
+            activity.getSupportActionBar().hide();
         }
     }
 
