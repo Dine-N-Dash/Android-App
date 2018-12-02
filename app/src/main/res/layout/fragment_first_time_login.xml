@@ -46,6 +46,7 @@
             android:hint="@string/paypal_me_username"
             android:inputType="text"
             android:text="@={viewmodel.username}"
+            android:backgroundTint="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textView"

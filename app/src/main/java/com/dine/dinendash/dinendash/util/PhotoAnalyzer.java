@@ -24,8 +24,8 @@ import androidx.annotation.NonNull;
 public class PhotoAnalyzer {
 
     private static class lineObj implements Comparable{
-        String line;
-        int midpoint;
+        final String line;
+        final int midpoint;
         lineObj itemName;
 
         lineObj(String l, int c){
