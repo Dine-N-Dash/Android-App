@@ -1,11 +1,12 @@
 package com.dine.dinendash.dinendash.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.lifecycle.MutableLiveData;
 
-public class Receipt {
+public class Receipt implements Serializable {
     private MutableLiveData<List<ReceiptItem>> items;
     private MutableLiveData<List<Transaction>> transactions;
     private MutableLiveData<String> name;

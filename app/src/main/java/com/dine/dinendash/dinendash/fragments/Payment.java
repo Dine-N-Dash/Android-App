@@ -100,7 +100,12 @@ public class Payment extends Fragment implements NameReceiptDialogFragment.NameR
     public void onDialogPositiveClick(DialogFragment dialog) {
         // Save in database
         if (viewModel.getReceipt().getValue() != null) {
-            DBController.addReceipt(viewModel.getReceipt().getValue());
+
+            SharedPreferences sharedPreferences = PreferenceManager
+                    .getDefaultSharedPreferences(getActivity());
+            String id = sharedPreferences.getString("username", "");
+
+            DBController.addReceipt(viewModel.getReceipt().getValue(), id);
         }
 
         // Navigate back to options view

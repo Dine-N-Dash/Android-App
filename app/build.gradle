@@ -52,6 +52,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
 
     implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.google.firebase:firebase-database:16.0.4'
 }
 
 apply plugin: 'com.google.gms.google-services'
