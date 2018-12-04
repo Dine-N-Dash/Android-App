@@ -1,3 +1,5 @@
+// Written by: Ryan Filkins
+
 package com.dine.dinendash.dinendash.activities;
 
 import android.os.Bundle;

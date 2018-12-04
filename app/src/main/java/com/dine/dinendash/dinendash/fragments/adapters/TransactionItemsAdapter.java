@@ -1,3 +1,5 @@
+// Written by: Ryan Filkins
+
 package com.dine.dinendash.dinendash.fragments.adapters;
 
 import android.view.LayoutInflater;

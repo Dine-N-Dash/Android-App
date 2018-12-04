@@ -1,3 +1,5 @@
+// Written by: Ryan Filkins
+
 package com.dine.dinendash.dinendash.fragments;
 
 import android.app.Dialog;
@@ -37,13 +39,14 @@ public class AddTipDialogFragment extends DialogFragment {
 
             FragmentAddTipDialogBinding binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.fragment_add_tip_dialog, null, false);
 
+            // Bind fragment and view model to view
             binding.setViewModel(viewModel);
             binding.setFragment(this);
             binding.setLifecycleOwner(this);
 
+            // Set up number pickers
             binding.tipPercentPicker.setMinValue(0);
             binding.tipPercentPicker.setMaxValue(99);
-
             binding.tipPercentPickerDecimal.setMinValue(0);
             binding.tipPercentPickerDecimal.setMaxValue(9);
 

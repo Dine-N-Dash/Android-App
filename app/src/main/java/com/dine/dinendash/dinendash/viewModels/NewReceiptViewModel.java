@@ -1,3 +1,6 @@
+// Written by: Ryan Filkins
+// Tested by: Ryan Filkins
+
 package com.dine.dinendash.dinendash.viewModels;
 
 import android.content.ContentResolver;

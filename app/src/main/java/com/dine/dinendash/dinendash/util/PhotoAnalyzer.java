@@ -1,3 +1,5 @@
+// Written by: Jeff Rohlman
+
 package com.dine.dinendash.dinendash.util;
 
 import android.graphics.Bitmap;
@@ -46,7 +48,10 @@ public class PhotoAnalyzer {
         public String toString(){ return this.line; }
     }
 
-
+    // NOTE: The signature of this method is different than the one in Report 3 as it was changed after Report 3 was submitted
+    // This was necessary because different Android device cameras are rotated differently in different devices
+    // Firebase text recognition only works if the image being analyzed is right-side up, so we need to get the rotation of the camera
+    // and rotate the image by that amount
     public static void analyze(final Bitmap bitmap, final NewReceiptViewModel viewModel, int rotate) {
         Matrix matrix = new Matrix();
         matrix.postRotate(rotate);

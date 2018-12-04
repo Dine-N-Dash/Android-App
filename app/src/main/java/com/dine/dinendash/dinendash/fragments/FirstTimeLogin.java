@@ -1,3 +1,5 @@
+// Written by: Shelby Heffron
+
 package com.dine.dinendash.dinendash.fragments;
 
 import android.content.SharedPreferences;

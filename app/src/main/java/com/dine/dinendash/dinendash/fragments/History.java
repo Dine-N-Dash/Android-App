@@ -1,3 +1,5 @@
+// Written by: Shelby Heffron
+
 package com.dine.dinendash.dinendash.fragments;
 
 import android.content.SharedPreferences;
@@ -42,7 +44,7 @@ public class History extends Fragment {
             String id = sharedPreferences.getString("username", "");
 
             viewModel = ViewModelProviders.of(getActivity()).get(ReceiptHistoryViewModel.class);
-            viewModel.setReceipts(DBController.getReceipts(id));
+            DBController.getReceipts(id, viewModel);
         }
     }
 

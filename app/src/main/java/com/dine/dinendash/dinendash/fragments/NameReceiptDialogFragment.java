@@ -1,3 +1,5 @@
+// Written by: Ryan Filkins
+
 package com.dine.dinendash.dinendash.fragments;
 
 import android.app.Dialog;
@@ -42,6 +44,7 @@ public class NameReceiptDialogFragment extends DialogFragment {
 
             FragmentNameReceiptDialogBinding binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.fragment_name_receipt_dialog, null, false);
 
+            // Bind fragment and view model to view
             binding.setViewModel(viewModel);
             binding.setFragment(this);
             binding.setLifecycleOwner(this);
@@ -71,6 +74,7 @@ public class NameReceiptDialogFragment extends DialogFragment {
         return super.onCreateDialog(savedInstanceState);
     }
 
+    // Used to send dialog click event to host fragment
     public interface NameReceiptDialogListener {
         void onDialogPositiveClick(DialogFragment dialog);
     }

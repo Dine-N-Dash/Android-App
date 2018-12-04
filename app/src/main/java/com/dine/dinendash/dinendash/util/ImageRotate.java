@@ -1,3 +1,5 @@
+// Written by: Shelby Heffron
+
 package com.dine.dinendash.dinendash.util;
 
 import android.app.Activity;

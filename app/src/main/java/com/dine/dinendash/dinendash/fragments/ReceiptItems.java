@@ -1,3 +1,5 @@
+// Written by: Ryan Filkins
+
 package com.dine.dinendash.dinendash.fragments;
 
 import android.Manifest;
@@ -204,6 +206,7 @@ public class ReceiptItems extends Fragment {
     }
 
     public void showBackButton() {
+        // Show the system back button in the toolbar
         if (getActivity() instanceof AppCompatActivity) {
             AppCompatActivity activity = (AppCompatActivity) getActivity();
 

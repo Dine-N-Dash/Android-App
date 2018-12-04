@@ -1,3 +1,6 @@
+// Written by: Ryan Filkins & Shelby Heffron
+// Tested by: Ryan Filkins
+
 package com.dine.dinendash.dinendash.models;
 
 import com.google.firebase.database.Exclude;
@@ -14,6 +17,8 @@ public class Receipt implements Serializable {
     private MutableLiveData<List<Transaction>> transactions;
     private MutableLiveData<String> name;
 
+    // NOTE: These fields and their corresponding getters and setters are not included in Report 3 as they were added after it was submitted
+    // They are necessary due to the difficulty of storing LiveData objects in a Firebase database
     private List<ReceiptItem> dbItems;
     private List<Transaction> dbTransactions;
     private String dbName;

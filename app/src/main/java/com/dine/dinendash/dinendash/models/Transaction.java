@@ -1,5 +1,9 @@
+// Written by: Ryan Filkins & Shelby Heffron
+// Tested by: Ryan Filkins
+
 package com.dine.dinendash.dinendash.models;
 
+import com.dine.dinendash.dinendash.models.ReceiptItem;
 import com.google.firebase.database.Exclude;
 
 import androidx.annotation.NonNull;
@@ -10,12 +14,15 @@ public class Transaction {
     private transient MutableLiveData<String> phoneNumber;
     private transient MutableLiveData<Double> total;
     private transient MutableLiveData<Boolean> completed;
-    private double tipPercent;
 
+    // NOTE: These fields and their corresponding getters and setters are not included in Report 3 as they were added after it was submitted
+    // They are necessary due to the difficulty of storing LiveData objects in a Firebase database
     private String dbName;
     private String dbPhoneNumber;
     private double dbTotal;
     private boolean dbCompleted;
+
+    private double tipPercent;
 
     public Transaction() {
         this("", "");

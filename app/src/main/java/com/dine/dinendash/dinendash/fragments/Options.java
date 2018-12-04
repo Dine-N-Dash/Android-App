@@ -1,3 +1,5 @@
+// Written by: Shelby Heffron
+
 package com.dine.dinendash.dinendash.fragments;
 
 import android.content.Intent;
@@ -110,12 +112,14 @@ public class Options extends Fragment {
     }
 
     public void historyPressed() {
+        // Navigate to the history view
         if (getView() != null) {
             Navigation.findNavController(getView()).navigate(R.id.action_options_to_history, null);
         }
     }
 
     public void settingsPressed() {
+        // Navigate to the settings view
         if (getView() != null) {
             Navigation.findNavController(getView()).navigate(R.id.action_options_to_settings, null);
         }
@@ -178,6 +182,7 @@ public class Options extends Fragment {
     }
 
     private void hideBackButton() {
+        // Hide the system back button in the toolbar
         if (getActivity() instanceof AppCompatActivity) {
             AppCompatActivity activity = (AppCompatActivity) getActivity();
 

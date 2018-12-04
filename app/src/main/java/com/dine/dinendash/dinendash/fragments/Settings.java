@@ -1,3 +1,5 @@
+// Written by: Shelby Heffron
+
 package com.dine.dinendash.dinendash.fragments;
 
 import android.content.Context;
@@ -56,6 +58,7 @@ public class Settings extends Fragment {
     }
 
     public void onUsernameChangeConfirmed(String newUsername) {
+        // Hide the keyboard
         if (getActivity() != null && getActivity().getCurrentFocus() != null) {
             InputMethodManager inputManager = (InputMethodManager)
                     getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -63,6 +66,7 @@ public class Settings extends Fragment {
                     InputMethodManager.HIDE_NOT_ALWAYS);
         }
 
+        // Store username in SharedPreferences
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(getActivity());
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -71,6 +75,7 @@ public class Settings extends Fragment {
     }
 
     public void showBackButton() {
+        // Show the system back button in the toolbar
         if (getActivity() instanceof AppCompatActivity) {
             AppCompatActivity activity = (AppCompatActivity) getActivity();
 

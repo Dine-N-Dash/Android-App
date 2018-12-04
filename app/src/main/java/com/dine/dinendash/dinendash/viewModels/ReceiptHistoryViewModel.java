@@ -1,3 +1,6 @@
+// Written by: Shelby Heffron
+// Tested by: Shelby Heffron
+
 package com.dine.dinendash.dinendash.viewModels;
 
 import com.dine.dinendash.dinendash.models.Receipt;

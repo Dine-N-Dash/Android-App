@@ -1,3 +1,5 @@
+// Written by: Ryan Filkins
+
 package unitTests.models;
 
 import com.dine.dinendash.dinendash.models.ReceiptItem;

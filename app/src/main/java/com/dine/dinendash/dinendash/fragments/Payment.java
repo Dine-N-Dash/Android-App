@@ -1,3 +1,5 @@
+// Written by: Shelby Heffron
+
 package com.dine.dinendash.dinendash.fragments;
 
 import android.content.Intent;
@@ -100,7 +102,6 @@ public class Payment extends Fragment implements NameReceiptDialogFragment.NameR
     public void onDialogPositiveClick(DialogFragment dialog) {
         // Save in database
         if (viewModel.getReceipt().getValue() != null) {
-
             SharedPreferences sharedPreferences = PreferenceManager
                     .getDefaultSharedPreferences(getActivity());
             String id = sharedPreferences.getString("username", "");
