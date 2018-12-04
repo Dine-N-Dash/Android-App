@@ -1,5 +1,7 @@
 package com.dine.dinendash.dinendash.models;
 
+import com.google.firebase.database.Exclude;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,14 +9,20 @@ import java.util.List;
 import androidx.lifecycle.MutableLiveData;
 
 public class Receipt implements Serializable {
+
     private MutableLiveData<List<ReceiptItem>> items;
     private MutableLiveData<List<Transaction>> transactions;
     private MutableLiveData<String> name;
+
+    private List<ReceiptItem> dbItems;
+    private List<Transaction> dbTransactions;
+    private String dbName;
 
     public Receipt() {
 
     }
 
+    @Exclude
     public void addItem(ReceiptItem item) {
         if (getItems().getValue() != null) {
             getItems().getValue().add(item);
@@ -23,6 +31,7 @@ public class Receipt implements Serializable {
         setItems(getItems().getValue());
     }
 
+    @Exclude
     public MutableLiveData<List<ReceiptItem>> getItems() {
         if (items == null) {
             items = new MutableLiveData<>();
@@ -32,10 +41,13 @@ public class Receipt implements Serializable {
         return items;
     }
 
+    @Exclude
     public void setItems(List<ReceiptItem> items) {
         this.getItems().setValue(items);
+        dbItems = items;
     }
 
+    @Exclude
     public void addTransaction(Transaction transaction) {
         if (getTransactions().getValue() != null) {
             getTransactions().getValue().add(transaction);
@@ -44,6 +56,7 @@ public class Receipt implements Serializable {
         setTransactions(getTransactions().getValue());
     }
 
+    @Exclude
     public MutableLiveData<List<Transaction>> getTransactions() {
         if(transactions == null) {
             transactions = new MutableLiveData<>();
@@ -53,10 +66,13 @@ public class Receipt implements Serializable {
         return transactions;
     }
 
+    @Exclude
     public void setTransactions(List<Transaction> transactions) {
         getTransactions().setValue(transactions);
+        dbTransactions = transactions;
     }
 
+    @Exclude
     public MutableLiveData<String> getName() {
         if (name == null) {
             name = new MutableLiveData<>();
@@ -66,7 +82,36 @@ public class Receipt implements Serializable {
         return name;
     }
 
+    @Exclude
     public void setName(String name) {
         getName().setValue(name);
+        dbName = name;
+    }
+
+    public List<ReceiptItem> getDbItems() {
+        return dbItems;
+    }
+
+    public void setDbItems(List<ReceiptItem> dbItems) {
+        this.dbItems = dbItems;
+        setItems(dbItems);
+    }
+
+    public List<Transaction> getDbTransactions() {
+        return dbTransactions;
+    }
+
+    public void setDbTransactions(List<Transaction> dbTransactions) {
+        this.dbTransactions = dbTransactions;
+        setTransactions(dbTransactions);
+    }
+
+    public String getDbName() {
+        return dbName;
+    }
+
+    public void setDbName(String dbName) {
+        this.dbName = dbName;
+        setName(dbName);
     }
 }

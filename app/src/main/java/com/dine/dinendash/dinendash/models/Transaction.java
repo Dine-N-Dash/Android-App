@@ -1,15 +1,21 @@
 package com.dine.dinendash.dinendash.models;
 
-import androidx.lifecycle.MutableLiveData;
+import com.google.firebase.database.Exclude;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
 
 public class Transaction {
-    private MutableLiveData<String> name;
-    private MutableLiveData<String> phoneNumber;
-    private MutableLiveData<Double> total;
-    private MutableLiveData<Boolean> completed;
+    private transient MutableLiveData<String> name;
+    private transient MutableLiveData<String> phoneNumber;
+    private transient MutableLiveData<Double> total;
+    private transient MutableLiveData<Boolean> completed;
     private double tipPercent;
+
+    private String dbName;
+    private String dbPhoneNumber;
+    private double dbTotal;
+    private boolean dbCompleted;
 
     public Transaction() {
         this("", "");
@@ -44,10 +50,12 @@ public class Transaction {
             double preTax = total.getValue() / (1 + tipPercent);
             double newTotal = preTax + (preTax * percent);
             total.postValue(newTotal);
+            dbTotal = newTotal;
             tipPercent = percent;
         }
     }
 
+    @Exclude
     public MutableLiveData<String> getName() {
         if (name == null) {
             name = new MutableLiveData<>();
@@ -56,10 +64,13 @@ public class Transaction {
         return name;
     }
 
+    @Exclude
     public void setName(String name) {
         getName().postValue(name);
+        dbName = name;
     }
 
+    @Exclude
     public MutableLiveData<String> getPhoneNumber() {
         if (phoneNumber == null) {
             phoneNumber = new MutableLiveData<>();
@@ -68,10 +79,13 @@ public class Transaction {
         return phoneNumber;
     }
 
+    @Exclude
     public void setPhoneNumber(String phoneNumber) {
         getPhoneNumber().setValue(phoneNumber);
+        dbPhoneNumber = phoneNumber;
     }
 
+    @Exclude
     public MutableLiveData<Double> getTotal() {
         if (total == null) {
             total = new MutableLiveData<>();
@@ -80,10 +94,13 @@ public class Transaction {
         return total;
     }
 
+    @Exclude
     public void setTotal(Double total) {
         getTotal().setValue(total);
+        dbTotal = total;
     }
 
+    @Exclude
     public MutableLiveData<Boolean> getCompleted() {
         if (completed == null) {
             completed = new MutableLiveData<>();
@@ -92,8 +109,10 @@ public class Transaction {
         return completed;
     }
 
+    @Exclude
     public void setCompleted(Boolean completed) {
         getCompleted().setValue(completed);
+        dbCompleted = completed;
     }
 
     @NonNull
@@ -105,5 +124,41 @@ public class Transaction {
             }
         }
         return super.toString();
+    }
+
+    public String getDbName() {
+        return dbName;
+    }
+
+    public void setDbName(String dbName) {
+        this.dbName = dbName;
+        setName(dbName);
+    }
+
+    public String getDbPhoneNumber() {
+        return dbPhoneNumber;
+    }
+
+    public void setDbPhoneNumber(String dbPhoneNumber) {
+        this.dbPhoneNumber = dbPhoneNumber;
+        setPhoneNumber(dbPhoneNumber);
+    }
+
+    public double getDbTotal() {
+        return dbTotal;
+    }
+
+    public void setDbTotal(double dbTotal) {
+        this.dbTotal = dbTotal;
+        setTotal(dbTotal);
+    }
+
+    public boolean getDbCompleted() {
+        return dbCompleted;
+    }
+
+    public void setDbCompleted(boolean dbCompleted) {
+        this.dbCompleted = dbCompleted;
+        setCompleted(dbCompleted);
     }
 }
