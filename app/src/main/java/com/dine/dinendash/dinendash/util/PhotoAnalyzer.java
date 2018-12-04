@@ -149,7 +149,7 @@ public class PhotoAnalyzer {
                         for(lineObj q: prices) {
                             if(q.itemName != null && viewModel.getReceipt().getValue() != null) {
                                 String test = q.itemName.line.toLowerCase();
-                                if(!(test.contains("tax") || test.contains("total") || test.contains("subtotal") || test.contains("sub total") || Double.parseDouble(q.line) == 0))
+                                if(!(test.contains("tax") || test.contains("total") || test.contains("subtotal") || test.contains("sub total") || test.contains("cash") || test.contains("debit") || test.contains("credit") || test.contains("change") || Double.parseDouble(q.line) == 0))
                                     viewModel.getReceipt().getValue().addItem(new ReceiptItem(q.itemName.line, Double.parseDouble(q.line)));
                             }
                         }
