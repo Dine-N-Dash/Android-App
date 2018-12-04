@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">DineNDash</string>
+    <string name="take_photo">Tomar Una Foto</string>
+    <string name="upload_photo">Subir Una Foto</string>
+    <string name="settings">Configuraci\u00f3n</string>
+    <string name="history">Historia</string>
+    <string name="price_format">$%.2f</string>
+    <string name="continuebutton">Siguiente</string>
+    <string name="paypal_me_username">Nombre de Usario de PayPal.Me</string>
+    <string name="done">Terminado</string>
+    <string name="contact">Contacto:</string>
+    <string name="add_new_contact">A\u00f1adir Nuevo Contacto</string>
+    <string name="login_welcome">Bienvenidos. Por favor entra su nombre de usario de PayPal.Me</string>
+    <string name="update">Actualizar</string>
+    <string name="add_tip">A\u00f1adir Prop\u00ecna</string>
+    <string name="decimal">,</string>
+    <string name="percent"> %</string>
+    <string name="add">A\u00f1adir</string>
+    <string name="cancel">Cancelar</string>
+    <string name="save_receipt">Guardar Receta</string>
+    <string name="save">Guardar</string>
+    <string name="name">Nombre</string>
+    <string name="no_items_message">\u00a1Ups! No encontramos ning\u00fan art\u00edculos.\nAsegura que ha tomado la fota en la orientaci\u00f3n vertical.</string>
+    <string name="logo">Logo</string>
+</resources>
+
